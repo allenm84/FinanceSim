@@ -3,14 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.WinForms", "Finances.WinForms\Finances.WinForms.csproj", "{9013A1D4-FDDF-4417-B75F-33E32D238A8E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{826AB62E-CD47-4A0E-AB45-97EBA5D92471} = {826AB62E-CD47-4A0E-AB45-97EBA5D92471}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MirrorToDropBox", "MirrorToDropBox\MirrorToDropBox.csproj", "{826AB62E-CD47-4A0E-AB45-97EBA5D92471}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances", "Finances\Finances.csproj", "{DDFC3829-2708-405F-BA04-7301E88342CE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{826AB62E-CD47-4A0E-AB45-97EBA5D92471} = {826AB62E-CD47-4A0E-AB45-97EBA5D92471}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9013A1D4-FDDF-4417-B75F-33E32D238A8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9013A1D4-FDDF-4417-B75F-33E32D238A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9013A1D4-FDDF-4417-B75F-33E32D238A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9013A1D4-FDDF-4417-B75F-33E32D238A8E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{826AB62E-CD47-4A0E-AB45-97EBA5D92471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{826AB62E-CD47-4A0E-AB45-97EBA5D92471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{826AB62E-CD47-4A0E-AB45-97EBA5D92471}.Release|Any CPU.ActiveCfg = Release|Any CPU

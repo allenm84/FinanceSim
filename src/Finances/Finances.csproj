@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,14 +32,26 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.2" />
     <Reference Include="DevExpress.Data.v17.2" />
     <Reference Include="DevExpress.Utils.v17.2" />
     <Reference Include="DevExpress.Sparkline.v17.2.Core" />
+    <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v17.2" />
     <Reference Include="DevExpress.Printing.v17.2.Core" />
+    <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,17 +64,146 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Dialogs\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Dialogs\BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CollectionEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CollectionEdit.Designer.cs">
+      <DependentUpon>CollectionEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoanEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\LoanEdit.Designer.cs">
+      <DependentUpon>LoanEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CreditCardEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CreditCardEdit.Designer.cs">
+      <DependentUpon>CreditCardEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PaycheckEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PaycheckEdit.Designer.cs">
+      <DependentUpon>PaycheckEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BaseNamedItem.cs" />
+    <Compile Include="Data\IBaseItem.cs" />
+    <Compile Include="Dialogs\CollectionEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CollectionEditDialog.Designer.cs">
+      <DependentUpon>CollectionEditDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CollectionButtonEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CollectionButtonEdit.Designer.cs">
+      <DependentUpon>CollectionButtonEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\BaseItem.cs" />
+    <Compile Include="Data\CreditCard.cs" />
+    <Compile Include="Data\InterestRate.cs" />
+    <Compile Include="Data\IRecurringPayment.cs" />
+    <Compile Include="Data\Loan.cs" />
+    <Compile Include="Data\Paycheck.cs" />
+    <Compile Include="Data\Profile.cs" />
+    <Compile Include="Data\RecurringPayment.cs" />
+    <Compile Include="Data\RecurringPaymentKind.cs" />
+    <Compile Include="Controls\InterestRateEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InterestRateEdit.Designer.cs">
+      <DependentUpon>InterestRateEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProfileEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ProfileEdit.Designer.cs">
+      <DependentUpon>ProfileEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RecurringPaymentEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RecurringPaymentEdit.Designer.cs">
+      <DependentUpon>RecurringPaymentEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Controls\RecurringPaymentKindEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RecurringPaymentKindEdit.Designer.cs">
+      <DependentUpon>RecurringPaymentKindEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SimEngineResultDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SimEngineResultDialog.Designer.cs">
+      <DependentUpon>SimEngineResultDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Simulation\LoanInfo.cs" />
+    <Compile Include="Simulation\RecurringIncrementer.cs" />
+    <Compile Include="Simulation\SimEngine.cs" />
+    <Compile Include="Simulation\SimEngineResult.cs" />
+    <Compile Include="Simulation\Transaction.cs" />
+    <Compile Include="Tools\CollectionExtensions.cs" />
+    <Compile Include="Tools\DateTimeExtensions.cs" />
+    <Compile Include="Tools\DropboxPath.cs" />
+    <Compile Include="Controls\TransactionGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TransactionGridView.Designer.cs">
+      <DependentUpon>TransactionGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\IEditControl.cs" />
+    <EmbeddedResource Include="Dialogs\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CollectionEdit.resx">
+      <DependentUpon>CollectionEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\LoanEdit.resx">
+      <DependentUpon>LoanEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CreditCardEdit.resx">
+      <DependentUpon>CreditCardEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PaycheckEdit.resx">
+      <DependentUpon>PaycheckEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RecurringPaymentEdit.resx">
+      <DependentUpon>RecurringPaymentEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CollectionEditDialog.resx">
+      <DependentUpon>CollectionEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CollectionButtonEdit.resx">
+      <DependentUpon>CollectionButtonEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InterestRateEdit.resx">
+      <DependentUpon>InterestRateEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ProfileEdit.resx">
+      <DependentUpon>ProfileEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -71,6 +213,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\RecurringPaymentKindEdit.resx">
+      <DependentUpon>RecurringPaymentKindEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SimEngineResultDialog.resx">
+      <DependentUpon>SimEngineResultDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TransactionGridView.resx">
+      <DependentUpon>TransactionGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -81,7 +233,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)MirrorToDropBox\bin\mirror.exe" "$(TargetDir.TrimEnd('\'))" "Programs\$(ProjectName)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
