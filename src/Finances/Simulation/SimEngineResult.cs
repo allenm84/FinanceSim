@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Finances
 {
-  public enum RecurringPaymentKind
+  public class SimEngineResult
   {
-    Monthly,
-    Weekly,
-    Biweekly,
-    Yearly,
-    Once,
+    public List<Transaction> Transactions;
+    public Dictionary<Loan, LoanInfo> LoanTransactions;
   }
 }

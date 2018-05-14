@@ -29,153 +29,170 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-      this.treeProfiles = new System.Windows.Forms.VistaTreeView();
-      this.contextProfiles = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.addProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.removeProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.copyProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.runProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.propertyGridProfile = new System.Windows.Forms.PropertyGrid();
-      this.label1 = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-      this.splitContainer1.Panel1.SuspendLayout();
-      this.splitContainer1.Panel2.SuspendLayout();
-      this.splitContainer1.SuspendLayout();
-      this.contextProfiles.SuspendLayout();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+      this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.ctrlProfiles = new Finances.CollectionEdit();
+      this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+      this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+      this.bar1 = new DevExpress.XtraBars.Bar();
+      this.btnSave = new DevExpress.XtraBars.BarButtonItem();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+      this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       this.SuspendLayout();
       // 
-      // splitContainer1
+      // layoutControl1
       // 
-      this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.splitContainer1.Location = new System.Drawing.Point(10, 10);
-      this.splitContainer1.Name = "splitContainer1";
+      this.layoutControl1.Controls.Add(this.ctrlProfiles);
+      this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.layoutControl1.Location = new System.Drawing.Point(0, 47);
+      this.layoutControl1.Name = "layoutControl1";
+      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(997, 184, 650, 400);
+      this.layoutControl1.Root = this.layoutControlGroup1;
+      this.layoutControl1.Size = new System.Drawing.Size(711, 385);
+      this.layoutControl1.TabIndex = 1;
+      this.layoutControl1.Text = "layoutControl1";
       // 
-      // splitContainer1.Panel1
+      // ctrlProfiles
       // 
-      this.splitContainer1.Panel1.Controls.Add(this.treeProfiles);
-      this.splitContainer1.Panel1.Controls.Add(this.label1);
+      this.ctrlProfiles.CollectionCaption = "Profiles";
+      this.ctrlProfiles.Location = new System.Drawing.Point(10, 10);
+      this.ctrlProfiles.Name = "ctrlProfiles";
+      this.ctrlProfiles.Size = new System.Drawing.Size(691, 365);
+      this.ctrlProfiles.TabIndex = 4;
+      this.ctrlProfiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ctrlProfiles_MouseDoubleClick);
       // 
-      // splitContainer1.Panel2
+      // layoutControlGroup1
       // 
-      this.splitContainer1.Panel2.Controls.Add(this.propertyGridProfile);
-      this.splitContainer1.Panel2.Controls.Add(this.label2);
-      this.splitContainer1.Size = new System.Drawing.Size(511, 462);
-      this.splitContainer1.SplitterDistance = 156;
-      this.splitContainer1.TabIndex = 0;
+      this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+      this.layoutControlGroup1.GroupBordersVisible = false;
+      this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+      this.layoutControlGroup1.Name = "Root";
+      this.layoutControlGroup1.Size = new System.Drawing.Size(711, 385);
+      this.layoutControlGroup1.TextVisible = false;
       // 
-      // treeProfiles
+      // layoutControlItem1
       // 
-      this.treeProfiles.ContextMenuStrip = this.contextProfiles;
-      this.treeProfiles.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeProfiles.FullRowSelect = true;
-      this.treeProfiles.HideSelection = false;
-      this.treeProfiles.Location = new System.Drawing.Point(0, 13);
-      this.treeProfiles.Name = "treeProfiles";
-      this.treeProfiles.ShowLines = false;
-      this.treeProfiles.ShowPlusMinus = false;
-      this.treeProfiles.ShowRootLines = false;
-      this.treeProfiles.Size = new System.Drawing.Size(156, 449);
-      this.treeProfiles.TabIndex = 0;
-      this.treeProfiles.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeProfiles_AfterSelect);
+      this.layoutControlItem1.Control = this.ctrlProfiles;
+      this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlItem1.Name = "layoutControlItem1";
+      this.layoutControlItem1.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+      this.layoutControlItem1.Size = new System.Drawing.Size(691, 365);
+      this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem1.TextVisible = false;
       // 
-      // contextProfiles
+      // barManager1
       // 
-      this.contextProfiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addProfileToolStripMenuItem,
-            this.removeProfileToolStripMenuItem,
-            this.copyProfileToolStripMenuItem,
-            this.runProfileToolStripMenuItem});
-      this.contextProfiles.Name = "contextProfiles";
-      this.contextProfiles.Size = new System.Drawing.Size(155, 92);
-      this.contextProfiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextProfiles_Opening);
+      this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.bar1});
+      this.barManager1.DockControls.Add(this.barDockControlTop);
+      this.barManager1.DockControls.Add(this.barDockControlBottom);
+      this.barManager1.DockControls.Add(this.barDockControlLeft);
+      this.barManager1.DockControls.Add(this.barDockControlRight);
+      this.barManager1.Form = this;
+      this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.btnSave});
+      this.barManager1.MaxItemId = 1;
       // 
-      // addProfileToolStripMenuItem
+      // barDockControlTop
       // 
-      this.addProfileToolStripMenuItem.Name = "addProfileToolStripMenuItem";
-      this.addProfileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-      this.addProfileToolStripMenuItem.Text = "Add Profile";
-      this.addProfileToolStripMenuItem.Click += new System.EventHandler(this.addProfileToolStripMenuItem_Click);
+      this.barDockControlTop.CausesValidation = false;
+      this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+      this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+      this.barDockControlTop.Manager = this.barManager1;
+      this.barDockControlTop.Size = new System.Drawing.Size(711, 47);
       // 
-      // removeProfileToolStripMenuItem
+      // barDockControlBottom
       // 
-      this.removeProfileToolStripMenuItem.Name = "removeProfileToolStripMenuItem";
-      this.removeProfileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-      this.removeProfileToolStripMenuItem.Text = "Remove Profile";
-      this.removeProfileToolStripMenuItem.Click += new System.EventHandler(this.removeProfileToolStripMenuItem_Click);
+      this.barDockControlBottom.CausesValidation = false;
+      this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.barDockControlBottom.Location = new System.Drawing.Point(0, 432);
+      this.barDockControlBottom.Manager = this.barManager1;
+      this.barDockControlBottom.Size = new System.Drawing.Size(711, 0);
       // 
-      // copyProfileToolStripMenuItem
+      // barDockControlLeft
       // 
-      this.copyProfileToolStripMenuItem.Name = "copyProfileToolStripMenuItem";
-      this.copyProfileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-      this.copyProfileToolStripMenuItem.Text = "Copy Profile";
-      this.copyProfileToolStripMenuItem.Click += new System.EventHandler(this.copyProfileToolStripMenuItem_Click);
+      this.barDockControlLeft.CausesValidation = false;
+      this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+      this.barDockControlLeft.Location = new System.Drawing.Point(0, 47);
+      this.barDockControlLeft.Manager = this.barManager1;
+      this.barDockControlLeft.Size = new System.Drawing.Size(0, 385);
       // 
-      // runProfileToolStripMenuItem
+      // barDockControlRight
       // 
-      this.runProfileToolStripMenuItem.Name = "runProfileToolStripMenuItem";
-      this.runProfileToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-      this.runProfileToolStripMenuItem.Text = "Run Profile";
-      this.runProfileToolStripMenuItem.Click += new System.EventHandler(this.runProfileToolStripMenuItem_Click);
+      this.barDockControlRight.CausesValidation = false;
+      this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+      this.barDockControlRight.Location = new System.Drawing.Point(711, 47);
+      this.barDockControlRight.Manager = this.barManager1;
+      this.barDockControlRight.Size = new System.Drawing.Size(0, 385);
       // 
-      // propertyGridProfile
+      // bar1
       // 
-      this.propertyGridProfile.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.propertyGridProfile.Location = new System.Drawing.Point(0, 13);
-      this.propertyGridProfile.Name = "propertyGridProfile";
-      this.propertyGridProfile.Size = new System.Drawing.Size(351, 449);
-      this.propertyGridProfile.TabIndex = 0;
-      this.propertyGridProfile.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGridProfile_PropertyValueChanged);
+      this.bar1.BarName = "Tools";
+      this.bar1.DockCol = 0;
+      this.bar1.DockRow = 0;
+      this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+      this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.btnSave, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+      this.bar1.OptionsBar.AllowQuickCustomization = false;
+      this.bar1.OptionsBar.DisableCustomization = true;
+      this.bar1.OptionsBar.DrawBorder = false;
+      this.bar1.OptionsBar.DrawDragBorder = false;
+      this.bar1.OptionsBar.UseWholeRow = true;
+      this.bar1.Text = "Tools";
       // 
-      // label1
+      // btnSave
       // 
-      this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-      this.label1.Location = new System.Drawing.Point(0, 0);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(156, 13);
-      this.label1.TabIndex = 1;
-      this.label1.Text = "Profiles:";
-      // 
-      // label2
-      // 
-      this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-      this.label2.Location = new System.Drawing.Point(0, 0);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(351, 13);
-      this.label2.TabIndex = 1;
-      this.label2.Text = "Selected Profile:";
+      this.btnSave.Caption = "Save";
+      this.btnSave.Id = 0;
+      this.btnSave.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
+      this.btnSave.ItemShortcut = new DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S));
+      this.btnSave.Name = "btnSave";
+      this.btnSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSave_ItemClick);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(531, 482);
-      this.Controls.Add(this.splitContainer1);
+      this.ClientSize = new System.Drawing.Size(711, 432);
+      this.Controls.Add(this.layoutControl1);
+      this.Controls.Add(this.barDockControlLeft);
+      this.Controls.Add(this.barDockControlRight);
+      this.Controls.Add(this.barDockControlBottom);
+      this.Controls.Add(this.barDockControlTop);
       this.Name = "MainForm";
-      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Finances";
-      this.splitContainer1.Panel1.ResumeLayout(false);
-      this.splitContainer1.Panel2.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-      this.splitContainer1.ResumeLayout(false);
-      this.contextProfiles.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+      this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
     #endregion
 
-    private System.Windows.Forms.SplitContainer splitContainer1;
-    private System.Windows.Forms.VistaTreeView treeProfiles;
-    private System.Windows.Forms.ContextMenuStrip contextProfiles;
-    private System.Windows.Forms.ToolStripMenuItem addProfileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem removeProfileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem runProfileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem copyProfileToolStripMenuItem;
-    private System.Windows.Forms.PropertyGrid propertyGridProfile;
-    private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.Label label2;
+    private DevExpress.XtraLayout.LayoutControl layoutControl1;
+    private CollectionEdit ctrlProfiles;
+    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+    private DevExpress.XtraBars.BarManager barManager1;
+    private DevExpress.XtraBars.Bar bar1;
+    private DevExpress.XtraBars.BarButtonItem btnSave;
+    private DevExpress.XtraBars.BarDockControl barDockControlTop;
+    private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+    private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+    private DevExpress.XtraBars.BarDockControl barDockControlRight;
   }
 }
 

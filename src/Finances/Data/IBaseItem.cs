@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Finances
 {
-  public enum RecurringPaymentKind
+  public interface INamedItem
   {
-    Monthly,
-    Weekly,
-    Biweekly,
-    Yearly,
-    Once,
+    string Name { get; set; }
   }
 }

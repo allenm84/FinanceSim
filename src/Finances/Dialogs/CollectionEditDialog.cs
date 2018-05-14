@@ -11,11 +11,14 @@ using DevExpress.XtraEditors;
 
 namespace Finances
 {
-  public partial class BaseForm : DevExpress.XtraEditors.XtraForm
+  public partial class CollectionEditDialog : BaseForm
   {
-    public BaseForm()
+    public CollectionEditDialog()
     {
       InitializeComponent();
     }
+
+    [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public CollectionEdit Properties => collectionEdit1;
   }
 }

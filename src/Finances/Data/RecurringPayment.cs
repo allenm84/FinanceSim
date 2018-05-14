@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace Finances
 {
-  [DataContract(Name = "RecurringPayment", Namespace = Program.Namespace)]
-  public class RecurringPayment : Bill, IRecurringPayment
+  public class RecurringPayment : BaseItem, IRecurringPayment
   {
-    [DataMember(Order = 0)]
     public RecurringPaymentKind Kind { get; set; }
-    [DataMember(Order = 1)]
     public DateTime NextDueDate { get; set; }
   }
 }

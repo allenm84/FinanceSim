@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Finances
 {
-  [DataContract(Name = "CreditCard", Namespace = Program.Namespace)]
   public class CreditCard : Loan
   {
-    [DataMember(Order = 0)]
     public List<RecurringPayment> Payments { get; set; } = new List<RecurringPayment>();
   }
 }

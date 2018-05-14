@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Finances
 {
-  public class Loan : Paycheck
+  public class BaseItem : BaseNamedItem
   {
-    public InterestRate InterestRate { get; set; } = new InterestRate();
-    public decimal Balance { get; set; }
+    public decimal Amount { get; set; }
   }
 }

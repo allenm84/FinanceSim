@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseForm));
       this.SuspendLayout();
       // 
       // BaseForm
@@ -35,10 +36,10 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(284, 261);
-      this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Name = "BaseForm";
-      this.Padding = new System.Windows.Forms.Padding(10);
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+      this.Text = "BaseForm";
       this.ResumeLayout(false);
 
     }

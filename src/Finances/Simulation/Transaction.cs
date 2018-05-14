@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Finances
 {
-  public class Loan : Paycheck
+  public class Transaction
   {
-    public InterestRate InterestRate { get; set; } = new InterestRate();
+    public string Name { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Amount { get; set; }
     public decimal Balance { get; set; }
   }
 }

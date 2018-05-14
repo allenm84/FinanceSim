@@ -8,27 +8,15 @@ using System.Threading.Tasks;
 
 namespace Finances
 {
-  [DataContract(Name = "Profile", Namespace = Program.Namespace)]
-  public class Profile : ExtensibleDataObject
+  public class Profile : BaseNamedItem
   {
-    [DataMember(Order = 0)]
-    public string Name { get; set; }
-    [Browsable(false)]
-    [DataMember(Order = 1)]
-    public DateTime Created { get; set; }
-    [DataMember(Order = 2)]
+    public DateTime Created { get; set; } = DateTime.Today;
     public decimal StartingBalance { get; set; }
-    [DataMember(Order = 3)]
     public DateTime StartDate { get; set; }
-    [DataMember(Order = 4)]
     public int Years { get; set; }
-    [DataMember(Order = 5)]
-    public List<CreditCard> CreditCards { get; set; }
-    [DataMember(Order = 6)]
-    public List<Loan> Loans { get; set; }
-    [DataMember(Order = 7)]
-    public List<Paycheck> Paychecks { get; set; }
-    [DataMember(Order = 8)]
-    public List<RecurringPayment> RecurringPayments { get; set; }
+    public List<CreditCard> CreditCards { get; set; } = new List<CreditCard>();
+    public List<Loan> Loans { get; set; } = new List<Loan>();
+    public List<Paycheck> Paychecks { get; set; } = new List<Paycheck>();
+    public List<RecurringPayment> RecurringPayments { get; set; } = new List<RecurringPayment>();
   }
 }
