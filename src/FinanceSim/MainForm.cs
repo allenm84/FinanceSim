@@ -9,18 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using DevExpress.XtraWaitForm;
 using Newtonsoft.Json;
 
 namespace FinanceSim
 {
   public partial class MainForm : BaseForm
   {
-    private readonly string _filepath;
+    const string FileName = "profiles.json";
+
+    private readonly GitDrive _gitDrive;
     private Profile _currentProfile;
 
     public MainForm()
     {
-      _filepath = "profiles.json";
+      _gitDrive = new GitDrive(new Uri("https://allenm84@bitbucket.org/allenm84/storage.git"));
 
       InitializeComponent();
       LoadProfile(null);
@@ -28,15 +31,18 @@ namespace FinanceSim
       LoadData();
     }
 
-    private void LoadData()
+    private async void LoadData()
     {
-      if (File.Exists(_filepath))
+      using (new DevExpress.Utils.WaitDialogForm("Please wait"))
       {
-        var jsonText = File.ReadAllText(_filepath);
-        var profiles = JsonConvert.DeserializeObject<List<Profile>>(jsonText);
-        foreach (var profile in profiles)
+        if (await _gitDrive.Initialize() && _gitDrive.FileExists(FileName))
         {
-          profileBindingSource.Add(profile);
+          var jsonText = _gitDrive.ReadAllText(FileName);
+          var profiles = JsonConvert.DeserializeObject<List<Profile>>(jsonText);
+          foreach (var profile in profiles)
+          {
+            profileBindingSource.Add(profile);
+          }
         }
       }
     }
@@ -187,7 +193,7 @@ namespace FinanceSim
 
         var profiles = profileBindingSource.OfType<Profile>().ToList();
         var jsonText = JsonConvert.SerializeObject(profiles);
-        File.WriteAllText(_filepath, jsonText);
+        _gitDrive.WriteAllText(FileName, jsonText);
       }
     }
 

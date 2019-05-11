@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="Tools\GitDrive.cs" />
     <Compile Include="View\AccountItem.cs" />
     <Compile Include="Data\BankAccount.cs" />
     <Compile Include="Data\BankAccountType.cs" />

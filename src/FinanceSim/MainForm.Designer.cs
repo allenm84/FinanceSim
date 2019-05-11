@@ -77,6 +77,10 @@
       this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
       this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
       this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
@@ -91,10 +95,6 @@
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-      this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
-      this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridAccounts)).BeginInit();
@@ -123,13 +123,13 @@
       ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
@@ -583,6 +583,42 @@
       this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem5.TextVisible = false;
       // 
+      // layoutControlGroup4
+      // 
+      this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem4});
+      this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup4.Name = "layoutControlGroup4";
+      this.layoutControlGroup4.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup4.Text = "Paychecks";
+      // 
+      // layoutControlItem4
+      // 
+      this.layoutControlItem4.Control = this.gridPaychecks;
+      this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlItem4.Name = "layoutControlItem4";
+      this.layoutControlItem4.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem4.TextVisible = false;
+      // 
+      // layoutControlGroup3
+      // 
+      this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+      this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup3.Name = "layoutControlGroup3";
+      this.layoutControlGroup3.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup3.Text = "Bills";
+      // 
+      // layoutControlItem3
+      // 
+      this.layoutControlItem3.Control = this.gridBills;
+      this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlItem3.Name = "layoutControlItem3";
+      this.layoutControlItem3.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem3.TextVisible = false;
+      // 
       // layoutControlGroup2
       // 
       this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
@@ -722,42 +758,6 @@
       this.barDockControlRight.Manager = this.barManager1;
       this.barDockControlRight.Size = new System.Drawing.Size(0, 485);
       // 
-      // layoutControlGroup4
-      // 
-      this.layoutControlGroup4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem4});
-      this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlGroup4.Name = "layoutControlGroup4";
-      this.layoutControlGroup4.Size = new System.Drawing.Size(525, 329);
-      this.layoutControlGroup4.Text = "Paychecks";
-      // 
-      // layoutControlItem4
-      // 
-      this.layoutControlItem4.Control = this.gridPaychecks;
-      this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlItem4.Name = "layoutControlItem4";
-      this.layoutControlItem4.Size = new System.Drawing.Size(525, 329);
-      this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem4.TextVisible = false;
-      // 
-      // layoutControlGroup3
-      // 
-      this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3});
-      this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlGroup3.Name = "layoutControlGroup3";
-      this.layoutControlGroup3.Size = new System.Drawing.Size(525, 329);
-      this.layoutControlGroup3.Text = "Bills";
-      // 
-      // layoutControlItem3
-      // 
-      this.layoutControlItem3.Control = this.gridBills;
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(525, 329);
-      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem3.TextVisible = false;
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -799,13 +799,13 @@
       ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
