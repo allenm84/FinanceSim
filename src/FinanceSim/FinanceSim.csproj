@@ -95,6 +95,13 @@
     </Compile>
     <Compile Include="Extensions\CommonExtensions.cs" />
     <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="SetupSnowballDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupSnowballDialog.Designer.cs">
+      <DependentUpon>SetupSnowballDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Simulation\SimulationSnowballState.cs" />
     <Compile Include="Tools\GitDrive.cs" />
     <Compile Include="View\AccountItem.cs" />
     <Compile Include="Data\BankAccount.cs" />
@@ -154,7 +161,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SetupSnowballDialog.resx">
+      <DependentUpon>SetupSnowballDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -169,6 +180,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snowball-icon-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snowball-icon-32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

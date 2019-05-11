@@ -8,6 +8,8 @@ namespace FinanceSim
 {
   public class SimulationState
   {
+    private SimulationSnowballState _snowball;
+
     public SimulationState(Profile profile)
     {
       Profile = profile;
@@ -24,6 +26,12 @@ namespace FinanceSim
     public Dictionary<string, decimal> Balances { get; }
     public Dictionary<IAccount, List<Transaction>> Transactions { get; }
     public Dictionary<IHasDueInfo, DateTime> NextDueDates { get; }
+
+    public SimulationSnowballState Snowball => _snowball;
+
+    public bool IsPaidOff => 
+      (_snowball == null) || 
+      Profile.Debts.All(d => _snowball.PaidOff.Contains(d.Id));
 
     private static DateTime Sanitize(DateTime value, DueInfo due)
     {
@@ -55,6 +63,19 @@ namespace FinanceSim
           }
         }
       }
+    }
+
+    public void InitSnowball(DateTime min, decimal snowball, Debt target)
+    {
+      Init(min);
+      _snowball = new SimulationSnowballState
+      {
+        Amount = snowball,
+        Target = target,
+      };
+
+      Transactions.Add(_snowball, new List<Transaction>());
+      LogSnowballState(min);
     }
 
     public bool Advance(IHasDueInfo info)
@@ -129,8 +150,53 @@ namespace FinanceSim
 
     public void MakePayment(DateTime date, Debt debt)
     {
+      var payment = debt.Payment;
+
+      if (_snowball != null)
+      {
+        // if the specified debt is the target
+        var isTarget = string.Equals(debt.Id, _snowball.Target?.Id);
+
+        // apply the extra to the payment (if needed)
+        if (isTarget)
+        {
+          payment = payment + _snowball.Amount;
+        }
+
+        // the snowball relies on paying a bill off
+        var currentBalance = Balances[debt.Id];
+        if (currentBalance < payment)
+        {
+          // pay off the bill
+          if (_snowball.PaidOff.Add(debt.Id))
+          {
+            // make a payment to match the current balance
+            payment = currentBalance;
+
+            // if this is the target bill, then update the snowball
+            if (isTarget)
+            {
+              _snowball.Amount += debt.Payment;
+              _snowball.Target = Profile.Debts
+                .Where(d => !IsPaidOff(d))
+                .OrderBy(d => Balances[d.Id])
+                .FirstOrDefault();
+              LogSnowballState(date);
+            }
+          }
+          else
+          {
+            // don't make a payment; we already paid it off
+            return;
+          }
+        }
+      }
+
       // a payment reduces the balance
-      Apply(-debt.Payment, debt, date, "Payment");
+      Apply(-payment, debt, date, "Payment");
+
+      bool IsPaidOff(Debt d) => 
+        _snowball?.PaidOff?.Contains(d.Id) == true;
     }
 
     public void ApplyInterest(DateTime date, Debt debt)
@@ -161,6 +227,21 @@ namespace FinanceSim
         Date = date,
         Name = name,
       });
+    }
+
+    private void LogSnowballState(DateTime date)
+    {
+      if (_snowball != null)
+      {
+        var log = Transactions[_snowball];
+        log.Add(new Transaction
+        {
+          Amount = _snowball.Amount,
+          Balance = 0,
+          Date = date,
+          Name = $"Target = {_snowball.Target?.Name}"
+        });
+      }
     }
 
     private IAccount GetAccount(string id) => Transactions.Keys.Single(k => string.Equals(k.Id, id));

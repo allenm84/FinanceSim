@@ -13,6 +13,34 @@ namespace FinanceSim
       return await Task.Run(() => run(start, end, profile));
     }
 
+    public static async Task<Dictionary<IAccount, List<Transaction>>> Snowball(DateTime start, decimal initialAmount, Debt selectedDebt, Profile profile)
+    {
+      return await Task.Run(() => snowball(start, initialAmount, selectedDebt, profile));
+    }
+
+    private static Dictionary<IAccount, List<Transaction>> snowball(DateTime start, decimal snowballAmount, Debt selectedDebt, Profile profile)
+    {
+      // sanitize the input
+      start = start.Date;
+
+      // create the simulation state
+      var state = new SimulationState(profile);
+
+      // advance all of the due dates
+      state.InitSnowball(start, snowballAmount, selectedDebt);
+
+      // go through the provided date range
+      for (DateTime i = start; !state.IsPaidOff; i = i.AddDays(1))
+      {
+        DistributePaychecks(i, state);
+        ApplyInterest(i, state);
+        MakePayments(i, state);
+      }
+
+      // return all of the transactions
+      return state.Transactions;
+    }
+
     private static Dictionary<IAccount, List<Transaction>> run(DateTime start, DateTime end, Profile profile)
     {
       // sanitize the input

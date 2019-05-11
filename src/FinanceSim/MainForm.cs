@@ -244,6 +244,24 @@ namespace FinanceSim
       }
     }
 
+    private async void tbbSnowballRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      if (_currentProfile != null)
+      {
+        using (var dlg = new SetupSnowballDialog(_currentProfile.Debts))
+        {
+          if (dlg.ShowDialog(this) == DialogResult.OK)
+          {
+            PushChanges();
+            var result = await Simulation.Snowball(dlg.Start, dlg.InitialAmount, dlg.SelectedDebt, _currentProfile);
+            var popup = new SimulationResultDialog();
+            popup.Populate(result);
+            popup.Show(this);
+          }
+        }
+      }
+    }
+
     private void cboProfiles_EditValueChanged(object sender, EventArgs e)
     {
       var profile = cboProfiles.EditValue as Profile;

@@ -91,6 +91,7 @@
       this.tbbCloneProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbRemoveProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbRun = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbSnowballRun = new DevExpress.XtraBars.BarButtonItem();
       this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -652,8 +653,9 @@
             this.tbbNewProfile,
             this.tbbCloneProfile,
             this.tbbRemoveProfile,
-            this.tbbRun});
-      this.barManager1.MaxItemId = 8;
+            this.tbbRun,
+            this.tbbSnowballRun});
+      this.barManager1.MaxItemId = 9;
       // 
       // bar1
       // 
@@ -667,7 +669,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbNewProfile, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbCloneProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRemoveProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSnowballRun, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
       this.bar1.OptionsBar.AllowQuickCustomization = false;
       this.bar1.OptionsBar.DrawDragBorder = false;
       this.bar1.OptionsBar.UseWholeRow = true;
@@ -725,6 +728,15 @@
       this.tbbRun.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbRun.ImageOptions.LargeImage")));
       this.tbbRun.Name = "tbbRun";
       this.tbbRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbRun_ItemClick);
+      // 
+      // tbbSnowballRun
+      // 
+      this.tbbSnowballRun.Caption = "Snowball";
+      this.tbbSnowballRun.Id = 8;
+      this.tbbSnowballRun.ImageOptions.Image = global::FinanceSim.Properties.Resources.snowball_icon_16;
+      this.tbbSnowballRun.ImageOptions.LargeImage = global::FinanceSim.Properties.Resources.snowball_icon_32;
+      this.tbbSnowballRun.Name = "tbbSnowballRun";
+      this.tbbSnowballRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSnowballRun_ItemClick);
       // 
       // barDockControlTop
       // 
@@ -878,6 +890,7 @@
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+    private DevExpress.XtraBars.BarButtonItem tbbSnowballRun;
   }
 }
 
