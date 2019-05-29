@@ -30,26 +30,27 @@
     {
       this.components = new System.ComponentModel.Container();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.debtBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.btnOK = new DevExpress.XtraEditors.SimpleButton();
       this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
-      this.cboDebts = new DevExpress.XtraEditors.SearchLookUpEdit();
-      this.debtBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
-      this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
       this.numInitialSnowball = new DevExpress.XtraEditors.SpinEdit();
       this.dtStart = new DevExpress.XtraEditors.DateEdit();
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
       this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.treeList1 = new DevExpress.XtraTreeList.TreeList();
+      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.colBalance = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+      this.colName = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+      this.colPayment = new DevExpress.XtraTreeList.Columns.TreeListColumn();
+      this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+      this.dragDropEvents1 = new DevExpress.Utils.DragDrop.DragDropEvents(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.cboDebts.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.debtBindingSource)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numInitialSnowball.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtStart.Properties.CalendarTimeProperties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtStart.Properties)).BeginInit();
@@ -57,33 +58,39 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.treeList1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
       // 
+      this.layoutControl1.Controls.Add(this.treeList1);
       this.layoutControl1.Controls.Add(this.btnOK);
       this.layoutControl1.Controls.Add(this.btnCancel);
-      this.layoutControl1.Controls.Add(this.cboDebts);
       this.layoutControl1.Controls.Add(this.numInitialSnowball);
       this.layoutControl1.Controls.Add(this.dtStart);
       this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.layoutControl1.Location = new System.Drawing.Point(0, 0);
       this.layoutControl1.Name = "layoutControl1";
-      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(876, 155, 650, 400);
+      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(876, 157, 650, 400);
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(286, 122);
+      this.layoutControl1.Size = new System.Drawing.Size(391, 354);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
+      // 
+      // debtBindingSource
+      // 
+      this.debtBindingSource.DataSource = typeof(FinanceSim.Debt);
       // 
       // btnOK
       // 
       this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.btnOK.Location = new System.Drawing.Point(114, 84);
+      this.btnOK.Location = new System.Drawing.Point(239, 320);
       this.btnOK.Name = "btnOK";
-      this.btnOK.Size = new System.Drawing.Size(78, 22);
+      this.btnOK.Size = new System.Drawing.Size(68, 22);
       this.btnOK.StyleController = this.layoutControl1;
       this.btnOK.TabIndex = 9;
       this.btnOK.Text = "OK";
@@ -91,52 +98,12 @@
       // btnCancel
       // 
       this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.btnCancel.Location = new System.Drawing.Point(196, 84);
+      this.btnCancel.Location = new System.Drawing.Point(311, 320);
       this.btnCancel.Name = "btnCancel";
-      this.btnCancel.Size = new System.Drawing.Size(78, 22);
+      this.btnCancel.Size = new System.Drawing.Size(68, 22);
       this.btnCancel.StyleController = this.layoutControl1;
       this.btnCancel.TabIndex = 8;
       this.btnCancel.Text = "Cancel";
-      // 
-      // cboDebts
-      // 
-      this.cboDebts.Location = new System.Drawing.Point(85, 60);
-      this.cboDebts.Name = "cboDebts";
-      this.cboDebts.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.cboDebts.Properties.DataSource = this.debtBindingSource;
-      this.cboDebts.Properties.DisplayMember = "Name";
-      this.cboDebts.Properties.NullText = "[Select a debt]";
-      this.cboDebts.Properties.PopupView = this.searchLookUpEdit1View;
-      this.cboDebts.Size = new System.Drawing.Size(189, 20);
-      this.cboDebts.StyleController = this.layoutControl1;
-      this.cboDebts.TabIndex = 6;
-      // 
-      // debtBindingSource
-      // 
-      this.debtBindingSource.DataSource = typeof(FinanceSim.Debt);
-      // 
-      // searchLookUpEdit1View
-      // 
-      this.searchLookUpEdit1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName});
-      this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-      this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
-      this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-      this.searchLookUpEdit1View.OptionsView.ShowColumnHeaders = false;
-      this.searchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-      this.searchLookUpEdit1View.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
-      this.searchLookUpEdit1View.OptionsView.ShowIndicator = false;
-      this.searchLookUpEdit1View.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
-      this.searchLookUpEdit1View.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colName, DevExpress.Data.ColumnSortOrder.Ascending)});
-      // 
-      // colName
-      // 
-      this.colName.FieldName = "Name";
-      this.colName.Name = "colName";
-      this.colName.Visible = true;
-      this.colName.VisibleIndex = 0;
       // 
       // numInitialSnowball
       // 
@@ -151,7 +118,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
       this.numInitialSnowball.Properties.DisplayFormat.FormatString = "c2";
       this.numInitialSnowball.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-      this.numInitialSnowball.Size = new System.Drawing.Size(189, 20);
+      this.numInitialSnowball.Size = new System.Drawing.Size(294, 20);
       this.numInitialSnowball.StyleController = this.layoutControl1;
       this.numInitialSnowball.TabIndex = 5;
       // 
@@ -164,7 +131,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
       this.dtStart.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.dtStart.Size = new System.Drawing.Size(189, 20);
+      this.dtStart.Size = new System.Drawing.Size(294, 20);
       this.dtStart.StyleController = this.layoutControl1;
       this.dtStart.TabIndex = 4;
       // 
@@ -176,11 +143,11 @@
             this.layoutControlItem1,
             this.emptySpaceItem1,
             this.layoutControlItem2,
-            this.layoutControlItem3,
             this.layoutControlItem5,
-            this.layoutControlItem4});
+            this.layoutControlItem4,
+            this.layoutControlItem3});
       this.layoutControlGroup1.Name = "Root";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(286, 122);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(391, 354);
       this.layoutControlGroup1.TextVisible = false;
       // 
       // layoutControlItem1
@@ -188,16 +155,18 @@
       this.layoutControlItem1.Control = this.dtStart;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(266, 24);
+      this.layoutControlItem1.Size = new System.Drawing.Size(371, 24);
       this.layoutControlItem1.Text = "Start Date:";
       this.layoutControlItem1.TextSize = new System.Drawing.Size(70, 13);
       // 
       // emptySpaceItem1
       // 
       this.emptySpaceItem1.AllowHotTrack = false;
-      this.emptySpaceItem1.Location = new System.Drawing.Point(0, 72);
+      this.emptySpaceItem1.Location = new System.Drawing.Point(0, 308);
+      this.emptySpaceItem1.MinSize = new System.Drawing.Size(104, 24);
       this.emptySpaceItem1.Name = "emptySpaceItem1";
-      this.emptySpaceItem1.Size = new System.Drawing.Size(102, 30);
+      this.emptySpaceItem1.Size = new System.Drawing.Size(227, 26);
+      this.emptySpaceItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
       this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
       // 
       // layoutControlItem2
@@ -205,36 +174,92 @@
       this.layoutControlItem2.Control = this.numInitialSnowball;
       this.layoutControlItem2.Location = new System.Drawing.Point(0, 24);
       this.layoutControlItem2.Name = "layoutControlItem2";
-      this.layoutControlItem2.Size = new System.Drawing.Size(266, 24);
+      this.layoutControlItem2.Size = new System.Drawing.Size(371, 24);
       this.layoutControlItem2.Text = "Initial Amount:";
       this.layoutControlItem2.TextSize = new System.Drawing.Size(70, 13);
-      // 
-      // layoutControlItem3
-      // 
-      this.layoutControlItem3.Control = this.cboDebts;
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 48);
-      this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(266, 24);
-      this.layoutControlItem3.Text = "First Target:";
-      this.layoutControlItem3.TextSize = new System.Drawing.Size(70, 13);
       // 
       // layoutControlItem5
       // 
       this.layoutControlItem5.Control = this.btnCancel;
-      this.layoutControlItem5.Location = new System.Drawing.Point(184, 72);
+      this.layoutControlItem5.Location = new System.Drawing.Point(299, 308);
+      this.layoutControlItem5.MaxSize = new System.Drawing.Size(72, 26);
+      this.layoutControlItem5.MinSize = new System.Drawing.Size(72, 26);
       this.layoutControlItem5.Name = "layoutControlItem5";
-      this.layoutControlItem5.Size = new System.Drawing.Size(82, 30);
+      this.layoutControlItem5.Size = new System.Drawing.Size(72, 26);
+      this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
       this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem5.TextVisible = false;
       // 
       // layoutControlItem4
       // 
       this.layoutControlItem4.Control = this.btnOK;
-      this.layoutControlItem4.Location = new System.Drawing.Point(102, 72);
+      this.layoutControlItem4.Location = new System.Drawing.Point(227, 308);
+      this.layoutControlItem4.MaxSize = new System.Drawing.Size(72, 26);
+      this.layoutControlItem4.MinSize = new System.Drawing.Size(72, 26);
       this.layoutControlItem4.Name = "layoutControlItem4";
-      this.layoutControlItem4.Size = new System.Drawing.Size(82, 30);
+      this.layoutControlItem4.Size = new System.Drawing.Size(72, 26);
+      this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
       this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem4.TextVisible = false;
+      // 
+      // treeList1
+      // 
+      this.behaviorManager1.SetBehaviors(this.treeList1, new DevExpress.Utils.Behaviors.Behavior[] {
+            ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.DragDrop.DragDropBehavior.Create(typeof(DevExpress.XtraTreeList.TreeListDragDropSource), true, true, true, this.dragDropEvents1)))});
+      this.treeList1.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
+            this.colName,
+            this.colBalance,
+            this.colPayment});
+      this.treeList1.DataSource = this.debtBindingSource;
+      this.treeList1.Location = new System.Drawing.Point(12, 60);
+      this.treeList1.Name = "treeList1";
+      this.treeList1.OptionsBehavior.Editable = false;
+      this.treeList1.OptionsCustomization.AllowBandMoving = false;
+      this.treeList1.OptionsCustomization.AllowBandResizing = false;
+      this.treeList1.OptionsCustomization.AllowColumnMoving = false;
+      this.treeList1.OptionsCustomization.AllowSort = false;
+      this.treeList1.OptionsView.ShowButtons = false;
+      this.treeList1.OptionsView.ShowRoot = false;
+      this.treeList1.Size = new System.Drawing.Size(367, 256);
+      this.treeList1.TabIndex = 10;
+      // 
+      // layoutControlItem3
+      // 
+      this.layoutControlItem3.Control = this.treeList1;
+      this.layoutControlItem3.Location = new System.Drawing.Point(0, 48);
+      this.layoutControlItem3.Name = "layoutControlItem3";
+      this.layoutControlItem3.Size = new System.Drawing.Size(371, 260);
+      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem3.TextVisible = false;
+      // 
+      // colBalance
+      // 
+      this.colBalance.FieldName = "Balance";
+      this.colBalance.Format.FormatString = "c2";
+      this.colBalance.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+      this.colBalance.Name = "colBalance";
+      this.colBalance.Visible = true;
+      this.colBalance.VisibleIndex = 1;
+      // 
+      // colName
+      // 
+      this.colName.FieldName = "Name";
+      this.colName.Name = "colName";
+      this.colName.Visible = true;
+      this.colName.VisibleIndex = 0;
+      // 
+      // colPayment
+      // 
+      this.colPayment.FieldName = "Payment";
+      this.colPayment.Format.FormatString = "c2";
+      this.colPayment.Format.FormatType = DevExpress.Utils.FormatType.Numeric;
+      this.colPayment.Name = "colPayment";
+      this.colPayment.Visible = true;
+      this.colPayment.VisibleIndex = 2;
+      // 
+      // dragDropEvents1
+      // 
+      this.dragDropEvents1.DragOver += new DevExpress.Utils.DragDrop.DragOverEventHandler(this.dragDropEvents1_DragOver);
       // 
       // SetupSnowballDialog
       // 
@@ -242,7 +267,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.btnCancel;
-      this.ClientSize = new System.Drawing.Size(286, 122);
+      this.ClientSize = new System.Drawing.Size(391, 354);
       this.Controls.Add(this.layoutControl1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
       this.MaximizeBox = false;
@@ -251,9 +276,7 @@
       this.Text = "Setup Snowball";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.cboDebts.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.debtBindingSource)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.numInitialSnowball.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtStart.Properties.CalendarTimeProperties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.dtStart.Properties)).EndInit();
@@ -261,9 +284,11 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.treeList1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -277,14 +302,17 @@
     private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     private DevExpress.XtraEditors.SpinEdit numInitialSnowball;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-    private DevExpress.XtraEditors.SearchLookUpEdit cboDebts;
-    private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
-    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     private DevExpress.XtraEditors.SimpleButton btnCancel;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
     private DevExpress.XtraEditors.SimpleButton btnOK;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     private System.Windows.Forms.BindingSource debtBindingSource;
-    private DevExpress.XtraGrid.Columns.GridColumn colName;
+    private DevExpress.XtraTreeList.TreeList treeList1;
+    private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
+    private DevExpress.Utils.DragDrop.DragDropEvents dragDropEvents1;
+    private DevExpress.XtraTreeList.Columns.TreeListColumn colName;
+    private DevExpress.XtraTreeList.Columns.TreeListColumn colBalance;
+    private DevExpress.XtraTreeList.Columns.TreeListColumn colPayment;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
   }
 }

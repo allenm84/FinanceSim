@@ -13,12 +13,12 @@ namespace FinanceSim
       return await Task.Run(() => run(start, end, profile));
     }
 
-    public static async Task<Dictionary<IAccount, List<Transaction>>> Snowball(DateTime start, decimal initialAmount, Debt selectedDebt, Profile profile)
+    public static async Task<Dictionary<IAccount, List<Transaction>>> Snowball(DateTime start, decimal initialAmount, SnowballDebtOrder order, Profile profile)
     {
-      return await Task.Run(() => snowball(start, initialAmount, selectedDebt, profile));
+      return await Task.Run(() => snowball(start, initialAmount, order, profile));
     }
 
-    private static Dictionary<IAccount, List<Transaction>> snowball(DateTime start, decimal snowballAmount, Debt selectedDebt, Profile profile)
+    private static Dictionary<IAccount, List<Transaction>> snowball(DateTime start, decimal snowballAmount, SnowballDebtOrder order, Profile profile)
     {
       // sanitize the input
       start = start.Date;
@@ -27,7 +27,7 @@ namespace FinanceSim
       var state = new SimulationState(profile);
 
       // advance all of the due dates
-      state.InitSnowball(start, snowballAmount, selectedDebt);
+      state.InitSnowball(start, snowballAmount, order);
 
       // go through the provided date range
       for (DateTime i = start; !state.IsPaidOff; i = i.AddDays(1))
@@ -113,8 +113,11 @@ namespace FinanceSim
       {
         if (d.IsDue(date, state))
         {
-          state.Withdraw(d.Payment, d.AccountId, date, d.Name);
-          state.MakePayment(date, d);
+          var payment = state.MakePayment(date, d);
+          if (payment > 0)
+          {
+            state.Withdraw(payment, d.AccountId, date, d.Name);
+          }
           state.Advance(d);
         }
       }

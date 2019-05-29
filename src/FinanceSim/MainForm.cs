@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CsvHelper;
 using DevExpress.XtraEditors;
 using DevExpress.XtraWaitForm;
 using Newtonsoft.Json;
@@ -33,7 +34,7 @@ namespace FinanceSim
 
     private async void LoadData()
     {
-      using (new DevExpress.Utils.WaitDialogForm("Please wait"))
+      using (new DevExpress.Utils.WaitDialogForm("Please wait", "Loading"))
       {
         if (await _gitDrive.Initialize() && _gitDrive.FileExists(FileName))
         {
@@ -43,7 +44,25 @@ namespace FinanceSim
           {
             profileBindingSource.Add(profile);
           }
+          cboProfiles.EditValue = profiles.LastOrDefault();
         }
+      }
+    }
+
+    private async void SaveData()
+    {
+      if (_currentProfile != null)
+      {
+        PushChanges();
+      }
+
+      using (new DevExpress.Utils.WaitDialogForm("Please wait", "Saving"))
+      {
+        SetIsProfileEditable(false);
+        var profiles = profileBindingSource.OfType<Profile>().ToList();
+        var jsonText = JsonConvert.SerializeObject(profiles);
+        await Task.Run(() => _gitDrive.WriteAllText(FileName, jsonText));
+        SetIsProfileEditable(true);
       }
     }
 
@@ -187,14 +206,7 @@ namespace FinanceSim
 
     private void tbbSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
-      if (_currentProfile != null)
-      {
-        PushChanges();
-
-        var profiles = profileBindingSource.OfType<Profile>().ToList();
-        var jsonText = JsonConvert.SerializeObject(profiles);
-        _gitDrive.WriteAllText(FileName, jsonText);
-      }
+      SaveData();
     }
 
     private void tbbNewProfile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -253,7 +265,7 @@ namespace FinanceSim
           if (dlg.ShowDialog(this) == DialogResult.OK)
           {
             PushChanges();
-            var result = await Simulation.Snowball(dlg.Start, dlg.InitialAmount, dlg.SelectedDebt, _currentProfile);
+            var result = await Simulation.Snowball(dlg.Start, dlg.InitialAmount, dlg.Order, _currentProfile);
             var popup = new SimulationResultDialog();
             popup.Populate(result);
             popup.Show(this);

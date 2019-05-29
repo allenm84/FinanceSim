@@ -655,7 +655,7 @@
             this.tbbRemoveProfile,
             this.tbbRun,
             this.tbbSnowballRun});
-      this.barManager1.MaxItemId = 9;
+      this.barManager1.MaxItemId = 10;
       // 
       // bar1
       // 

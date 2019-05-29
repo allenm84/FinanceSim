@@ -9,6 +9,8 @@ namespace FinanceSim
 {
   public static class CommonExtensions
   {
+    public static void nop(this object obj) { }
+
     public static bool IsEndOfMonth(this DateTime date)
     {
       var days = DateTime.DaysInMonth(date.Year, date.Month);

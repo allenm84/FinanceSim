@@ -11,8 +11,14 @@ namespace FinanceSim
   {
     private PropertyChangedEventHandler _propertyChanged;
 
+    public SimulationSnowballState(decimal amount, SnowballDebtOrder order)
+    {
+      Amount = amount;
+      Order = order;
+    }
+
     public decimal Amount { get; set; }
-    public Debt Target { get; set; }
+    public SnowballDebtOrder Order { get; }
     public HashSet<string> PaidOff { get; } = new HashSet<string>();
 
     string IAccount.Name => "Snowball";
