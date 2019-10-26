@@ -18,21 +18,15 @@ namespace FinanceSim
     public SetupSnowballDialog(Profile profile)
     {
       InitializeComponent();
-      dtStart.DateTime = DateTime.Today;
       Initiailize(profile);
     }
 
-    public DateTime Start => dtStart.DateTime.Date;
-
     public decimal InitialAmount => numInitialSnowball.Value;
-
-    public SnowballDebtOrder Order => CreateOrder();
 
     public SnowBallSetup Setup => new SnowBallSetup
     {
       DebtOrder = DebtsInOrder().Select(d => d.Id).ToArray(),
       InitialAmount = InitialAmount,
-      Start = Start
     };
 
     private void Initiailize(Profile profile)
@@ -43,7 +37,6 @@ namespace FinanceSim
       string[] desiredOrder;
       if (setup != null)
       {
-        dtStart.DateTime = setup.Start;
         numInitialSnowball.Value = setup.InitialAmount;
         desiredOrder = setup.DebtOrder;
       }
@@ -78,8 +71,6 @@ namespace FinanceSim
       .OfType<TreeListNode>()
       .Select(n => treeList1.GetDataRecordByNode(n))
       .OfType<Debt>();
-
-    private SnowballDebtOrder CreateOrder() => new SnowballDebtOrder(DebtsInOrder());
 
     private void dragDropEvents1_DragOver(object sender, DragOverEventArgs e)
     {

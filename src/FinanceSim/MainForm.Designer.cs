@@ -90,13 +90,14 @@
       this.tbbNewProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbCloneProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbRemoveProfile = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbExportProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbRun = new DevExpress.XtraBars.BarButtonItem();
       this.tbbSnowballRun = new DevExpress.XtraBars.BarButtonItem();
       this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-      this.tbbExportProfile = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbEvents = new DevExpress.XtraBars.BarButtonItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridAccounts)).BeginInit();
@@ -147,7 +148,7 @@
       this.layoutControl1.Name = "layoutControl1";
       this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(864, 331, 650, 400);
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(593, 485);
+      this.layoutControl1.Size = new System.Drawing.Size(650, 485);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
       // 
@@ -158,7 +159,7 @@
       this.gridAccounts.Location = new System.Drawing.Point(36, 124);
       this.gridAccounts.MainView = this.gridViewAccounts;
       this.gridAccounts.Name = "gridAccounts";
-      this.gridAccounts.Size = new System.Drawing.Size(521, 325);
+      this.gridAccounts.Size = new System.Drawing.Size(578, 325);
       this.gridAccounts.TabIndex = 4;
       this.gridAccounts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAccounts});
@@ -255,7 +256,7 @@
       this.gridPaychecks.Name = "gridPaychecks";
       this.gridPaychecks.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.btnEditPaycheckDeposits});
-      this.gridPaychecks.Size = new System.Drawing.Size(521, 325);
+      this.gridPaychecks.Size = new System.Drawing.Size(578, 325);
       this.gridPaychecks.TabIndex = 5;
       this.gridPaychecks.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewPaychecks});
@@ -341,7 +342,7 @@
       this.gridBills.Location = new System.Drawing.Point(36, 124);
       this.gridBills.MainView = this.gridViewBills;
       this.gridBills.Name = "gridBills";
-      this.gridBills.Size = new System.Drawing.Size(521, 325);
+      this.gridBills.Size = new System.Drawing.Size(578, 325);
       this.gridBills.TabIndex = 6;
       this.gridBills.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewBills});
@@ -405,7 +406,7 @@
       this.gridDebts.Location = new System.Drawing.Point(36, 124);
       this.gridDebts.MainView = this.gridViewDebts;
       this.gridDebts.Name = "gridDebts";
-      this.gridDebts.Size = new System.Drawing.Size(521, 325);
+      this.gridDebts.Size = new System.Drawing.Size(578, 325);
       this.gridDebts.TabIndex = 7;
       this.gridDebts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewDebts});
@@ -496,7 +497,7 @@
       this.cboProfiles.Properties.NullText = "[Select a Profile]";
       this.cboProfiles.Properties.ShowHeader = false;
       this.cboProfiles.Properties.ShowLines = false;
-      this.cboProfiles.Size = new System.Drawing.Size(527, 20);
+      this.cboProfiles.Size = new System.Drawing.Size(584, 20);
       this.cboProfiles.StyleController = this.layoutControl1;
       this.cboProfiles.TabIndex = 4;
       this.cboProfiles.EditValueChanged += new System.EventHandler(this.cboProfiles_EditValueChanged);
@@ -511,7 +512,7 @@
       this.txtProfileName.Location = new System.Drawing.Point(66, 66);
       this.txtProfileName.Name = "txtProfileName";
       this.txtProfileName.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Buffered;
-      this.txtProfileName.Size = new System.Drawing.Size(503, 20);
+      this.txtProfileName.Size = new System.Drawing.Size(560, 20);
       this.txtProfileName.StyleController = this.layoutControl1;
       this.txtProfileName.TabIndex = 6;
       // 
@@ -523,7 +524,7 @@
             this.layoutControlItem1,
             this.lcgProfile});
       this.layoutControlGroup1.Name = "Root";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(593, 485);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(650, 485);
       this.layoutControlGroup1.TextVisible = false;
       // 
       // layoutControlItem1
@@ -531,7 +532,7 @@
       this.layoutControlItem1.Control = this.cboProfiles;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(573, 24);
+      this.layoutControlItem1.Size = new System.Drawing.Size(630, 24);
       this.layoutControlItem1.Text = "Profiles:";
       this.layoutControlItem1.TextSize = new System.Drawing.Size(39, 13);
       // 
@@ -542,7 +543,7 @@
             this.tabbedControlGroup1});
       this.lcgProfile.Location = new System.Drawing.Point(0, 24);
       this.lcgProfile.Name = "lcgProfile";
-      this.lcgProfile.Size = new System.Drawing.Size(573, 441);
+      this.lcgProfile.Size = new System.Drawing.Size(630, 441);
       this.lcgProfile.Text = "[Select a Profile]";
       // 
       // layoutControlItem7
@@ -550,7 +551,7 @@
       this.layoutControlItem7.Control = this.txtProfileName;
       this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem7.Name = "layoutControlItem7";
-      this.layoutControlItem7.Size = new System.Drawing.Size(549, 24);
+      this.layoutControlItem7.Size = new System.Drawing.Size(606, 24);
       this.layoutControlItem7.Text = "Name:";
       this.layoutControlItem7.TextSize = new System.Drawing.Size(39, 13);
       // 
@@ -560,7 +561,7 @@
       this.tabbedControlGroup1.Name = "tabbedControlGroup1";
       this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup5;
       this.tabbedControlGroup1.SelectedTabPageIndex = 0;
-      this.tabbedControlGroup1.Size = new System.Drawing.Size(549, 375);
+      this.tabbedControlGroup1.Size = new System.Drawing.Size(606, 375);
       this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup5,
             this.layoutControlGroup4,
@@ -573,7 +574,7 @@
             this.layoutControlItem5});
       this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup5.Name = "layoutControlGroup5";
-      this.layoutControlGroup5.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup5.Size = new System.Drawing.Size(582, 329);
       this.layoutControlGroup5.Text = "Accounts";
       // 
       // layoutControlItem5
@@ -581,7 +582,7 @@
       this.layoutControlItem5.Control = this.gridAccounts;
       this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem5.Name = "layoutControlItem5";
-      this.layoutControlItem5.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem5.Size = new System.Drawing.Size(582, 329);
       this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem5.TextVisible = false;
       // 
@@ -591,7 +592,7 @@
             this.layoutControlItem4});
       this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup4.Name = "layoutControlGroup4";
-      this.layoutControlGroup4.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup4.Size = new System.Drawing.Size(582, 329);
       this.layoutControlGroup4.Text = "Paychecks";
       // 
       // layoutControlItem4
@@ -599,7 +600,7 @@
       this.layoutControlItem4.Control = this.gridPaychecks;
       this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem4.Name = "layoutControlItem4";
-      this.layoutControlItem4.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem4.Size = new System.Drawing.Size(582, 329);
       this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem4.TextVisible = false;
       // 
@@ -609,7 +610,7 @@
             this.layoutControlItem3});
       this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup3.Name = "layoutControlGroup3";
-      this.layoutControlGroup3.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup3.Size = new System.Drawing.Size(582, 329);
       this.layoutControlGroup3.Text = "Bills";
       // 
       // layoutControlItem3
@@ -617,7 +618,7 @@
       this.layoutControlItem3.Control = this.gridBills;
       this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem3.Size = new System.Drawing.Size(582, 329);
       this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem3.TextVisible = false;
       // 
@@ -627,7 +628,7 @@
             this.layoutControlItem2});
       this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup2.Name = "layoutControlGroup2";
-      this.layoutControlGroup2.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlGroup2.Size = new System.Drawing.Size(582, 329);
       this.layoutControlGroup2.Text = "Debts";
       // 
       // layoutControlItem2
@@ -635,7 +636,7 @@
       this.layoutControlItem2.Control = this.gridDebts;
       this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem2.Name = "layoutControlItem2";
-      this.layoutControlItem2.Size = new System.Drawing.Size(525, 329);
+      this.layoutControlItem2.Size = new System.Drawing.Size(582, 329);
       this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem2.TextVisible = false;
       // 
@@ -656,8 +657,9 @@
             this.tbbRemoveProfile,
             this.tbbRun,
             this.tbbSnowballRun,
-            this.tbbExportProfile});
-      this.barManager1.MaxItemId = 11;
+            this.tbbExportProfile,
+            this.tbbEvents});
+      this.barManager1.MaxItemId = 12;
       // 
       // bar1
       // 
@@ -672,8 +674,9 @@
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbCloneProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRemoveProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbExportProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSnowballRun, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSnowballRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbEvents, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
       this.bar1.OptionsBar.AllowQuickCustomization = false;
       this.bar1.OptionsBar.DrawDragBorder = false;
       this.bar1.OptionsBar.UseWholeRow = true;
@@ -723,6 +726,15 @@
       this.tbbRemoveProfile.Name = "tbbRemoveProfile";
       this.tbbRemoveProfile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbRemoveProfile_ItemClick);
       // 
+      // tbbExportProfile
+      // 
+      this.tbbExportProfile.Caption = "Export";
+      this.tbbExportProfile.Id = 10;
+      this.tbbExportProfile.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbExportProfile.ImageOptions.Image")));
+      this.tbbExportProfile.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbExportProfile.ImageOptions.LargeImage")));
+      this.tbbExportProfile.Name = "tbbExportProfile";
+      this.tbbExportProfile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbExportProfile_ItemClick);
+      // 
       // tbbRun
       // 
       this.tbbRun.Caption = "Run";
@@ -747,7 +759,7 @@
       this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
       this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
       this.barDockControlTop.Manager = this.barManager1;
-      this.barDockControlTop.Size = new System.Drawing.Size(593, 31);
+      this.barDockControlTop.Size = new System.Drawing.Size(650, 31);
       // 
       // barDockControlBottom
       // 
@@ -755,7 +767,7 @@
       this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
       this.barDockControlBottom.Location = new System.Drawing.Point(0, 516);
       this.barDockControlBottom.Manager = this.barManager1;
-      this.barDockControlBottom.Size = new System.Drawing.Size(593, 0);
+      this.barDockControlBottom.Size = new System.Drawing.Size(650, 0);
       // 
       // barDockControlLeft
       // 
@@ -769,24 +781,24 @@
       // 
       this.barDockControlRight.CausesValidation = false;
       this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-      this.barDockControlRight.Location = new System.Drawing.Point(593, 31);
+      this.barDockControlRight.Location = new System.Drawing.Point(650, 31);
       this.barDockControlRight.Manager = this.barManager1;
       this.barDockControlRight.Size = new System.Drawing.Size(0, 485);
       // 
-      // tbbExportProfile
+      // tbbEvents
       // 
-      this.tbbExportProfile.Caption = "Export";
-      this.tbbExportProfile.Id = 10;
-      this.tbbExportProfile.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
-      this.tbbExportProfile.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
-      this.tbbExportProfile.Name = "tbbExportProfile";
-      this.tbbExportProfile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbExportProfile_ItemClick);
+      this.tbbEvents.Caption = "Events";
+      this.tbbEvents.Id = 11;
+      this.tbbEvents.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.Image")));
+      this.tbbEvents.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.LargeImage")));
+      this.tbbEvents.Name = "tbbEvents";
+      this.tbbEvents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbEvents_ItemClick);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(593, 516);
+      this.ClientSize = new System.Drawing.Size(650, 516);
       this.Controls.Add(this.layoutControl1);
       this.Controls.Add(this.barDockControlLeft);
       this.Controls.Add(this.barDockControlRight);
@@ -904,6 +916,7 @@
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     private DevExpress.XtraBars.BarButtonItem tbbSnowballRun;
     private DevExpress.XtraBars.BarButtonItem tbbExportProfile;
+    private DevExpress.XtraBars.BarButtonItem tbbEvents;
   }
 }
 

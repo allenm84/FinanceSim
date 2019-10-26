@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FinanceSim
 {
-  public class SnowBallSetup
+  public class SimulationSetup
   {
-    public decimal InitialAmount { get; set; }
-    public string[] DebtOrder { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public bool UseSnowball { get; set; }
   }
 }

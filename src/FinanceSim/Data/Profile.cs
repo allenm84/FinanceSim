@@ -21,5 +21,6 @@ namespace FinanceSim
     public List<Debt> Debts { get; set; } = new List<Debt>();
     public List<Paycheck> Paychecks { get; set; } = new List<Paycheck>();
     public SnowBallSetup Snowball { get; set; }
+    public EventSetup Events { get; set; }
   }
 }

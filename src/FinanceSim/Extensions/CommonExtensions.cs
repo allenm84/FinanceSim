@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,33 @@ namespace FinanceSim
 {
   public static class CommonExtensions
   {
-    public static void nop(this object obj) { }
-
-    public static bool IsEndOfMonth(this DateTime date)
+    public static List<T> Ensure<T>(this List<T> list)
     {
-      var days = DateTime.DaysInMonth(date.Year, date.Month);
-      return date.Day == days;
+      return list ?? new List<T>();
+    }
+
+    public static T Clone<T>(this T item) where T : class
+    {
+      if (item == null)
+        return default;
+
+      var data = JsonConvert.SerializeObject(item);
+      return JsonConvert.DeserializeObject<T>(data);
+    }
+
+    public static IEnumerable<T> OfType<T>(this Profile profile)
+    {
+      foreach (var v in profile.Accounts.OfType<T>())
+        yield return v;
+
+      foreach (var v in profile.Bills.OfType<T>())
+        yield return v;
+
+      foreach (var v in profile.Debts.OfType<T>())
+        yield return v;
+
+      foreach (var v in profile.Paychecks.OfType<T>())
+        yield return v;
     }
 
     public static void Set<T>(this BindingSource source, IEnumerable<T> items)

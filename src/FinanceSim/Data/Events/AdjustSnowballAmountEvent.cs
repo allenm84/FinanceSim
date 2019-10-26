@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FinanceSim
 {
-  public class SnowBallSetup
+  public class AdjustSnowballAmountEvent
   {
-    public decimal InitialAmount { get; set; }
-    public string[] DebtOrder { get; set; }
+    public decimal Amount { get; set; }
+    public DateTime Date { get; set; }
   }
 }

@@ -13,23 +13,28 @@ namespace FinanceSim
 {
   public partial class SetupSimulationDialog : BaseForm
   {
+    static bool sUseSnowball = true;
+
     public SetupSimulationDialog()
     {
       InitializeComponent();
-      Start = DateTime.Today;
-      End = DateTime.Today.AddYears(10);
+      dtStart.DateTime = DateTime.Today;
+      dtEnd.DateTime = DateTime.Today.AddYears(10);
+      chkSnowball.Checked = sUseSnowball;
     }
 
-    public DateTime Start
+    public SimulationSetup Setup => new SimulationSetup
     {
-      get => dtStart.DateTime.Date;
-      set => dtStart.DateTime = value.Date;
-    }
+      Start = dtStart.DateTime.Date,
+      End = dtEnd.DateTime.Date,
+      UseSnowball = chkSnowball.Checked,
+    };
 
-    public DateTime End
+    private void chkSnowball_CheckedChanged(object sender, EventArgs e)
     {
-      get => dtEnd.DateTime.Date;
-      set => dtEnd.DateTime = value.Date;
+      var useSnowball = chkSnowball.Checked;
+      sUseSnowball = useSnowball;
+      dtEnd.Enabled = !useSnowball;
     }
   }
 }

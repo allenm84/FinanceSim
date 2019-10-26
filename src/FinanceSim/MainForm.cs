@@ -240,8 +240,7 @@ namespace FinanceSim
     {
       if (_currentProfile != null)
       {
-        var data = JsonConvert.SerializeObject(_currentProfile);
-        var cloned = JsonConvert.DeserializeObject<Profile>(data);
+        var cloned = _currentProfile.Clone();
         cloned.Created = DateTime.Now;
         cloned.Name = $"Clone of {_currentProfile.Name}";
         AddNewProfile(cloned);
@@ -273,25 +272,7 @@ namespace FinanceSim
       }
     }
 
-    private async void tbbRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-    {
-      if (_currentProfile != null)
-      {
-        using (var dlg = new SetupSimulationDialog())
-        {
-          if (dlg.ShowDialog(this) == DialogResult.OK)
-          {
-            PushChanges();
-            var result = await Simulation.Run(dlg.Start, dlg.End, _currentProfile);
-            var popup = new SimulationResultDialog();
-            popup.Populate(result);
-            popup.Show(this);
-          }
-        }
-      }
-    }
-
-    private async void tbbSnowballRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void tbbSnowballRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       if (_currentProfile != null)
       {
@@ -301,8 +282,36 @@ namespace FinanceSim
           {
             _currentProfile.Snowball = dlg.Setup;
             PushChanges();
+          }
+        }
+      }
+    }
 
-            var result = await Simulation.Snowball(dlg.Start, dlg.InitialAmount, dlg.Order, _currentProfile);
+    private void tbbEvents_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      if (_currentProfile != null)
+      {
+        using (var dlg = new SetupEventsDialog(_currentProfile))
+        {
+          if (dlg.ShowDialog(this) == DialogResult.OK)
+          {
+            _currentProfile.Events = dlg.Setup;
+            PushChanges();
+          }
+        }
+      }
+    }
+
+    private async void tbbRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      if (_currentProfile != null)
+      {
+        using (var dlg = new SetupSimulationDialog())
+        {
+          if (dlg.ShowDialog(this) == DialogResult.OK)
+          {
+            PushChanges();
+            var result = await Simulation.Run(dlg.Setup, _currentProfile);
             var popup = new SimulationResultDialog();
             popup.Populate(result);
             popup.Show(this);

@@ -1,59 +1,74 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace FinanceSim
 {
-  public class SimulationEvent
+  public abstract class SimulationEvent
   {
-    public SimulationEvent(DateTime date, string script, params object[] args)
+    public SimulationEvent(DateTime date)
     {
       Date = date;
-      Script = script;
-      Arguments = args;
     }
 
     public DateTime Date { get; }
 
-    private string Script { get; }
-    private object[] Arguments { get; }
+    public abstract void Apply(SimulationState state);
 
-    public async Task Apply()
+    public static SimulationEvent AdjustSnowball(DateTime date, decimal amount)
     {
-      // create an array for the names
-      var names = Arguments.Select((a, i) => $"var{i}").Cast<object>().ToArray();
+      return new DelegateEvent(date, s => Simulation.AdjustSnowball(s, date, amount));
+    }
 
-      // replace the expression text with these names
-      var expr = string.Format(Script, names);
+    public static SimulationEvent ChangeBillPayment(DateTime date, Bill bill, decimal newPayment)
+    {
+      return new UpdateBillPayment(date, bill, newPayment);
+    }
 
-      // create a lamba from the expression
-      var lambaInput = string.Join(", ", names);
-      var lambda = $"({lambaInput}) => {expr}";
-
-      // get the type
-      var actionType = Expression.GetActionType(Arguments.Select(a => a.GetType()).ToArray());
-
-      // get the method that will be used to create the delegate
-      var method = typeof(CSharpScript)
-        .GetMethods(BindingFlags.Public | BindingFlags.Static)
-        .Where(m => string.Equals(m.Name, nameof(CSharpScript.EvaluateAsync)))
-        .Single(m => m.IsGenericMethodDefinition)
-        .MakeGenericMethod(actionType);
-
-      // call the method
-      var options = ScriptOptions.Default.AddReferences(typeof(State).Assembly);
-      if (method.Invoke(null, new object[] { lambda, options, null, null, default(CancellationToken) }) is Task task)
+    public static SimulationEvent AdjustPaycheckTotal(DateTime date, Paycheck paycheck, decimal amount)
+    {
+      return new DelegateEvent(date, s =>
       {
-        await task.ConfigureAwait(false);
-        Delegate result = ((dynamic)task).Result;
-        result.DynamicInvoke(Arguments);
+        paycheck.Total += amount;
+        Simulation.AddNotice(s, date, $"Update {paycheck.Name} paycheck", amount, paycheck.Total);
+      });
+    }
+
+    private class DelegateEvent : SimulationEvent
+    {
+      public DelegateEvent(DateTime date, Action<SimulationState> action) : base(date)
+      {
+        Action = action;
+      }
+
+      private Action<SimulationState> Action { get; }
+
+      public override void Apply(SimulationState state)
+      {
+        Action?.Invoke(state);
+      }
+    }
+
+    private class UpdateBillPayment : SimulationEvent
+    {
+      public UpdateBillPayment(DateTime date, Bill bill, decimal payment) : base(date)
+      {
+        Bill = bill;
+        Payment = payment;
+      }
+
+      private Bill Bill { get; }
+      public decimal Payment { get; }
+
+      public override void Apply(SimulationState state)
+      {
+        var oldPayment = Bill.Payment;
+        var newPayment = Payment;
+        Bill.Payment = Payment;
+
+        var diff = newPayment - oldPayment;
+        if (diff > 0)
+        {
+          Simulation.AdjustSnowball(state, Date, -diff);
+        }
       }
     }
   }
