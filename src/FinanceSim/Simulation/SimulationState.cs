@@ -71,7 +71,7 @@ namespace FinanceSim
       _snowball = new SimulationSnowballState(snowball, order);
 
       Transactions.Add(_snowball, new List<Transaction>());
-      LogSnowballState(min);
+      LogSnowballState(min, $"Start: {_snowball.Order?.Current?.Name}");
     }
 
     public bool Advance(IHasDueInfo info)
@@ -147,7 +147,7 @@ namespace FinanceSim
     public decimal MakePayment(DateTime date, Debt debt)
     {
       var payment = debt.Payment;
-      
+
       if (_snowball != null)
       {
         // if the specified debt is the target
@@ -178,21 +178,39 @@ namespace FinanceSim
           // if this is the target bill, then update the snowball
           if (isTarget)
           {
+            var old = debt;
             var current = debt;
+
             do
             {
-              _snowball.Amount += current.Payment;
               if (_snowball.Order.MoveNext())
               {
                 current = _snowball.Order.Current;
               }
               else
               {
+                current = null;
                 break;
               }
             }
             while (_snowball.PaidOff.Contains(current.Id));
-            LogSnowballState(date);
+
+            if (current != null)
+            {
+              _snowball.Amount += old.Payment;
+              LogSnowballState(date, $"From: '{old.Name}', To: '{current.Name}' (+{old.Payment:c2})");
+            }
+            else
+            {
+              LogSnowballState(date, $"End: {old.Name}");
+            }
+          }
+          else if (payment > 0)
+          {
+            // the bill has been paid off, but it isn't the target. Add the
+            // amount to the snowball
+            _snowball.Amount += debt.Payment;
+            LogSnowballState(date, $"Paid Off: '{debt.Name}' (+{debt.Payment:c2})");
           }
         }
       }
@@ -237,7 +255,7 @@ namespace FinanceSim
       });
     }
 
-    private void LogSnowballState(DateTime date)
+    private void LogSnowballState(DateTime date, string text)
     {
       if (_snowball != null)
       {
@@ -247,7 +265,7 @@ namespace FinanceSim
           Amount = _snowball.Amount,
           Balance = 0,
           Date = date,
-          Name = $"Target = {_snowball.Order?.Current?.Name}"
+          Name = text
         });
       }
     }

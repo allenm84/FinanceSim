@@ -96,6 +96,7 @@
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+      this.tbbExportProfile = new DevExpress.XtraBars.BarButtonItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridAccounts)).BeginInit();
@@ -654,8 +655,9 @@
             this.tbbCloneProfile,
             this.tbbRemoveProfile,
             this.tbbRun,
-            this.tbbSnowballRun});
-      this.barManager1.MaxItemId = 10;
+            this.tbbSnowballRun,
+            this.tbbExportProfile});
+      this.barManager1.MaxItemId = 11;
       // 
       // bar1
       // 
@@ -669,6 +671,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbNewProfile, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbCloneProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRemoveProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbExportProfile, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbRun, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSnowballRun, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
       this.bar1.OptionsBar.AllowQuickCustomization = false;
@@ -769,6 +772,15 @@
       this.barDockControlRight.Location = new System.Drawing.Point(593, 31);
       this.barDockControlRight.Manager = this.barManager1;
       this.barDockControlRight.Size = new System.Drawing.Size(0, 485);
+      // 
+      // tbbExportProfile
+      // 
+      this.tbbExportProfile.Caption = "Export";
+      this.tbbExportProfile.Id = 10;
+      this.tbbExportProfile.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
+      this.tbbExportProfile.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
+      this.tbbExportProfile.Name = "tbbExportProfile";
+      this.tbbExportProfile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbExportProfile_ItemClick);
       // 
       // MainForm
       // 
@@ -891,6 +903,7 @@
     private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup3;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     private DevExpress.XtraBars.BarButtonItem tbbSnowballRun;
+    private DevExpress.XtraBars.BarButtonItem tbbExportProfile;
   }
 }
 

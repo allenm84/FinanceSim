@@ -26,5 +26,10 @@ namespace FinanceSim
       var result = XtraMessageBox.Show(window, message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       return (result == DialogResult.Yes);
     }
+
+    public static void Error(this IWin32Window window, string message, string caption = "Error")
+    {
+      XtraMessageBox.Show(window, message, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
   }
 }

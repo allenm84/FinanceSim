@@ -15,13 +15,11 @@ namespace FinanceSim
 {
   public partial class SetupSnowballDialog : BaseForm
   {
-    static (DateTime, decimal, string[])? sPreviousChoice = null;
-
-    public SetupSnowballDialog(IEnumerable<Debt> debts)
+    public SetupSnowballDialog(Profile profile)
     {
       InitializeComponent();
       dtStart.DateTime = DateTime.Today;
-      Pop(debts);
+      Initiailize(profile);
     }
 
     public DateTime Start => dtStart.DateTime.Date;
@@ -30,15 +28,24 @@ namespace FinanceSim
 
     public SnowballDebtOrder Order => CreateOrder();
 
-    private void Pop(IEnumerable<Debt> debts)
+    public SnowBallSetup Setup => new SnowBallSetup
     {
+      DebtOrder = DebtsInOrder().Select(d => d.Id).ToArray(),
+      InitialAmount = InitialAmount,
+      Start = Start
+    };
+
+    private void Initiailize(Profile profile)
+    {
+      var setup = profile.Snowball;
+      var debts = profile.Debts;
+
       string[] desiredOrder;
-      if (sPreviousChoice.HasValue)
+      if (setup != null)
       {
-        (DateTime time, decimal amount, string[] ids) = sPreviousChoice.Value;
-        dtStart.DateTime = time;
-        numInitialSnowball.Value = amount;
-        desiredOrder = ids;
+        dtStart.DateTime = setup.Start;
+        numInitialSnowball.Value = setup.InitialAmount;
+        desiredOrder = setup.DebtOrder;
       }
       else
       {
@@ -67,26 +74,12 @@ namespace FinanceSim
       }
     }
 
-    private void Push()
-    {
-      sPreviousChoice = (Start, InitialAmount, DebtsInOrder().Select(d => d.Id).ToArray());
-    }
-
     private IEnumerable<Debt> DebtsInOrder() => treeList1.Nodes
       .OfType<TreeListNode>()
       .Select(n => treeList1.GetDataRecordByNode(n))
       .OfType<Debt>();
 
     private SnowballDebtOrder CreateOrder() => new SnowballDebtOrder(DebtsInOrder());
-
-    protected override void OnFormClosing(FormClosingEventArgs e)
-    {
-      base.OnFormClosing(e);
-      if (!e.Cancel)
-      {
-        Push();
-      }
-    }
 
     private void dragDropEvents1_DragOver(object sender, DragOverEventArgs e)
     {
@@ -97,6 +90,7 @@ namespace FinanceSim
         e.Action = DragDropActions.None;
         e.InsertType = InsertType.None;
       }
+
       e.Handled = true;
     }
   }

@@ -64,6 +64,7 @@
     <Compile Include="Controls\TransactionGridView.Designer.cs">
       <DependentUpon>TransactionGridView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\SnowBallSetup.cs" />
     <Compile Include="Dialogs\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>

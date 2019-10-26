@@ -185,6 +185,24 @@ namespace FinanceSim
       gridViewPaychecks.RefreshData();
     }
 
+    private bool AskUserForSavePath(out string saveFilePath)
+    {
+      saveFilePath = "";
+
+      using (var dlg = new SaveFileDialog())
+      {
+        dlg.OverwritePrompt = true;
+        dlg.Filter = "JSON (*.json) | *.json";
+
+        if (dlg.ShowDialog(this) == DialogResult.OK)
+        {
+          saveFilePath = dlg.FileName;
+        }
+      }
+
+      return !string.IsNullOrWhiteSpace(saveFilePath);
+    }
+
     private void bankAccountBindingSource_ListChanged(object sender, ListChangedEventArgs e)
     {
       if (e.ListChangedType == ListChangedType.ItemAdded ||
@@ -238,6 +256,23 @@ namespace FinanceSim
       }
     }
 
+    private void tbbExportProfile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      if (_currentProfile != null && AskUserForSavePath(out var saveFilePath))
+      {
+        try
+        {
+          PushChanges();
+          var json = JsonConvert.SerializeObject(_currentProfile);
+          File.WriteAllText(saveFilePath, json);
+        }
+        catch (Exception ex)
+        {
+          this.Error(ex.Message);
+        }
+      }
+    }
+
     private async void tbbRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       if (_currentProfile != null)
@@ -260,11 +295,13 @@ namespace FinanceSim
     {
       if (_currentProfile != null)
       {
-        using (var dlg = new SetupSnowballDialog(_currentProfile.Debts))
+        using (var dlg = new SetupSnowballDialog(_currentProfile))
         {
           if (dlg.ShowDialog(this) == DialogResult.OK)
           {
+            _currentProfile.Snowball = dlg.Setup;
             PushChanges();
+
             var result = await Simulation.Snowball(dlg.Start, dlg.InitialAmount, dlg.Order, _currentProfile);
             var popup = new SimulationResultDialog();
             popup.Populate(result);
