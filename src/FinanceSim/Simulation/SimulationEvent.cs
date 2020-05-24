@@ -15,7 +15,7 @@ namespace FinanceSim
 
     public static SimulationEvent AdjustSnowball(DateTime date, decimal amount)
     {
-      return new DelegateEvent(date, s => Simulation.AdjustSnowball(s, date, amount));
+      return new DelegateEvent(date, s => Simulation.AdjustSnowball(s, date, amount, "Event"));
     }
 
     public static SimulationEvent ChangeBillPayment(DateTime date, Bill bill, decimal newPayment)
@@ -67,7 +67,7 @@ namespace FinanceSim
         var diff = newPayment - oldPayment;
         if (diff > 0)
         {
-          Simulation.AdjustSnowball(state, Date, -diff);
+          Simulation.AdjustSnowball(state, Date, -diff, $"Payment Update({Bill.Name})");
         }
       }
     }

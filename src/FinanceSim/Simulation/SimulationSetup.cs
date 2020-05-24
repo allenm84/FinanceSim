@@ -1,15 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinanceSim
 {
-  public class SimulationSetup
+  public class SimulationSetup : BaseNotifyPropertyChanged
   {
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-    public bool UseSnowball { get; set; }
+    static bool sUseSnowball = true;
+
+    private DateTime _start;
+    private DateTime _end;
+    private bool _useSnowball;
+
+    public SimulationSetup()
+    {
+      Start = DateTime.Today;
+      End = DateTime.Today.AddYears(10);
+      UseSnowball = sUseSnowball;
+    }
+
+    public DateTime Start
+    {
+      get => _start;
+      set => SetField(ref _start, value);
+    }
+
+    public DateTime End
+    {
+      get => _end;
+      set => SetField(ref _end, value);
+    }
+
+    public bool UseSnowball
+    {
+      get => _useSnowball;
+      set
+      {
+        SetField(ref _useSnowball, value);
+        sUseSnowball = _useSnowball;
+      }
+    }
   }
 }
