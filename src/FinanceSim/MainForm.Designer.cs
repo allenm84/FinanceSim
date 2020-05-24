@@ -75,6 +75,7 @@
       this.lcgProfile = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
       this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
+      this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -91,13 +92,13 @@
       this.tbbCloneProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbRemoveProfile = new DevExpress.XtraBars.BarButtonItem();
       this.tbbExportProfile = new DevExpress.XtraBars.BarButtonItem();
-      this.tbbRun = new DevExpress.XtraBars.BarButtonItem();
       this.tbbSnowballRun = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbEvents = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbRun = new DevExpress.XtraBars.BarButtonItem();
       this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-      this.tbbEvents = new DevExpress.XtraBars.BarButtonItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.gridAccounts)).BeginInit();
@@ -124,6 +125,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.lcgProfile)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
@@ -559,14 +561,22 @@
       // 
       this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 24);
       this.tabbedControlGroup1.Name = "tabbedControlGroup1";
-      this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup5;
-      this.tabbedControlGroup1.SelectedTabPageIndex = 0;
+      this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup6;
+      this.tabbedControlGroup1.SelectedTabPageIndex = 4;
       this.tabbedControlGroup1.Size = new System.Drawing.Size(606, 375);
       this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup5,
             this.layoutControlGroup4,
             this.layoutControlGroup3,
-            this.layoutControlGroup2});
+            this.layoutControlGroup2,
+            this.layoutControlGroup6});
+      // 
+      // layoutControlGroup6
+      // 
+      this.layoutControlGroup6.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup6.Name = "layoutControlGroup6";
+      this.layoutControlGroup6.Size = new System.Drawing.Size(582, 329);
+      this.layoutControlGroup6.Text = "Events";
       // 
       // layoutControlGroup5
       // 
@@ -735,15 +745,6 @@
       this.tbbExportProfile.Name = "tbbExportProfile";
       this.tbbExportProfile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbExportProfile_ItemClick);
       // 
-      // tbbRun
-      // 
-      this.tbbRun.Caption = "Run";
-      this.tbbRun.Id = 7;
-      this.tbbRun.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbRun.ImageOptions.Image")));
-      this.tbbRun.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbRun.ImageOptions.LargeImage")));
-      this.tbbRun.Name = "tbbRun";
-      this.tbbRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbRun_ItemClick);
-      // 
       // tbbSnowballRun
       // 
       this.tbbSnowballRun.Caption = "Snowball";
@@ -752,6 +753,24 @@
       this.tbbSnowballRun.ImageOptions.LargeImage = global::FinanceSim.Properties.Resources.snowball_icon_32;
       this.tbbSnowballRun.Name = "tbbSnowballRun";
       this.tbbSnowballRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSnowballRun_ItemClick);
+      // 
+      // tbbEvents
+      // 
+      this.tbbEvents.Caption = "Events";
+      this.tbbEvents.Id = 11;
+      this.tbbEvents.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.Image")));
+      this.tbbEvents.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.LargeImage")));
+      this.tbbEvents.Name = "tbbEvents";
+      this.tbbEvents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbEvents_ItemClick);
+      // 
+      // tbbRun
+      // 
+      this.tbbRun.Caption = "Run";
+      this.tbbRun.Id = 7;
+      this.tbbRun.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbRun.ImageOptions.Image")));
+      this.tbbRun.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbRun.ImageOptions.LargeImage")));
+      this.tbbRun.Name = "tbbRun";
+      this.tbbRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbRun_ItemClick);
       // 
       // barDockControlTop
       // 
@@ -785,15 +804,6 @@
       this.barDockControlRight.Manager = this.barManager1;
       this.barDockControlRight.Size = new System.Drawing.Size(0, 485);
       // 
-      // tbbEvents
-      // 
-      this.tbbEvents.Caption = "Events";
-      this.tbbEvents.Id = 11;
-      this.tbbEvents.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.Image")));
-      this.tbbEvents.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("tbbEvents.ImageOptions.LargeImage")));
-      this.tbbEvents.Name = "tbbEvents";
-      this.tbbEvents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbEvents_ItemClick);
-      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -806,7 +816,7 @@
       this.Controls.Add(this.barDockControlTop);
       this.Name = "MainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-      this.Text = "Finance Simulator";
+      this.Text = "FinanceSim";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.gridAccounts)).EndInit();
@@ -833,6 +843,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.lcgProfile)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
@@ -917,6 +928,7 @@
     private DevExpress.XtraBars.BarButtonItem tbbSnowballRun;
     private DevExpress.XtraBars.BarButtonItem tbbExportProfile;
     private DevExpress.XtraBars.BarButtonItem tbbEvents;
+    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup6;
   }
 }
 

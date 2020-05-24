@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinanceSim
 {
@@ -20,7 +17,7 @@ namespace FinanceSim
     public List<Bill> Bills { get; set; } = new List<Bill>();
     public List<Debt> Debts { get; set; } = new List<Debt>();
     public List<Paycheck> Paychecks { get; set; } = new List<Paycheck>();
-    public SnowBallSetup Snowball { get; set; }
-    public EventSetup Events { get; set; }
+    public SnowBallSetup Snowball { get; set; } = new SnowBallSetup();
+    public EventSetup Events { get; set; } = new EventSetup();
   }
 }

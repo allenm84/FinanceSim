@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FinanceSim
 {
   public class EventSetup
   {
-    public List<ChangeBillPaymentEvent> ChangeBillPaymentEvents { get; set; }
-    public List<AdjustPaycheckTotalEvent> AdjustPaycheckTotalEvents { get; set; }
-    public List<AdjustSnowballAmountEvent> AdjustSnowballAmountEvents { get; set; }
+    public List<ChangeBillPaymentEvent> ChangeBillPaymentEvents { get; set; } = new List<ChangeBillPaymentEvent>();
+    public List<AdjustPaycheckTotalEvent> AdjustPaycheckTotalEvents { get; set; } = new List<AdjustPaycheckTotalEvent>();
+    public List<AdjustSnowballAmountEvent> AdjustSnowballAmountEvents { get; set; } = new List<AdjustSnowballAmountEvent>();
   }
 }
