@@ -113,7 +113,14 @@
             </GroupBox>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:SnowBallSetupItemViewModel}">
-            <TextBlock Text="{Binding Name}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                <TextBlock Grid.Column="1" Text="{Binding Balance, StringFormat=C2}"/>
+            </Grid>
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:BaseCollectionEditorViewModel}">
             <Grid>
@@ -477,10 +484,11 @@
                                                      FormatString="C2"
                                                      Value="{Binding InitialAmount}"/>
                                     <ListBox Grid.Row="1" Grid.ColumnSpan="2"
-                                         Margin="3"
-                                         ItemsSource="{Binding Items}"
-                                         dd:DragDrop.IsDragSource="True"
-                                         dd:DragDrop.IsDropTarget="True"/>
+                                             Margin="3"
+                                             ItemsSource="{Binding Items}"
+                                             HorizontalContentAlignment="Stretch"
+                                             dd:DragDrop.IsDragSource="True"
+                                             dd:DragDrop.IsDropTarget="True"/>
                                 </Grid>
                             </TabItem>
                         </TabControl>

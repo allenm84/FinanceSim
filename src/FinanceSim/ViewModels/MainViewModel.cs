@@ -95,7 +95,10 @@ namespace FinanceSim
 
     private void DoCloneProfile()
     {
-      AddProfile(SelectedProfile.GetModel().Clone());
+      var model = SelectedProfile.GetModel().Clone();
+      model.Name = $"Copy of {model.Name}";
+      model.Created = DateTime.Today;
+      AddProfile(model);
     }
 
     private void DoRemoveProfile()
