@@ -16,7 +16,7 @@ namespace FinanceSim
 
     public MainViewModel()
     {
-      _gitDrive = new GitDrive(new Uri("https://allenm84@bitbucket.org/allenm84/storage.git"));
+      _gitDrive = new GitDrive(new Uri("https://github.com/allenm84/Storage.git"));
 
       NewProfileCommand = new DelegateCommand(DoNewProfile);
       CloneProfileCommand = new DelegateCommand(DoCloneProfile, IsProfileSelected);

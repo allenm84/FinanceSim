@@ -65,12 +65,15 @@ namespace FinanceSim
     public bool DirectoryExists(string path) => 
       Directory.Exists(GetFullPath(path));
 
-    public string ReadAllText(string path) => 
-      File.ReadAllText(GetFullPath(path));
+    public string ReadAllText(string path)
+    {
+      var content = File.ReadAllText(GetFullPath(path));
+      return StringCipher.Decrypt(_key, content);
+    }
 
     public void WriteAllText(string path, string content)
     {
-      File.WriteAllText(GetFullPath(path), content);
+      File.WriteAllText(GetFullPath(path), StringCipher.Encrypt(_key, content));
       git("add *");
       git($"commit -m \"WriteAllText @ {DateTime.Now}\"");
       git("push origin");

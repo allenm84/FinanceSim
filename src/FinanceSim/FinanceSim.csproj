@@ -76,6 +76,7 @@
     <Compile Include="Simulation\SimulationPaycheckDeposit.cs" />
     <Compile Include="Simulation\SimulationState.cs" />
     <Compile Include="Simulation\SimulationTransaction.cs" />
+    <Compile Include="Tools\StringCipher.cs" />
     <Compile Include="ViewModels\BaseCollectionEditorAggregateViewModel.cs" />
     <Compile Include="ViewModels\HasBalanceAccountsViewModel.cs" />
     <Compile Include="ViewModels\IHasBalanceViewModel.cs" />
@@ -204,6 +205,9 @@
     <Resource Include="Resources\Save.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CredentialManagement">
+      <Version>1.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.8.1</Version>
     </PackageReference>
