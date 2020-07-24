@@ -11,7 +11,7 @@ namespace FinanceSim
 
     public DateTime Date { get; }
 
-    public abstract void Apply(SimulationState state);
+    public abstract void Apply(SimulationLookupState state);
 
     public static SimulationEvent AdjustSnowball(DateTime date, decimal amount)
     {
@@ -34,14 +34,14 @@ namespace FinanceSim
 
     private class DelegateEvent : SimulationEvent
     {
-      public DelegateEvent(DateTime date, Action<SimulationState> action) : base(date)
+      public DelegateEvent(DateTime date, Action<SimulationLookupState> action) : base(date)
       {
         Action = action;
       }
 
-      private Action<SimulationState> Action { get; }
+      private Action<SimulationLookupState> Action { get; }
 
-      public override void Apply(SimulationState state)
+      public override void Apply(SimulationLookupState state)
       {
         Action?.Invoke(state);
       }
@@ -58,7 +58,7 @@ namespace FinanceSim
       private Bill Bill { get; }
       public decimal Payment { get; }
 
-      public override void Apply(SimulationState state)
+      public override void Apply(SimulationLookupState state)
       {
         var oldPayment = Bill.Payment;
         var newPayment = Payment;

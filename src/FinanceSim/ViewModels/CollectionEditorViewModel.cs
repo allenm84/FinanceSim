@@ -83,7 +83,13 @@ namespace FinanceSim
     {
       if (Messenger.Confirm("Are you sure you want to remove the selected item?", "Confirm"))
       {
+        int index = _items.IndexOf(SelectedItem);
         _items.Remove(SelectedItem);
+        index = Math.Min(index, _items.Count - 1);
+        if (-1 < index && index < _items.Count)
+        {
+          SelectedItem = _items[index];
+        }
       }
     }
 

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinanceSim
 {
   public static class EnumerableHelper
   {
+    public static T SafeDequeue<T>(this Queue<T> queue) => queue.Count > 0 ? queue.Dequeue() : default;
+
     public static IEnumerable<T> Iterate<T>(params IEnumerable<T>[] collections)
     {
       return collections.Where(c => c != null).SelectMany(c => c);

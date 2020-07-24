@@ -28,19 +28,19 @@
                 </Grid>
             </GroupBox>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:SimulationResults}">
+        <DataTemplate DataType="{x:Type local:SimulationResultsViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" MinHeight="400"/>
                 </Grid.RowDefinitions>
                 <TabControl Grid.Row="0" ItemsSource="{Binding Results}">
                     <TabControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type local:SimulationResultItem}">
+                        <DataTemplate DataType="{x:Type local:SimulationResultItemViewModel}">
                             <TextBlock Text="{Binding Name}"/>
                         </DataTemplate>
                     </TabControl.ItemTemplate>
                     <TabControl.ContentTemplate>
-                        <DataTemplate DataType="{x:Type local:SimulationResultItem}">
+                        <DataTemplate DataType="{x:Type local:SimulationResultItemViewModel}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>

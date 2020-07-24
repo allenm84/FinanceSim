@@ -7,13 +7,113 @@ namespace FinanceSim
 {
   public static class Simulation
   {
-    public static async Task<Dictionary<IAccount, List<SimulationTransaction>>> Run(SimulationSetup setup, Profile profile)
+    public static async Task<Dictionary<IAccount, List<SimulationResultItem>>> Run(SimulationSetup setup, Profile profile)
     {
       var cloned = await Task.Run(() => profile.Clone());
       return await Task.Run(() => RunInternal(setup, cloned));
     }
 
-    private static Dictionary<IAccount, List<SimulationTransaction>> RunInternal(SimulationSetup setup, Profile profile)
+    private static Dictionary<IAccount, List<SimulationResultItem>> RunInternal(SimulationSetup setup, Profile profile)
+    {
+      var state = new SimulationState(profile, setup);
+      var start = setup.Start.Date;
+      var end = setup.End.Date;
+
+      for (DateTime date = start; date <= end; date = date.AddDays(1))
+      {
+        // before anything else, make sure we do the events
+        var events = state.Events[date];
+        foreach (var item in events)
+        {
+          ProcessEvent(state, date, item);
+        }
+
+        // if it is the end of the month, then interest hits
+        if (date.IsEndOfMonth())
+        {
+          foreach (var account in state.GetAccounts())
+          {
+            account.ProcessInterest(state, date);
+          }
+        }
+
+        // deposit any paychecks
+        var paychecks = state.Paychecks.Values.Where(p => p.Due.Current == date);
+        foreach (var paycheck in paychecks)
+        {
+          paycheck.Process(state, date);
+          paycheck.Due.Next();
+        }
+
+        // pay the bills
+        var bills = state.Bills.Values.Where(b => b.Due.Current == date);
+        foreach (var bill in bills)
+        {
+          bill.Process(state, date);
+          bill.Due.Next();
+        }
+
+        // pay the debts
+        var debts = state.Debts.Values.Where(d => d.Due.Current == date);
+        foreach (var debt in debts)
+        {
+          debt.Process(state, date);
+          debt.Due.Next();
+        }
+
+        // process the transactions
+        var transactions = state.Transactions.Values.Where(t => t.Due.Current == date);
+        foreach (var transaction in transactions)
+        {
+          transaction.Process(state, date);
+          transaction.Due.Next();
+        }
+
+        // if we get here and a debt has a zero balance, then it is paid off
+        foreach (var debt in state.Debts.Values)
+        {
+          if (debt.Balance <= 0)
+          {
+            state.PayOff(date, debt);
+          }
+        }
+
+        // if needed, update the snowball
+        state.UpdateSnowball(date);
+
+        // quit if we need to
+        if (!state.ShouldKeepGoing())
+        {
+          break;
+        }
+      }
+
+      return state.Results;
+    }
+
+    private static void ProcessEvent(SimulationState state, DateTime date, BaseEvent item)
+    {
+      switch (item)
+      {
+        case AdjustPaycheckTotalEvent adjustPaycheckTotal:
+          {
+            state.AddToPaycheckTotal(date, adjustPaycheckTotal.PaycheckId, adjustPaycheckTotal.Amount);
+            break;
+          }
+        case AdjustSnowballAmountEvent adjustSnowball:
+          {
+            state.AddToSnowball(date, adjustSnowball.Amount);
+            break;
+          }
+        case ChangeBillPaymentEvent changeBillPayment:
+          {
+            state.ChangeBillPayment(date, changeBillPayment.BillId, changeBillPayment.NewPayment);
+            break;
+          }
+      }
+    }
+
+    private static Dictionary<IAccount, List<SimulationResultItem>> RunInternally(SimulationSetup setup, Profile profile)
     {
       var state = InitializeState(setup, profile);
 
@@ -87,7 +187,7 @@ namespace FinanceSim
       }
     }
 
-    private static void ApplyEvents(DateTime date, SimulationState state)
+    private static void ApplyEvents(DateTime date, SimulationLookupState state)
     {
       date = date.Date;
       foreach (var item in state.Events)
@@ -99,7 +199,7 @@ namespace FinanceSim
       }
     }
 
-    private static bool SelectNextSnowballTarget(DateTime date, SimulationState state)
+    private static bool SelectNextSnowballTarget(DateTime date, SimulationLookupState state)
     {
       if (state.SnowballTargets.Any())
       {
@@ -127,7 +227,7 @@ namespace FinanceSim
       return false;
     }
 
-    private static (bool remove, bool newSnowball) ProcessDueItem(DateTime date, IHasDueInfo item, SimulationState state)
+    private static (bool remove, bool newSnowball) ProcessDueItem(DateTime date, IHasDueInfo item, SimulationLookupState state)
     {
       bool remove = false;
       bool newSnowball = false;
@@ -191,7 +291,7 @@ namespace FinanceSim
           // we're taking money from a debt ...
           IncreaseBalance(state, date, from.Id, transaction.Name, transaction.Amount);
         }
-        else 
+        else
         {
           // we're taking money from a non-debt ...
           DecreaseBalance(state, date, from.Id, transaction.Name, transaction.Amount);
@@ -212,7 +312,7 @@ namespace FinanceSim
       return (remove, newSnowball);
     }
 
-    public static void AdjustSnowball(SimulationState state, DateTime date, decimal diff, string source = null)
+    public static void AdjustSnowball(SimulationLookupState state, DateTime date, decimal diff, string source = null)
     {
       var text = "Snowball Update";
       if (!string.IsNullOrWhiteSpace(source))
@@ -224,34 +324,34 @@ namespace FinanceSim
       AddTransaction(state, state.NoticeAccount, date, text, diff, state.SnowballAmount);
     }
 
-    public static void SnowballTargetChanged(SimulationState state, DateTime date, Debt current, Debt next)
+    public static void SnowballTargetChanged(SimulationLookupState state, DateTime date, Debt current, Debt next)
     {
       AddTransaction(state, state.NoticeAccount, date, $"Snowball Target ({current.Name} => {next.Name})", 0, 0);
     }
 
-    public static void AddNotice(SimulationState state, DateTime date, string text, decimal amount = 0, decimal balance = 0)
+    public static void AddNotice(SimulationLookupState state, DateTime date, string text, decimal amount = 0, decimal balance = 0)
     {
       AddTransaction(state, state.NoticeAccount, date, text, amount, balance);
     }
 
-    public static void PaidOff(SimulationState state, DateTime date, Debt debt)
+    public static void PaidOff(SimulationLookupState state, DateTime date, Debt debt)
     {
       AddTransaction(state, state.NoticeAccount, date, $"Paid Off: {debt.Name}", 0, 0);
     }
 
-    public static void NegativeBalance(SimulationState state, DateTime date, IAccount account)
+    public static void NegativeBalance(SimulationLookupState state, DateTime date, IAccount account)
     {
       AddTransaction(state, state.NoticeAccount, date, $"ALERT: {account.Name}", 0, state.AccountBalances[account.Id]);
     }
 
-    private static void IncreaseBalance(SimulationState state, DateTime date, string id, string name, decimal amount)
+    private static void IncreaseBalance(SimulationLookupState state, DateTime date, string id, string name, decimal amount)
     {
       state.AccountBalances[id] += amount;
       var newBalance = state.AccountBalances[id];
       AddTransaction(state, state.Accounts[id], date, name, amount, newBalance);
     }
 
-    private static void DecreaseBalance(SimulationState state, DateTime date, string id, string name, decimal amount)
+    private static void DecreaseBalance(SimulationLookupState state, DateTime date, string id, string name, decimal amount)
     {
       var account = state.Accounts[id];
       state.AccountBalances[id] -= amount;
@@ -264,10 +364,10 @@ namespace FinanceSim
       }
     }
 
-    private static SimulationState InitializeState(SimulationSetup setup, Profile profile)
+    private static SimulationLookupState InitializeState(SimulationSetup setup, Profile profile)
     {
-      var state = new SimulationState();
-      state.Transactions = new Dictionary<IAccount, List<SimulationTransaction>>();
+      var state = new SimulationLookupState();
+      state.Transactions = new Dictionary<IAccount, List<SimulationResultItem>>();
       state.Start = setup.Start;
       state.RemainingItems = profile.OfType<IHasDueInfo>().ToList();
       state.NextDueDate = InitializeDueDates(state);
@@ -283,7 +383,7 @@ namespace FinanceSim
       return state;
     }
 
-    private static IEnumerable<SimulationEvent> GenerateEvents(Profile profile, SimulationState state)
+    private static IEnumerable<SimulationEvent> GenerateEvents(Profile profile, SimulationLookupState state)
     {
       var events = profile.Events;
       if (events != null)
@@ -314,7 +414,7 @@ namespace FinanceSim
       }
     }
 
-    private static Dictionary<string, DateTime> InitializeDueDates(SimulationState state)
+    private static Dictionary<string, DateTime> InitializeDueDates(SimulationLookupState state)
     {
       var nextDueDate = new Dictionary<string, DateTime>();
       for (int i = state.RemainingItems.Count - 1; i > -1; --i)
@@ -347,7 +447,7 @@ namespace FinanceSim
       return (index < 0) ? int.MaxValue : index;
     }
 
-    private static void ApplyIterest(DateTime date, SimulationState state)
+    private static void ApplyIterest(DateTime date, SimulationLookupState state)
     {
       var daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
       if (date.Day == daysInMonth)
@@ -373,15 +473,15 @@ namespace FinanceSim
       }
     }
 
-    private static void AddTransaction(SimulationState state, IAccount account, DateTime date, string text, decimal amount, decimal balance)
+    private static void AddTransaction(SimulationLookupState state, IAccount account, DateTime date, string text, decimal amount, decimal balance)
     {
       if (!state.Transactions.TryGetValue(account, out var transactions))
       {
-        transactions = new List<SimulationTransaction>();
+        transactions = new List<SimulationResultItem>();
         state.Transactions[account] = transactions;
       }
 
-      transactions.Add(new SimulationTransaction
+      transactions.Add(new SimulationResultItem
       {
         Amount = amount,
         Balance = balance,

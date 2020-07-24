@@ -123,7 +123,7 @@ namespace FinanceSim
       {
         var profile = SelectedProfile.GetModel();
         var result = await Simulation.Run(model, profile);
-        Messenger.Popup("Results", new SimulationResults(result), modal: false);
+        Messenger.Popup("Results", new SimulationResultsViewModel(result), modal: false);
       }
     }
   }

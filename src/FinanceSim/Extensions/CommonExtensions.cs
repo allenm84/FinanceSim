@@ -1,14 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FinanceSim
 {
   public static class CommonExtensions
   {
+    public static IEnumerable<BaseEvent> All(this EventSetup events)
+    {
+      foreach (var item in events.AdjustPaycheckTotalEvents)
+      {
+        yield return item;
+      }
+
+      foreach (var item in events.AdjustSnowballAmountEvents)
+      {
+        yield return item;
+      }
+
+      foreach (var item in events.ChangeBillPaymentEvents)
+      {
+        yield return item;
+      }
+    }
+
+    public static bool IsEndOfMonth(this DateTime date)
+    {
+      var nextMonth = date.AddMonths(1);
+      var firstOfNextMonth = new DateTime(nextMonth.Year, nextMonth.Month, 1);
+      var endOfMonth = firstOfNextMonth.AddDays(-1).Date;
+      return endOfMonth == date.Date;
+    }
+
     public static List<T> Ensure<T>(this List<T> list)
     {
       return list ?? new List<T>();

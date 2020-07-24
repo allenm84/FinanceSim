@@ -65,6 +65,17 @@
     <Compile Include="Helpers\ObservableCollectionEx.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Helpers\UsingStatement.cs" />
+    <Compile Include="Simulation\ISimulationBill.cs" />
+    <Compile Include="Simulation\ISimulationItem.cs" />
+    <Compile Include="Simulation\SimulationDueInfo.cs" />
+    <Compile Include="Simulation\SimulationAccount.cs" />
+    <Compile Include="Simulation\SimulationBankAccount.cs" />
+    <Compile Include="Simulation\SimulationBill.cs" />
+    <Compile Include="Simulation\SimulationDebtAccount.cs" />
+    <Compile Include="Simulation\SimulationPaycheck.cs" />
+    <Compile Include="Simulation\SimulationPaycheckDeposit.cs" />
+    <Compile Include="Simulation\SimulationState.cs" />
+    <Compile Include="Simulation\SimulationTransaction.cs" />
     <Compile Include="ViewModels\BaseCollectionEditorAggregateViewModel.cs" />
     <Compile Include="ViewModels\HasBalanceAccountsViewModel.cs" />
     <Compile Include="ViewModels\IHasBalanceViewModel.cs" />
@@ -78,9 +89,9 @@
       <DependentUpon>PopupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Simulation\Simulation.cs" />
-    <Compile Include="Simulation\SimulationEvent.cs" />
+    <Compile Include="Simulation\SimulationLookupEvent.cs" />
     <Compile Include="Simulation\SimulationNoticeBoard.cs" />
-    <Compile Include="Simulation\SimulationState.cs" />
+    <Compile Include="Simulation\SimulationLookupState.cs" />
     <Compile Include="Tools\GitDrive.cs" />
     <Compile Include="ViewModels\AdjustPaycheckTotalEventViewModel.cs" />
     <Compile Include="ViewModels\AdjustSnowballAmountEventViewModel.cs" />
@@ -109,8 +120,8 @@
     <Compile Include="ViewModels\PaychecksViewModel.cs" />
     <Compile Include="ViewModels\PaymentsViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModel.cs" />
-    <Compile Include="Simulation\SimulationResultItem.cs" />
-    <Compile Include="Simulation\SimulationResults.cs" />
+    <Compile Include="Simulation\SimulationResultItemViewModel.cs" />
+    <Compile Include="Simulation\SimulationResultsViewModel.cs" />
     <Compile Include="Simulation\SimulationSetup.cs" />
     <Compile Include="ViewModels\SnowBallSetupItemViewModel.cs" />
     <Compile Include="ViewModels\SnowBallSetupViewModel.cs" />
@@ -118,7 +129,7 @@
     <Compile Include="ViewModels\BasePaymentViewModel.cs" />
     <Compile Include="View\DueTypeDisplayTextConverter.cs" />
     <Compile Include="View\EnumBIndingSourceExtension.cs" />
-    <Compile Include="Simulation\SimulationTransaction.cs" />
+    <Compile Include="Simulation\SimulationResultItem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
