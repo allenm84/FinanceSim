@@ -24,6 +24,9 @@ namespace FinanceSim
 
       Snowball = new SnowBallSetupViewModel(this, model.Snowball);
       Events = new EventSetupViewModel(this, model.Events);
+
+      Bills.ForEach(b => b.CompleteInitialization());
+      Debts.ForEach(d => d.CompleteInitialization());
     }
 
     public string Name

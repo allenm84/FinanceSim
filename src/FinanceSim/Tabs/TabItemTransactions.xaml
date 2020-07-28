@@ -1,0 +1,80 @@
+﻿<UserControl
+  x:Class="FinanceSim.TabItemTransactions"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  d:DesignHeight="450"
+  d:DesignWidth="800"
+  mc:Ignorable="d">
+  <Grid Margin="3" DataContext="{Binding}">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" MinWidth="170" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <ContentControl Content="{Binding}" />
+    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
+      <Grid DataContext="{Binding SelectedItem}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label
+          Grid.Row="0"
+          Grid.Column="0"
+          Content="Name:" />
+        <TextBox
+          Grid.Row="0"
+          Grid.Column="1"
+          Margin="3"
+          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+        <Label
+          Grid.Row="1"
+          Grid.Column="0"
+          Content="Amount:" />
+        <xceed:DecimalUpDown
+          Grid.Row="1"
+          Grid.Column="1"
+          Margin="3"
+          FormatString="C2"
+          Value="{Binding Amount}" />
+        <Label
+          Grid.Row="2"
+          Grid.Column="0"
+          Content="From:" />
+        <ComboBox
+          Grid.Row="2"
+          Grid.Column="1"
+          Margin="3"
+          ItemsSource="{Binding Profile.HasBalanceAccounts.Items}"
+          SelectedItem="{Binding FromAccount}" />
+        <Label
+          Grid.Row="3"
+          Grid.Column="0"
+          Content="To:" />
+        <ComboBox
+          Grid.Row="3"
+          Grid.Column="1"
+          Margin="3"
+          ItemsSource="{Binding Profile.HasBalanceAccounts.Items}"
+          SelectedItem="{Binding ToAccount}" />
+        <GroupBox
+          Grid.Row="4"
+          Grid.Column="0"
+          Grid.ColumnSpan="2"
+          Margin="3"
+          Header="Schedule">
+          <ContentControl Content="{Binding Due}" />
+        </GroupBox>
+      </Grid>
+    </Grid>
+  </Grid>
+</UserControl>

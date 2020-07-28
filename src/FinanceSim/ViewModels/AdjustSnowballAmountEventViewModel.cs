@@ -28,6 +28,7 @@
       {
         Amount = Amount,
         Date = Date,
+        Name = Name,
       };
     }
   }

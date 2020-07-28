@@ -63,6 +63,7 @@
     <Compile Include="Helpers\DueInfoHelper.cs" />
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Helpers\ObservableCollectionEx.cs" />
+    <Compile Include="Model\DebtType.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Helpers\UsingStatement.cs" />
     <Compile Include="Simulation\ISimulationBill.cs" />
@@ -76,6 +77,27 @@
     <Compile Include="Simulation\SimulationPaycheckDeposit.cs" />
     <Compile Include="Simulation\SimulationState.cs" />
     <Compile Include="Simulation\SimulationTransaction.cs" />
+    <Compile Include="Tabs\TabItemSnowball.xaml.cs">
+      <DependentUpon>TabItemSnowball.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemEvents.xaml.cs">
+      <DependentUpon>TabItemEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemTransactions.xaml.cs">
+      <DependentUpon>TabItemTransactions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemDebts.xaml.cs">
+      <DependentUpon>TabItemDebts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemBills.xaml.cs">
+      <DependentUpon>TabItemBills.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemAccounts.xaml.cs">
+      <DependentUpon>TabItemAccounts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tabs\TabItemPaychecks.xaml.cs">
+      <DependentUpon>TabItemPaychecks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tools\StringCipher.cs" />
     <Compile Include="ViewModels\BaseCollectionEditorAggregateViewModel.cs" />
     <Compile Include="ViewModels\HasBalanceAccountsViewModel.cs" />
@@ -161,6 +183,34 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Tabs\TabItemSnowball.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemEvents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemTransactions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemDebts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemBills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemAccounts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\TabItemPaychecks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PickDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,5 +268,6 @@
       <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

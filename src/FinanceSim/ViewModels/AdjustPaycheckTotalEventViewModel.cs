@@ -36,6 +36,7 @@
       {
         Amount = Amount,
         Date = Date,
+        Name = Name,
         PaycheckId = Paycheck?.Id,
       };
     }

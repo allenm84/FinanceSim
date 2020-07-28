@@ -35,6 +35,7 @@
       return new ChangeBillPaymentEvent
       {
         Date = Date,
+        Name = Name,
         BillId = Target?.Id,
         NewPayment = NewPayment,
       };

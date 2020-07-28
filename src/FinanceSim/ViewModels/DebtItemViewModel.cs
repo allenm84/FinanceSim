@@ -4,12 +4,14 @@
   {
     private decimal _interest;
     private decimal _balance;
+    private DebtType _type;
 
     public DebtItemViewModel(ProfileViewModel profile, Debt model)
       : base(profile, model)
     {
       Interest = model.Interest;
       Balance = model.Balance;
+      Type = model.Type;
     }
 
     public DebtItemViewModel(ProfileViewModel profile)
@@ -29,6 +31,12 @@
       set => SetField(ref _balance, value);
     }
 
+    public DebtType Type
+    {
+      get => _type;
+      set => SetField(ref _type, value);
+    }
+
     public override Debt GetModel()
     {
       return new Debt
@@ -40,6 +48,7 @@
         Interest = Interest,
         Name = Name,
         Payment = Payment,
+        Type = Type,
       };
     }
   }

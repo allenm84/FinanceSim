@@ -62,6 +62,14 @@ namespace FinanceSim
       }
     }
 
+    public void ForEach(Action<TViewModel> action)
+    {
+      foreach (TViewModel model in _items)
+      {
+        action(model);
+      }
+    }
+
     protected abstract TModel ToModel(TViewModel viewModel);
     protected abstract TViewModel ToViewModel(TModel model);
 

@@ -1,500 +1,155 @@
-﻿<Window x:Class="FinanceSim.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FinanceSim"
-        xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        xmlns:dd="urn:gong-wpf-dragdrop"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        DataContext="{x:Static local:FinanceSimSystem.View}"
-        Title="Finance Sim" Height="500" Width="700">
-    <Window.Resources>
-        <local:DueTypeDisplayTextConverter x:Key="dueTypeConvter"/>
-        <DataTemplate DataType="{x:Type local:PaycheckDepositItemViewModel}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Column="0" Content="Name:"/>
-                <TextBox Grid.Column="1" Margin="3" Text="{Binding Name}"/>
-                <Label Grid.Column="2" Content="Amount:"/>
-                <xceed:DecimalUpDown Grid.Column="3" Margin="3" FormatString="C2" Value="{Binding Amount}"/>
-                <Label Grid.Column="0" Grid.Row="1" Content="To:"/>
-                <ComboBox Grid.Column="1" Grid.Row="1"
-                          Margin="3" 
-                          SelectedItem="{Binding Account}"
-                          ItemsSource="{Binding Profile.Accounts.Items}"/>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:DueInfoViewModel}" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Label Content="Start:"/>
-                    <xceed:DateTimeUpDown Margin="2" Format="ShortDate" Value="{Binding Start}"/>
-                    <CheckBox Margin="2" VerticalAlignment="Center" Content="End:" 
-                                  IsChecked="{Binding HasEnd, UpdateSourceTrigger=PropertyChanged}"/>
-                    <xceed:DateTimeUpDown Margin="2" IsEnabled="{Binding HasEnd}" Format="ShortDate" 
-                            Value="{Binding End}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <Label Content="Every:"/>
-                    <xceed:UIntegerUpDown Margin="2" Value="{Binding Period}"/>
-                    <ComboBox Margin="2"
-                                  ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:DueType}}}"
-                                  SelectedValue="{Binding Type}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource dueTypeConvter}}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Label Content="Seed:"/>
-                    <xceed:DateTimeUpDown Margin="2" Format="ShortDate" Value="{Binding Seed}"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical">
-                    <Button Margin="3" Content="Copy" Command="{Binding CopyCommand}"/>
-                    <Button Margin="3" Content="Paste" Command="{Binding PasteCommand}"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:AdjustPaycheckTotalEventViewModel}">
-            <GroupBox Header="Adjust Paycheck Total Event">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date:"/>
-                    <xceed:DateTimeUpDown Margin="3" Format="ShortDate" Value="{Binding Date}"/>
-                    <Label Content="Amount:"/>
-                    <xceed:DecimalUpDown Margin="3" FormatString="C2" Value="{Binding Amount}"/>
-                    <Label Content="Paycheck:"/>
-                    <ComboBox Margin="3" 
-                          SelectedItem="{Binding Paycheck}"
-                          ItemsSource="{Binding Profile.Paychecks.Items}"/>
-                </StackPanel>
-            </GroupBox>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:AdjustSnowballAmountEventViewModel}">
-            <GroupBox Header="Adjust Snowball Amount Event">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date:"/>
-                    <xceed:DateTimeUpDown Margin="3" Format="ShortDate" Value="{Binding Date}"/>
-                    <Label Content="Amount:"/>
-                    <xceed:DecimalUpDown Margin="3" FormatString="C2" Value="{Binding Amount}"/>
-                </StackPanel>
-            </GroupBox>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:ChangePaymentEventViewModel}">
-            <GroupBox Header="Change Bill/Debt Payment Event">
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Date:"/>
-                    <xceed:DateTimeUpDown Margin="3" Format="ShortDate" Value="{Binding Date}"/>
-                    <Label Content="New Payment:"/>
-                    <xceed:DecimalUpDown Margin="3" FormatString="C2" Value="{Binding NewPayment}"/>
-                    <Label Content="Bill:"/>
-                    <ComboBox Margin="3" 
-                          SelectedItem="{Binding Target}"
-                          ItemsSource="{Binding Profile.Payments.Items}"/>
-                </StackPanel>
-            </GroupBox>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:SnowBallSetupItemViewModel}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Name}"/>
-                <TextBlock Grid.Column="1" Text="{Binding Balance, StringFormat=C2}"/>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type local:BaseCollectionEditorViewModel}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80" MaxWidth="80"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="80" MaxWidth="80"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <ListBox Grid.Row="0" Grid.ColumnSpan="3"
-                         x:Name="lstAccounts" 
-                         ItemsSource="{Binding Items}"
-                         SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Button Grid.Column="0" Grid.Row="1" Margin="0, 3" Content="Add" Command="{Binding AddCommand}"/>
-                <Button Grid.Column="2" Grid.Row="1" Margin="0, 3" Content="Remove" Command="{Binding RemoveCommand}"/>
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
-    <xceed:BusyIndicator x:Name="busyIndicator">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <ToolBar Grid.Row="0" ToolBarTray.IsLocked="True">
-                <Button Click="tbbSave_ItemClick" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/Save.png"/>
-                        <TextBlock Margin="3, 0" Text="Save"/>
-                    </StackPanel>
-                </Button>
-                <Separator/>
-                <Button Command="{Binding NewProfileCommand}" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/NewProfile.png"/>
-                        <TextBlock Margin="3, 0" Text="New"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding CloneProfileCommand}" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/CloneProfile.png"/>
-                        <TextBlock Margin="3, 0" Text="Clone"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding RemoveProfileCommand}" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/RemoveProfile.png"/>
-                        <TextBlock Margin="3, 0" Text="Remove"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding ExportProfileCommand}" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/ExportProfile.png"/>
-                        <TextBlock Margin="3, 0" Text="Export"/>
-                    </StackPanel>
-                </Button>
-                <Separator/>
-                <Button Command="{Binding RunProfileCommand}" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="Resources/Run.png"/>
-                        <TextBlock Margin="3, 0" Text="Run"/>
-                    </StackPanel>
-                </Button>
-            </ToolBar>
-            <Grid Margin="10" Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="Profiles:"/>
-                <ComboBox 
-                Grid.Column="1" 
-                Margin="3" 
-                ItemsSource="{Binding Profiles}"    
-                SelectedItem="{Binding SelectedProfile}"  
-                DisplayMemberPath="Name">
-                    <ComboBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ComboBoxItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Grid x:Name="gd" TextElement.Foreground="Black">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Margin="3" Grid.Column="0" Text="{Binding Name}"/>
-                                            <TextBlock Margin="3" Grid.Column="1" Text="{Binding Created, StringFormat=d}"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
-                                                <Setter TargetName="gd" Property="Background" Value="{x:Static SystemColors.HighlightBrush}"></Setter>
-                                                <Setter TargetName="gd" Property="TextElement.Foreground" Value="White"></Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ComboBox.ItemContainerStyle>
-                </ComboBox>
-                <GroupBox Grid.Row="1" Grid.ColumnSpan="2" Header="Data" DataContext="{Binding SelectedProfile}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Content="Name:"/>
-                        <TextBox Grid.Column="1" Margin="3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TabControl Grid.Row="1" Grid.ColumnSpan="2">
-                            <TabItem Header="Accounts">
-                                <Grid Margin="3" DataContext="{Binding Accounts}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="170"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentControl Content="{Binding}" />
-                                    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
-                                        <Grid DataContext="{Binding SelectedItem}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name}"/>
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Type:"/>
-                                            <ComboBox Grid.Row="1" Grid.Column="1" Margin="3"
-                                                  ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:BankAccountType}}}"
-                                                  SelectedValue="{Binding Type}"/>
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Balance:"/>
-                                            <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Balance}"/>
-                                            <Label Grid.Row="3" Grid.Column="0" Content="APY:"/>
-                                            <xceed:DecimalUpDown Grid.Row="3" Grid.Column="1" Margin="3" FormatString="P2" Value="{Binding APY}"/>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Paychecks">
-                                <Grid Margin="3" DataContext="{Binding Paychecks}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="170"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentControl Content="{Binding}"/>
-                                    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
-                                        <Grid DataContext="{Binding SelectedItem}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="100"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name}"/>
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Account:"/>
-                                            <ComboBox Grid.Row="1" Grid.Column="1" 
-                                              Margin="3" 
-                                              SelectedItem="{Binding Account}"
-                                              ItemsSource="{Binding Profile.Accounts.Items}"/>
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Total:"/>
-                                            <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Total}"/>
-                                            <Label Grid.Row="3" Grid.Column="0" Content="Deposits:"/>
-                                            <Grid Grid.Row="3" Grid.Column="1" DataContext="{Binding Deposits}">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="80"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-                                                <ListBox Grid.RowSpan="3" Margin="3" SelectedItem="{Binding SelectedItem}"
-                                                     ItemsSource="{Binding Items}" 
-                                                     HorizontalContentAlignment="Stretch"/>
-                                                <Button Grid.Row="0" Grid.Column="1" Margin="3" Content="Add" Command="{Binding AddCommand}"/>
-                                                <Button Grid.Row="1" Grid.Column="1" Margin="3" Content="Remove" Command="{Binding RemoveCommand}"/>
-                                            </Grid>
-                                            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Schedule" Margin="3">
-                                                <ContentControl Content="{Binding Due}"/>
-                                            </GroupBox>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Bills">
-                                <Grid Margin="3" DataContext="{Binding Bills}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="170"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentControl Content="{Binding}"/>
-                                    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
-                                        <Grid DataContext="{Binding SelectedItem}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name}"/>
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Account:"/>
-                                            <ComboBox Grid.Row="1" Grid.Column="1" 
-                                              Margin="3" 
-                                              SelectedItem="{Binding Account}"
-                                              ItemsSource="{Binding Profile.Accounts.Items}"/>
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Payment:"/>
-                                            <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Payment}"/>
-                                            <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" Header="Schedule">
-                                                <ContentControl Content="{Binding Due}"/>
-                                            </GroupBox>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Debts">
-                                <Grid Margin="3" DataContext="{Binding Debts}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="170"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentControl Content="{Binding}"/>
-                                    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
-                                        <Grid DataContext="{Binding SelectedItem}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name}"/>
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Account:"/>
-                                            <ComboBox Grid.Row="1" Grid.Column="1" 
-                                              Margin="3" 
-                                              SelectedItem="{Binding Account}"
-                                              ItemsSource="{Binding Profile.Accounts.Items}"/>
-                                            <Label Grid.Row="2" Grid.Column="0" Content="Payment:"/>
-                                            <xceed:DecimalUpDown Grid.Row="2" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Payment}"/>
-                                            <Label Grid.Row="3" Grid.Column="0" Content="Balance:"/>
-                                            <xceed:DecimalUpDown Grid.Row="3" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Balance}"/>
-                                            <Label Grid.Row="4" Grid.Column="0" Content="Interest:"/>
-                                            <xceed:DecimalUpDown Grid.Row="4" Grid.Column="1" Margin="3" FormatString="P2" Value="{Binding Interest}"/>
-                                            <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" Header="Schedule">
-                                                <ContentControl Content="{Binding Due}"/>
-                                            </GroupBox>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Transactions">
-                                <Grid Margin="3" DataContext="{Binding Transactions}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" MinWidth="170"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentControl Content="{Binding}" />
-                                    <Grid Grid.Column="1" IsEnabled="{Binding IsEnabled}">
-                                        <Grid DataContext="{Binding SelectedItem}">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-                                            <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <Label Grid.Row="1" Grid.Column="0" Content="Amount:"/>
-                                            <xceed:DecimalUpDown Grid.Row="1" Grid.Column="1" Margin="3" FormatString="C2" Value="{Binding Amount}"/>
-                                            <Label Grid.Row="2" Grid.Column="0" Content="From:"/>
-                                            <ComboBox Grid.Row="2" Grid.Column="1" Margin="3" 
-                                              SelectedItem="{Binding FromAccount}" 
-                                              ItemsSource="{Binding Profile.HasBalanceAccounts.Items}"/>
-                                            <Label Grid.Row="3" Grid.Column="0" Content="To:"/>
-                                            <ComboBox Grid.Row="3" Grid.Column="1" Margin="3" 
-                                              SelectedItem="{Binding ToAccount}" 
-                                              ItemsSource="{Binding Profile.HasBalanceAccounts.Items}"/>
-                                            <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Schedule" Margin="3">
-                                                <ContentControl Content="{Binding Due}"/>
-                                            </GroupBox>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Events">
-                                <Grid Margin="3" DataContext="{Binding Events}" IsEnabled="{Binding IsEnabled}">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <ListBox Margin="3" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"/>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="80"/>
-                                            <ColumnDefinition Width="80"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Margin="3" Content="Add" Command="{Binding AddCommand}"/>
-                                        <Button Grid.Column="2" Margin="3" Content="Remove" Command="{Binding RemoveCommand}"/>
-                                    </Grid>
-                                </Grid>
-                            </TabItem>
-                            <TabItem Header="Snowball">
-                                <Grid Margin="3" IsEnabled="{Binding Converter={StaticResource nullCheckConverter}}" DataContext="{Binding Snowball}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Content="Initial Amount:"/>
-                                    <xceed:DecimalUpDown Grid.Row="0" Grid.Column="1"
-                                                     Margin="3"
-                                                     FormatString="C2"
-                                                     Value="{Binding InitialAmount}"/>
-                                    <ListBox Grid.Row="1" Grid.ColumnSpan="2"
-                                             Margin="3"
-                                             ItemsSource="{Binding Items}"
-                                             HorizontalContentAlignment="Stretch"
-                                             dd:DragDrop.IsDragSource="True"
-                                             dd:DragDrop.IsDropTarget="True"/>
-                                </Grid>
-                            </TabItem>
-                        </TabControl>
+﻿<Window
+  x:Class="FinanceSim.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:FinanceSim"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  Title="Finance Sim"
+  Width="700"
+  Height="500"
+  DataContext="{x:Static local:FinanceSimSystem.View}"
+  WindowStartupLocation="CenterScreen"
+  mc:Ignorable="d">
+  <xceed:BusyIndicator x:Name="busyIndicator">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <ToolBar Grid.Row="0" ToolBarTray.IsLocked="True">
+        <Button Click="tbbSave_ItemClick">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/Save.png" />
+            <TextBlock Margin="3,0" Text="Save" />
+          </StackPanel>
+        </Button>
+        <Separator />
+        <Button Command="{Binding NewProfileCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/NewProfile.png" />
+            <TextBlock Margin="3,0" Text="New" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding CloneProfileCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/CloneProfile.png" />
+            <TextBlock Margin="3,0" Text="Clone" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding RemoveProfileCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/RemoveProfile.png" />
+            <TextBlock Margin="3,0" Text="Remove" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding ExportProfileCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/ExportProfile.png" />
+            <TextBlock Margin="3,0" Text="Export" />
+          </StackPanel>
+        </Button>
+        <Separator />
+        <Button Command="{Binding RunProfileCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/Run.png" />
+            <TextBlock Margin="3,0" Text="Run" />
+          </StackPanel>
+        </Button>
+      </ToolBar>
+      <Grid Grid.Row="1" Margin="10">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Profiles:" />
+        <ComboBox
+          Grid.Column="1"
+          Margin="3"
+          DisplayMemberPath="Name"
+          ItemsSource="{Binding Profiles}"
+          SelectedItem="{Binding SelectedProfile}">
+          <ComboBox.ItemContainerStyle>
+            <Style TargetType="{x:Type ComboBoxItem}">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate>
+                    <Grid x:Name="gd" TextElement.Foreground="Black">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock
+                        Grid.Column="0"
+                        Margin="3"
+                        Text="{Binding Name}" />
+                      <TextBlock
+                        Grid.Column="1"
+                        Margin="3"
+                        Text="{Binding Created, StringFormat=d}" />
                     </Grid>
-                </GroupBox>
-            </Grid>
-        </Grid>
-    </xceed:BusyIndicator>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                        <Setter TargetName="gd" Property="Background" Value="{x:Static SystemColors.HighlightBrush}" />
+                        <Setter TargetName="gd" Property="TextElement.Foreground" Value="White" />
+                      </Trigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Style>
+          </ComboBox.ItemContainerStyle>
+        </ComboBox>
+        <GroupBox
+          Grid.Row="1"
+          Grid.ColumnSpan="2"
+          DataContext="{Binding SelectedProfile}"
+          Header="Data">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Name:" />
+            <TextBox
+              Grid.Column="1"
+              Margin="3"
+              Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+            <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+              <TabItem Header="Accounts">
+                <local:TabItemAccounts DataContext="{Binding Accounts}" />
+              </TabItem>
+              <TabItem Header="Paychecks">
+                <local:TabItemPaychecks DataContext="{Binding Paychecks}" />
+              </TabItem>
+              <TabItem Header="Bills">
+                <local:TabItemBills DataContext="{Binding Bills}" />
+              </TabItem>
+              <TabItem Header="Debts">
+                <local:TabItemDebts DataContext="{Binding Debts}" />
+              </TabItem>
+              <TabItem Header="Transactions">
+                <local:TabItemTransactions DataContext="{Binding Transactions}" />
+              </TabItem>
+              <TabItem Header="Events">
+                <local:TabItemEvents DataContext="{Binding Events}" />
+              </TabItem>
+              <TabItem Header="Snowball">
+                <local:TabItemSnowball DataContext="{Binding Snowball}" />
+              </TabItem>
+            </TabControl>
+          </Grid>
+        </GroupBox>
+      </Grid>
+    </Grid>
+  </xceed:BusyIndicator>
 </Window>

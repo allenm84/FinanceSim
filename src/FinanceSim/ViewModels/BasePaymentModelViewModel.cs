@@ -3,26 +3,32 @@
   public abstract class BasePaymentModelViewModel<TModel> : BasePaymentViewModel
     where TModel : BasePayment
   {
-    private BankAccountItemViewModel _account;
+    private TModel _model;
+    private IHasBalanceViewModel _account;
 
     public BasePaymentModelViewModel(ProfileViewModel profile, TModel model)
       : base(profile, model)
     {
-      Account = Profile.FindAccount(model.AccountId);
+      _model = model;
     }
 
     public BasePaymentModelViewModel(ProfileViewModel profile) 
       : base(profile)
     {
-      Account = Profile.Accounts.First();
+      Account = Profile.HasBalanceAccounts.First();
     }
 
-    public BankAccountItemViewModel Account
+    public IHasBalanceViewModel Account
     {
       get => _account;
       set => SetField(ref _account, value);
     }
 
     public abstract TModel GetModel();
+
+    public virtual void CompleteInitialization()
+    {
+      Account = Profile.FindHasBalanceAccount(_model.AccountId);
+    }
   }
 }
