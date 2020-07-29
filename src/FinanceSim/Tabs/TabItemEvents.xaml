@@ -9,8 +9,7 @@
   mc:Ignorable="d">
   <Grid
     Margin="3"
-    DataContext="{Binding}"
-    IsEnabled="{Binding IsEnabled}">
+    DataContext="{Binding}">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto" MinWidth="170" />
       <ColumnDefinition Width="*" />

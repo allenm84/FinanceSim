@@ -4,6 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local="clr-namespace:FinanceSim"
   xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+  xmlns:dd="urn:gong-wpf-dragdrop"
   StartupUri="MainWindow.xaml">
   <Application.Resources>
     <local:NullCheckValueConverter x:Key="nullCheckConverter" />
@@ -281,6 +282,8 @@
           x:Name="lstAccounts"
           Grid.Row="0"
           Grid.ColumnSpan="3"
+          dd:DragDrop.IsDragSource="True"
+          dd:DragDrop.IsDropTarget="True"
           ItemsSource="{Binding Items}"
           SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
           <ListBox.ItemTemplate>

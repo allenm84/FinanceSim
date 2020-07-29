@@ -49,6 +49,8 @@ namespace FinanceSim
 
     public TViewModel First() => _items.FirstOrDefault();
 
+    public IEnumerable<TViewModel> GetItems() => _items;
+
     public Dictionary<TKey, TViewModel> ToDictionary<TKey>(Func<TViewModel, TKey> keySelector)
     {
       return _items.ToDictionary(keySelector);
