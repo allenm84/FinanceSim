@@ -10,17 +10,31 @@ namespace FinanceSim
       Interest = debt.Interest;
       Due = new SimulationDueInfo(start, debt.Due);
 
+      Type = debt.Type;
       AccountId = debt.AccountId;
       Payment = debt.Payment;
+
+      State = SimulationDebtAccountState.Due;
     }
 
+    public DebtType Type { get; }
     public string AccountId { get; }
     public decimal Payment { get; set; }
     public decimal Interest { get; set; }
-
     public SimulationDueInfo Due { get; }
+    public SimulationDebtAccountState State { get; private set; }
+    private bool IsPaidOff => (State == SimulationDebtAccountState.PaidOff);
 
-    public bool IsPaidOff { get; set; }
+    public bool SetState(SimulationDebtAccountState state)
+    {
+      if (state != State)
+      {
+        State = state;
+        return true;
+      }
+
+      return false;
+    }
 
     public override void Withdraw(SimulationState state, DateTime date, decimal amount) => 
       Balance += amount;
@@ -48,6 +62,12 @@ namespace FinanceSim
       if (state.IsSnowball && state.SnowballTarget == this)
       {
         payment += state.SnowballAmount;
+      }
+
+      if (payment > Balance)
+      {
+        // if we make this payment; we'll overpay
+        payment = Balance;
       }
 
       state.Deposit(date, this, "Payment", payment);

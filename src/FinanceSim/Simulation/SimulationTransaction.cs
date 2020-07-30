@@ -4,11 +4,9 @@ namespace FinanceSim
 {
   public class SimulationTransaction : ISimulationItem
   {
-    private readonly SimulationDueInfo _dueDates;
-
     public SimulationTransaction(DateTime start, Transaction transaction)
     {
-      _dueDates = new SimulationDueInfo(start, transaction.Due);
+      Due = new SimulationDueInfo(start, transaction.Due);
 
       Id = transaction.Id;
       Name = transaction.Name;
@@ -23,7 +21,7 @@ namespace FinanceSim
     public string FromId { get; set; }
     public string ToId { get; set; }
 
-    public SimulationDueInfo Due => _dueDates;
+    public SimulationDueInfo Due { get; }
 
     public void Process(SimulationState state, DateTime date)
     {

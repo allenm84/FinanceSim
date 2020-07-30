@@ -68,6 +68,7 @@
     <Compile Include="Helpers\UsingStatement.cs" />
     <Compile Include="Simulation\ISimulationBill.cs" />
     <Compile Include="Simulation\ISimulationItem.cs" />
+    <Compile Include="Simulation\SimulationDebtAccountState.cs" />
     <Compile Include="Simulation\SimulationDueInfo.cs" />
     <Compile Include="Simulation\SimulationAccount.cs" />
     <Compile Include="Simulation\SimulationBankAccount.cs" />

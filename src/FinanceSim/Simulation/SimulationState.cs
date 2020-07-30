@@ -88,7 +88,7 @@ namespace FinanceSim
 
       // go through the pool until we find the next target or the pool is drained
       var currentSnowballTarget = SnowballTarget;
-      while (SnowballTarget?.IsPaidOff == true)
+      while (CanBeSnowballTarget(SnowballTarget) == false)
       {
         SnowballTarget = SnowballPool.SafeDequeue();
       }
@@ -99,6 +99,16 @@ namespace FinanceSim
       }
     }
 
+    private static bool? CanBeSnowballTarget(SimulationDebtAccount debt)
+    {
+      if (debt == null)
+      {
+        return null;
+      }
+
+      return debt.State == SimulationDebtAccountState.Due;
+    }
+
     public void AddNotice(DateTime date, string text)
     {
       AddResultItem(_noticeAccount, date, 0, text);
@@ -106,16 +116,34 @@ namespace FinanceSim
 
     public void PayOff(DateTime date, SimulationDebtAccount debt)
     {
-      if (!debt.IsPaidOff)
+      switch (debt.Type)
       {
-        debt.IsPaidOff = true;
-        AddNotice(date, $"{debt.Name} paid off");
+        case DebtType.Revolving:
+          {
+            // a revolving debt doesn't get paid off, it just
+            // becomes inelligible to be a snowball target
+            if (debt.SetState(SimulationDebtAccountState.None))
+            {
+              AddNotice(date, $"{debt.Name} balance to {0m:C2}");
+            }
+            break;
+          }
+        default:
+          {
+            // any other debt type gets paid off and added 
+            // to the snowball
+            if (debt.SetState(SimulationDebtAccountState.PaidOff))
+            {
+              AddNotice(date, $"{debt.Name} paid off");
 
-        if (IsSnowball)
-        {
-          // add the debt payment to the snowball
-          AddToSnowball(date, debt.Payment);
-        }
+              if (IsSnowball)
+              {
+                // add the debt payment to the snowball
+                AddToSnowball(date, debt.Payment);
+              }
+            }
+            break;
+          }
       }
     }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FinanceSim
+﻿namespace FinanceSim
 {
   public interface ISimulationItem
   {
