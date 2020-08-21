@@ -27,6 +27,8 @@ namespace FinanceSim
 
       Bills.ForEach(b => b.CompleteInitialization());
       Debts.ForEach(d => d.CompleteInitialization());
+
+      Setup = new SimulationSetupViewModel(model.Setup);
     }
 
     public string Name
@@ -48,6 +50,7 @@ namespace FinanceSim
 
     public PaymentsViewModel Payments { get; }
     public HasBalanceAccountsViewModel HasBalanceAccounts { get; }
+    public SimulationSetupViewModel Setup { get; }
 
     public Profile GetModel()
     {
@@ -60,6 +63,7 @@ namespace FinanceSim
         Events = Events.GetModel(),
         Name = Name,
         Paychecks = Paychecks.GetModels().ToList(),
+        Setup = Setup.GetModel(),
         Snowball = Snowball.GetModel(),
         Transactions = Transactions.GetModels().ToList(),
       };

@@ -64,6 +64,7 @@
     <Compile Include="Helpers\EnumerableHelper.cs" />
     <Compile Include="Helpers\ObservableCollectionEx.cs" />
     <Compile Include="Model\DebtType.cs" />
+    <Compile Include="Model\SimulationSetup.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Helpers\UsingStatement.cs" />
     <Compile Include="Simulation\ISimulationBill.cs" />
@@ -146,7 +147,7 @@
     <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="Simulation\SimulationResultItemViewModel.cs" />
     <Compile Include="Simulation\SimulationResultsViewModel.cs" />
-    <Compile Include="Simulation\SimulationSetup.cs" />
+    <Compile Include="Simulation\SimulationSetupViewModel.cs" />
     <Compile Include="ViewModels\SnowBallSetupItemViewModel.cs" />
     <Compile Include="ViewModels\SnowBallSetupViewModel.cs" />
     <Compile Include="System\FinanceSimSystem.cs" />

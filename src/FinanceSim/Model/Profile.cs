@@ -20,5 +20,6 @@ namespace FinanceSim
     public List<Transaction> Transactions { get; set; } = new List<Transaction>();
     public SnowBallSetup Snowball { get; set; } = new SnowBallSetup();
     public EventSetup Events { get; set; } = new EventSetup();
+    public SimulationSetup Setup { get; set; }
   }
 }

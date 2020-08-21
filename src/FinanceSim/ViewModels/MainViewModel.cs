@@ -118,9 +118,10 @@ namespace FinanceSim
 
     private async void DoRunProfile()
     {
-      var model = new SimulationSetup();
-      if (Messenger.Popup("Simulation Setup", model, modal: true))
+      var setup = SelectedProfile.Setup;
+      if (Messenger.Popup("Simulation Setup", setup, modal: true))
       {
+        var model = setup.GetModel();
         var profile = SelectedProfile.GetModel();
         var result = await Simulation.Run(model, profile);
         Messenger.Popup("Results", new SimulationResultsViewModel(result), modal: false);
