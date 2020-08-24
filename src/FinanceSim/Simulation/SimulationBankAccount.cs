@@ -14,9 +14,11 @@ namespace FinanceSim
 
     public override void Withdraw(SimulationState state, DateTime date, decimal amount)
     {
+      decimal currentBalance = Balance;
+
       Balance -= amount;
 
-      if (Balance < 0)
+      if (Balance < 0 && currentBalance >= 0)
       {
         state.AddNotice(date, $"ALERT: {Name} has balance of {Balance:C2}");
       }

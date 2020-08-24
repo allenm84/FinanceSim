@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -114,9 +117,7 @@
       <DependentUpon>PopupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Simulation\Simulation.cs" />
-    <Compile Include="Simulation\SimulationLookupEvent.cs" />
     <Compile Include="Simulation\SimulationNoticeBoard.cs" />
-    <Compile Include="Simulation\SimulationLookupState.cs" />
     <Compile Include="Tools\GitDrive.cs" />
     <Compile Include="ViewModels\AdjustPaycheckTotalEventViewModel.cs" />
     <Compile Include="ViewModels\AdjustSnowballAmountEventViewModel.cs" />
@@ -270,6 +271,8 @@
       <Version>12.0.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="App.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
