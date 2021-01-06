@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 
 namespace FinanceSim
 {
@@ -10,6 +11,8 @@ namespace FinanceSim
 
     public SimulationSetupViewModel(SimulationSetup model)
     {
+      ResetToDefaultsCommand = new DelegateCommand(DoResetToDefaults);
+
       if (model != null)
       {
         Start = model.Start;
@@ -18,11 +21,11 @@ namespace FinanceSim
       }
       else
       {
-        Start = DateTime.Today;
-        End = DateTime.Today.AddYears(10);
-        UseSnowball = true;
+        DoResetToDefaults();
       }
     }
+
+    public ICommand ResetToDefaultsCommand { get; }
 
     public DateTime Start
     {
@@ -48,5 +51,12 @@ namespace FinanceSim
       End = End,
       UseSnowball = UseSnowball,
     };
+
+    private void DoResetToDefaults()
+    {
+      Start = DateTime.Today;
+      End = DateTime.Today.AddYears(10);
+      UseSnowball = true;
+    }
   }
 }

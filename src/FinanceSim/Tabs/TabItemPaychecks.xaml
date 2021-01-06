@@ -73,68 +73,41 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
-          <DataGrid
+          <Border
             Grid.RowSpan="3"
             Margin="3"
-            AutoGenerateColumns="False"
-            Background="White"
-            CanUserResizeRows="False"
-            GridLinesVisibility="None"
-            HeadersVisibility="Column"
-            ItemsSource="{Binding Items}"
-            RowHeight="30"
-            SelectedItem="{Binding SelectedItem}">
-            <DataGrid.Resources>
-              <Style TargetType="{x:Type DataGridCell}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-              </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-              <DataGridTemplateColumn
-                Width="*"
-                Header="Name"
-                IsReadOnly="False">
-                <DataGridTemplateColumn.CellTemplate>
+            BorderBrush="Black"
+            BorderThickness="0.25">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+              <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <Grid>
-                      <TextBox Margin="3" Text="{Binding Name}" />
-                    </Grid>
-                  </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-              </DataGridTemplateColumn>
-              <DataGridTemplateColumn
-                Width="Auto"
-                Header="Amount"
-                IsReadOnly="True">
-                <DataGridTemplateColumn.CellTemplate>
-                  <DataTemplate>
-                    <Grid>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="*" />
+                      </Grid.ColumnDefinitions>
+                      <TextBox
+                        Grid.Column="0"
+                        Margin="3"
+                        Text="{Binding Name}" />
                       <xceed:DecimalUpDown
+                        Grid.Column="1"
                         Margin="3"
                         FormatString="C2"
                         Value="{Binding Amount}" />
-                    </Grid>
-                  </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-              </DataGridTemplateColumn>
-              <DataGridTemplateColumn
-                Width="120"
-                Header="Account"
-                IsReadOnly="True">
-                <DataGridTemplateColumn.CellTemplate>
-                  <DataTemplate>
-                    <Grid>
                       <ComboBox
+                        Grid.Column="2"
                         Margin="3"
                         ItemsSource="{Binding Profile.Accounts.Items}"
                         SelectedItem="{Binding Account}" />
                     </Grid>
                   </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-              </DataGridTemplateColumn>
-            </DataGrid.Columns>
-          </DataGrid>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Border>
           <Button
             Grid.Row="0"
             Grid.Column="1"

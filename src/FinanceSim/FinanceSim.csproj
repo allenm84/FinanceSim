@@ -109,6 +109,7 @@
     <Compile Include="ViewModels\IHasBalanceViewModel.cs" />
     <Compile Include="ViewModels\TransactionItemViewModel.cs" />
     <Compile Include="ViewModels\TransactionsViewModel.cs" />
+    <Compile Include="View\Icons.cs" />
     <Compile Include="View\NullCheckValueConverter.cs" />
     <Compile Include="Windows\PickDialog.xaml.cs">
       <DependentUpon>PickDialog.xaml</DependentUpon>

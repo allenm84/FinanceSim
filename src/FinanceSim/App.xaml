@@ -2,15 +2,30 @@
   x:Class="FinanceSim.App"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:dd="urn:gong-wpf-dragdrop"
   xmlns:local="clr-namespace:FinanceSim"
   xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-  xmlns:dd="urn:gong-wpf-dragdrop"
   StartupUri="MainWindow.xaml">
   <Application.Resources>
     <local:NullCheckValueConverter x:Key="nullCheckConverter" />
     <local:DueTypeDisplayTextConverter x:Key="dueTypeConvter" />
     <DataTemplate DataType="{x:Type local:SimulationSetupViewModel}">
-      <GroupBox Header="Setup">
+      <GroupBox>
+        <GroupBox.Header>
+          <StackPanel Orientation="Horizontal">
+            <Button
+              Margin="3"
+              FontWeight="UltraBold"
+              VerticalAlignment="Center"
+              Command="{Binding ResetToDefaultsCommand}"
+              Content="{x:Static local:Icons.Reset}"
+              ToolTip="Reset Setup to Default" />
+            <TextBlock
+              Margin="3"
+              VerticalAlignment="Center"
+              Text="Setup:" />
+          </StackPanel>
+        </GroupBox.Header>
         <Grid Margin="3" HorizontalAlignment="Center">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -21,18 +36,34 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
-          <Label Grid.Row="0" Grid.Column="0" Content="Start:" />
-          <xceed:DateTimeUpDown Grid.Row="0" Grid.Column="1" Margin="3"
-                                Format="ShortDate"
-                                Value="{Binding Start}" />
-          <Label Grid.Row="1" Grid.Column="0" Content="End:" />
-          <xceed:DateTimeUpDown Grid.Row="1" Grid.Column="1" Margin="3"
-                                Format="ShortDate"
-                                Value="{Binding End}" />
-          <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"
-                    HorizontalAlignment="Center"
-                    Content="Use Snowball"
-                    IsChecked="{Binding UseSnowball}" />
+          <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Start:" />
+          <xceed:DateTimeUpDown
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="3"
+            Format="ShortDate"
+            Value="{Binding Start}" />
+          <Label
+            Grid.Row="1"
+            Grid.Column="0"
+            Content="End:" />
+          <xceed:DateTimeUpDown
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="3"
+            Format="ShortDate"
+            Value="{Binding End}" />
+          <CheckBox
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="3"
+            HorizontalAlignment="Center"
+            Content="Use Snowball"
+            IsChecked="{Binding UseSnowball}" />
         </Grid>
       </GroupBox>
     </DataTemplate>
@@ -141,11 +172,20 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
           <Label Content="Start:" />
-          <xceed:DateTimeUpDown Margin="2" Format="ShortDate" Value="{Binding Start}" />
-          <CheckBox Margin="2" VerticalAlignment="Center" Content="End:"
-                    IsChecked="{Binding HasEnd, UpdateSourceTrigger=PropertyChanged}" />
-          <xceed:DateTimeUpDown Margin="2" Format="ShortDate" IsEnabled="{Binding HasEnd}"
-                                Value="{Binding End}" />
+          <xceed:DateTimeUpDown
+            Margin="2"
+            Format="ShortDate"
+            Value="{Binding Start}" />
+          <CheckBox
+            Margin="2"
+            VerticalAlignment="Center"
+            Content="End:"
+            IsChecked="{Binding HasEnd, UpdateSourceTrigger=PropertyChanged}" />
+          <xceed:DateTimeUpDown
+            Margin="2"
+            Format="ShortDate"
+            IsEnabled="{Binding HasEnd}"
+            Value="{Binding End}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
           <Label Content="Every:" />
@@ -196,20 +236,50 @@
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
-                   Margin="3" Text="Adjust Paycheck Total:"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Name:" />
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding Name}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="Date:" />
-        <xceed:DateTimeUpDown Grid.Row="2" Grid.Column="1" Margin="3" 
-                              Format="ShortDate" Value="{Binding Date}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="Amount:" />
-        <xceed:DecimalUpDown Grid.Row="3" Grid.Column="1" Margin="3" 
-                             FormatString="C2" Value="{Binding Amount}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="Paycheck:" />
-        <ComboBox Grid.Row="4" Grid.Column="1" Margin="3"
-                  ItemsSource="{Binding Profile.Paychecks.Items}"
-                  SelectedItem="{Binding Paycheck}" />
+        <TextBlock
+          Grid.Row="0"
+          Grid.ColumnSpan="2"
+          Margin="3"
+          Text="Adjust Paycheck Total:" />
+        <Label
+          Grid.Row="1"
+          Grid.Column="0"
+          Content="Name:" />
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          Margin="3"
+          Text="{Binding Name}" />
+        <Label
+          Grid.Row="2"
+          Grid.Column="0"
+          Content="Date:" />
+        <xceed:DateTimeUpDown
+          Grid.Row="2"
+          Grid.Column="1"
+          Margin="3"
+          Format="ShortDate"
+          Value="{Binding Date}" />
+        <Label
+          Grid.Row="3"
+          Grid.Column="0"
+          Content="Amount:" />
+        <xceed:DecimalUpDown
+          Grid.Row="3"
+          Grid.Column="1"
+          Margin="3"
+          FormatString="C2"
+          Value="{Binding Amount}" />
+        <Label
+          Grid.Row="4"
+          Grid.Column="0"
+          Content="Paycheck:" />
+        <ComboBox
+          Grid.Row="4"
+          Grid.Column="1"
+          Margin="3"
+          ItemsSource="{Binding Profile.Paychecks.Items}"
+          SelectedItem="{Binding Paycheck}" />
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:AdjustSnowballAmountEventViewModel}">
@@ -225,16 +295,40 @@
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
-                   Margin="3" Text="Adjust Snowball Amount:"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Name:" />
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding Name}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="Date:" />
-        <xceed:DateTimeUpDown Grid.Row="2" Grid.Column="1" Margin="3" 
-                              Format="ShortDate" Value="{Binding Date}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="Amount:" />
-        <xceed:DecimalUpDown Grid.Row="3" Grid.Column="1" Margin="3" 
-                             FormatString="C2" Value="{Binding Amount}" />
+        <TextBlock
+          Grid.Row="0"
+          Grid.ColumnSpan="2"
+          Margin="3"
+          Text="Adjust Snowball Amount:" />
+        <Label
+          Grid.Row="1"
+          Grid.Column="0"
+          Content="Name:" />
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          Margin="3"
+          Text="{Binding Name}" />
+        <Label
+          Grid.Row="2"
+          Grid.Column="0"
+          Content="Date:" />
+        <xceed:DateTimeUpDown
+          Grid.Row="2"
+          Grid.Column="1"
+          Margin="3"
+          Format="ShortDate"
+          Value="{Binding Date}" />
+        <Label
+          Grid.Row="3"
+          Grid.Column="0"
+          Content="Amount:" />
+        <xceed:DecimalUpDown
+          Grid.Row="3"
+          Grid.Column="1"
+          Margin="3"
+          FormatString="C2"
+          Value="{Binding Amount}" />
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:ChangePaymentEventViewModel}">
@@ -251,19 +345,50 @@
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" 
-                   Margin="3" Text="Change Bill Payment:"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Name:" />
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding Name}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="Date:" />
-        <xceed:DateTimeUpDown Grid.Row="2" Grid.Column="1" Margin="3" 
-                              Format="ShortDate" Value="{Binding Date}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="New Payment:" />
-        <xceed:DecimalUpDown Grid.Row="3" Grid.Column="1" Margin="3" 
-                             FormatString="C2" Value="{Binding NewPayment}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="Bill:" />
-        <ComboBox Margin="3" Grid.Row="4" Grid.Column="1" 
-                  ItemsSource="{Binding Profile.Payments.Items}" SelectedItem="{Binding Target}" />
+        <TextBlock
+          Grid.Row="0"
+          Grid.ColumnSpan="2"
+          Margin="3"
+          Text="Change Bill Payment:" />
+        <Label
+          Grid.Row="1"
+          Grid.Column="0"
+          Content="Name:" />
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          Margin="3"
+          Text="{Binding Name}" />
+        <Label
+          Grid.Row="2"
+          Grid.Column="0"
+          Content="Date:" />
+        <xceed:DateTimeUpDown
+          Grid.Row="2"
+          Grid.Column="1"
+          Margin="3"
+          Format="ShortDate"
+          Value="{Binding Date}" />
+        <Label
+          Grid.Row="3"
+          Grid.Column="0"
+          Content="New Payment:" />
+        <xceed:DecimalUpDown
+          Grid.Row="3"
+          Grid.Column="1"
+          Margin="3"
+          FormatString="C2"
+          Value="{Binding NewPayment}" />
+        <Label
+          Grid.Row="4"
+          Grid.Column="0"
+          Content="Bill:" />
+        <ComboBox
+          Grid.Row="4"
+          Grid.Column="1"
+          Margin="3"
+          ItemsSource="{Binding Profile.Payments.Items}"
+          SelectedItem="{Binding Target}" />
       </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:SnowBallSetupItemViewModel}">

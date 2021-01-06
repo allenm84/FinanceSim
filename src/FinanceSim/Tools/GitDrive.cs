@@ -44,6 +44,14 @@ namespace FinanceSim
       {
         result = await Task.Run(() => CloneGitDrive());
       }
+      else
+      {
+        await Task.Run(() =>
+        {
+          git("fetch --all");
+          git("pull");
+        });
+      }
 
       if (result)
       {
