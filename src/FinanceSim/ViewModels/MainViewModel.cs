@@ -23,6 +23,7 @@ namespace FinanceSim
       RemoveProfileCommand = new DelegateCommand(DoRemoveProfile, IsProfileSelected);
       ExportProfileCommand = new DelegateCommand(DoExportProfile, IsProfileSelected);
       RunProfileCommand = new DelegateCommand(DoRunProfile, IsProfileSelected);
+      ViewScheduleCommand = new DelegateCommand(DoViewSchedule);
     }
 
     public ObservableCollectionEx<ProfileViewModel> Profiles { get; } = new ObservableCollectionEx<ProfileViewModel>();
@@ -42,6 +43,7 @@ namespace FinanceSim
     public DelegateCommand RemoveProfileCommand { get; }
     public DelegateCommand ExportProfileCommand { get; }
     public DelegateCommand RunProfileCommand { get; }
+    public DelegateCommand ViewScheduleCommand { get; }
 
     public async Task LoadData()
     {
@@ -125,6 +127,21 @@ namespace FinanceSim
         var profile = SelectedProfile.GetModel();
         var result = await Simulation.Run(model, profile);
         Messenger.Popup("Results", new SimulationResultsViewModel(result), modal: false);
+      }
+    }
+
+    private async void DoViewSchedule()
+    {
+      var schedule = new ScheduleSetupViewModel();
+      if (Messenger.Popup("Schedule Setup", schedule, modal: true))
+      {
+        var profile = SelectedProfile.GetModel();
+        var start = schedule.Date.AddDays(-schedule.DaysBefore);
+        var end = schedule.Date.AddDays(schedule.DaysAfter);
+        var setup = new SimulationSetup { Start = start, End = end, UseSnowball = false };
+        var result = await Simulation.Run(setup, profile);
+        var items = result.Where(it => it.Key.Id != SimulationNoticeBoard.AccountId).SelectMany(it => it.Value);
+        Messenger.Popup("Schedule", new ScheduleResultViewModel(items), modal: false);
       }
     }
   }

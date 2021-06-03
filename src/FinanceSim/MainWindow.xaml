@@ -57,6 +57,13 @@
             <TextBlock Margin="3,0" Text="Run" />
           </StackPanel>
         </Button>
+        <Separator />
+        <Button Command="{Binding ViewScheduleCommand}">
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Resources/Schedule.png" />
+            <TextBlock Margin="3,0" Text="Schedule" />
+          </StackPanel>
+        </Button>
       </ToolBar>
       <Grid Grid.Row="1" Margin="10">
         <Grid.RowDefinitions>

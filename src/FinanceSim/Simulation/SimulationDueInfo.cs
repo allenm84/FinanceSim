@@ -35,6 +35,11 @@ namespace FinanceSim
     {
       var end = _dueInfo.End.GetValueOrDefault(End);
 
+      if (_dueInfo.Type == DueType.Once)
+      {
+        end = _dueInfo.Seed;
+      }
+
       for (DateTime i = _dueInfo.Seed; i <= end; i = Next(i))
       {
         yield return i;

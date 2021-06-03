@@ -107,8 +107,11 @@
     <Compile Include="ViewModels\BaseCollectionEditorAggregateViewModel.cs" />
     <Compile Include="ViewModels\HasBalanceAccountsViewModel.cs" />
     <Compile Include="ViewModels\IHasBalanceViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleResultViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleSetupViewModel.cs" />
     <Compile Include="ViewModels\TransactionItemViewModel.cs" />
     <Compile Include="ViewModels\TransactionsViewModel.cs" />
+    <Compile Include="View\CollectionViewSourceConverter.cs" />
     <Compile Include="View\Icons.cs" />
     <Compile Include="View\NullCheckValueConverter.cs" />
     <Compile Include="Windows\PickDialog.xaml.cs">
@@ -274,6 +277,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Schedule.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
