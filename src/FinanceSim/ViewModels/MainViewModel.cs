@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using Google.Cloud.Firestore;
 using Newtonsoft.Json;
 
 namespace FinanceSim
@@ -24,6 +27,7 @@ namespace FinanceSim
       ExportProfileCommand = new DelegateCommand(DoExportProfile, IsProfileSelected);
       RunProfileCommand = new DelegateCommand(DoRunProfile, IsProfileSelected);
       ViewScheduleCommand = new DelegateCommand(DoViewSchedule);
+      ConvertCommand = new DelegateCommand(DoConvert);
     }
 
     public ObservableCollectionEx<ProfileViewModel> Profiles { get; } = new ObservableCollectionEx<ProfileViewModel>();
@@ -44,6 +48,7 @@ namespace FinanceSim
     public DelegateCommand ExportProfileCommand { get; }
     public DelegateCommand RunProfileCommand { get; }
     public DelegateCommand ViewScheduleCommand { get; }
+    public DelegateCommand ConvertCommand { get; }
 
     public async Task LoadData()
     {
@@ -144,5 +149,59 @@ namespace FinanceSim
         Messenger.Popup("Schedule", new ScheduleResultViewModel(items), modal: false);
       }
     }
+
+    private async void DoConvert()
+    {
+      const string projectId = "mapa-apps";
+      var db = FirestoreDb.Create(projectId);
+      foreach (var profile in Profiles.Select(p => p.GetModel()))
+      {
+        var item = new ConvertedProfile
+        {
+          Name = profile.Name,
+          Created = profile.Created,
+          Accounts = profile.Accounts,
+          Bills = profile.Bills,
+          Debts = profile.Debts,
+          Paychecks = profile.Paychecks,
+          Transactions = profile.Transactions,
+          Events = profile.Events.All().ToList(),
+          Setup = profile.Setup,
+          Snowball = profile.Snowball
+        };
+
+        var json = JsonConvert.SerializeObject(item, new JsonSerializerSettings
+        {
+          TypeNameHandling = TypeNameHandling.Auto,
+        });
+
+        var password = Environment.GetEnvironmentVariable("STRING_CIPHER_KEY");
+        var data = StringCipher.EncryptString(password, json);
+
+        var docRef = db.Collection("financeSim").Document(item.Id);
+        var docData = new Dictionary<string, object>
+          {
+            { "Name", profile.Name },
+            { "Created", profile.Created.ToUniversalTime() },
+            { "Data", data }
+          };
+        await docRef.SetAsync(docData, SetOptions.Overwrite);
+      }
+    }
+  }
+
+  public class ConvertedProfile
+  {
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Name { get; set; }
+    public DateTime Created { get; set; }
+    public List<BankAccount> Accounts { get; set; }
+    public List<Bill> Bills { get; set; }
+    public List<Debt> Debts { get; set; }
+    public List<Paycheck> Paychecks { get; set; }
+    public List<Transaction> Transactions { get; set; }
+    public List<BaseEvent> Events { get; set; }
+    public SnowBallSetup Snowball { get; set; }
+    public SimulationSetup Setup { get; set; }
   }
 }

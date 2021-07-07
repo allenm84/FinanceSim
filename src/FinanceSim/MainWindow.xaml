@@ -9,6 +9,7 @@
   Title="Finance Sim"
   Width="700"
   Height="500"
+  d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
   DataContext="{x:Static local:FinanceSimSystem.View}"
   WindowStartupLocation="CenterScreen"
   mc:Ignorable="d">
@@ -62,6 +63,11 @@
           <StackPanel Orientation="Horizontal">
             <Image Source="Resources/Schedule.png" />
             <TextBlock Margin="3,0" Text="Schedule" />
+          </StackPanel>
+        </Button>
+        <Button Command="{Binding ConvertCommand}">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="3,0" Text="Convert" />
           </StackPanel>
         </Button>
       </ToolBar>

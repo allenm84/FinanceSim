@@ -45,7 +45,7 @@ namespace FinanceSim
       }
     }
 
-    private static string EncryptString(string password, string plainInput)
+    public static string EncryptString(string password, string plainInput)
     {
       using (var tdes = CreateProvider(password))
       {
@@ -56,7 +56,7 @@ namespace FinanceSim
       }
     }
 
-    private static string DecryptString(string password, string cipherText)
+    public static string DecryptString(string password, string cipherText)
     {
       using (var tdes = CreateProvider(password))
       {
