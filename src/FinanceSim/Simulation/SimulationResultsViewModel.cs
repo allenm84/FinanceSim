@@ -20,17 +20,13 @@ namespace FinanceSim
 
     public static int GetTypeKey(IAccount account)
     {
-      switch (account)
+      return account switch
       {
-        case SimulationNoticeBoard _:
-          return 0;
-        case SimulationBankAccount _:
-          return 1;
-        case SimulationDebtAccount _:
-          return 2;
-        default: 
-          return 3;
-      }
+        SimulationNoticeBoard => 0,
+        SimulationBankAccount => 1,
+        SimulationDebtAccount => 2,
+        _ => 3,
+      };
     }
   }
 }

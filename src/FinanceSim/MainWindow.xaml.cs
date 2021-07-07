@@ -8,7 +8,7 @@ namespace FinanceSim
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class MainWindow : Window, IMessengeHandler
+  public partial class MainWindow : Window, IMessageHandler
   {
     public MainWindow()
     {
@@ -35,11 +35,8 @@ namespace FinanceSim
 
     private IDisposable DisplayWait()
     {
-      busyIndicator.IsBusy = true;
-      return new UsingStatement(() =>
-      {
-        busyIndicator.IsBusy = false;
-      });
+      BusyIndicator.IsBusy = true;
+      return new UsingStatement(() => { BusyIndicator.IsBusy = false; });
     }
 
     private void tbbSave_ItemClick(object sender, RoutedEventArgs e)
@@ -47,13 +44,13 @@ namespace FinanceSim
       SaveData();
     }
 
-    bool IMessengeHandler.Confirm(string message, string caption)
+    bool IMessageHandler.Confirm(string message, string caption)
     {
       var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
-      return (result == MessageBoxResult.Yes);
+      return result == MessageBoxResult.Yes;
     }
 
-    bool IMessengeHandler.Pick<T>(string title, string prompt, IEnumerable<T> choices, out T choice)
+    bool IMessageHandler.Pick<T>(string title, string prompt, IEnumerable<T> choices, out T choice)
     {
       choice = default;
 
@@ -64,12 +61,12 @@ namespace FinanceSim
       };
 
       dlg.Populate(choices);
-      return 
-        dlg.ShowDialog() == true && 
+      return
+        dlg.ShowDialog() == true &&
         dlg.GetSelected(out choice);
     }
 
-    bool IMessengeHandler.PromptSaveFileAs(string title, string filter, out string saveFilePath)
+    bool IMessageHandler.PromptSaveFileAs(string title, string filter, out string saveFilePath)
     {
       saveFilePath = "";
 
@@ -87,7 +84,7 @@ namespace FinanceSim
       return !string.IsNullOrWhiteSpace(saveFilePath);
     }
 
-    bool IMessengeHandler.Popup(string title, object content, bool modal)
+    bool IMessageHandler.Popup(string title, object content, bool modal)
     {
       var dlg = new PopupWindow()
       {

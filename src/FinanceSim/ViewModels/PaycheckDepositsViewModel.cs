@@ -22,12 +22,12 @@ namespace FinanceSim
 
     protected override PaycheckDepositItemViewModel ToViewModel(PaycheckDeposit model)
     {
-      return new PaycheckDepositItemViewModel(Profile, model);
+      return new(Profile, model);
     }
 
     protected override PaycheckDepositItemViewModel NewViewModel()
     {
-      return new PaycheckDepositItemViewModel(Profile);
+      return new(Profile);
     }
   }
 }

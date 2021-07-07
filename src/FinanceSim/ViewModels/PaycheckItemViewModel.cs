@@ -44,7 +44,7 @@ namespace FinanceSim
 
     public Paycheck GetModel()
     {
-      return new Paycheck
+      return new()
       {
         AccountId = Account?.Id,
         Deposits = Deposits.GetModels().ToList(),

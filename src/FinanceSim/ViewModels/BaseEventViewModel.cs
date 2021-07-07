@@ -7,14 +7,14 @@ namespace FinanceSim
     private DateTime _date;
     private string _name;
 
-    public BaseEventViewModel(ProfileViewModel profile, BaseEvent model)
+    protected BaseEventViewModel(ProfileViewModel profile, BaseEvent model)
     {
       Profile = profile;
       Date = model.Date;
       Name = model.Name ?? $"{model.GetType().Name}";
     }
 
-    public BaseEventViewModel(ProfileViewModel profile)
+    protected BaseEventViewModel(ProfileViewModel profile)
     {
       Profile = profile;
     }

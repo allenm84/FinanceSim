@@ -16,12 +16,12 @@ namespace FinanceSim
 
     protected override BillItemViewModel ToViewModel(Bill model)
     {
-      return new BillItemViewModel(Profile, model);
+      return new(Profile, model);
     }
 
     protected override BillItemViewModel NewViewModel()
     {
-      return new BillItemViewModel(Profile);
+      return new(Profile);
     }
   }
 }

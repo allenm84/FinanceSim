@@ -16,12 +16,12 @@ namespace FinanceSim
 
     protected override BankAccountItemViewModel ToViewModel(BankAccount model)
     {
-      return new BankAccountItemViewModel(Profile, model);
+      return new(Profile, model);
     }
 
     protected override BankAccountItemViewModel NewViewModel()
     {
-      return new BankAccountItemViewModel(Profile);
+      return new(Profile);
     }
   }
 }

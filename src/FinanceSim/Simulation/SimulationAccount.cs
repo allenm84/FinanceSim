@@ -4,7 +4,7 @@ namespace FinanceSim
 {
   public abstract class SimulationAccount : IAccount, ISimulationItem
   {
-    public SimulationAccount(IAccount account)
+    protected SimulationAccount(IAccount account)
     {
       Balance = account.Balance;
       Id = account.Id;

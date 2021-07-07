@@ -4,9 +4,9 @@ namespace FinanceSim
 {
   public static class Messenger
   {
-    static IMessengeHandler sHandler;
+    private static IMessageHandler sHandler;
 
-    public static void Register(IMessengeHandler handler)
+    public static void Register(IMessageHandler handler)
     {
       sHandler = handler;
     }

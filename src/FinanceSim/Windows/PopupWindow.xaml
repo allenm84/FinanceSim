@@ -1,43 +1,42 @@
 ﻿<Window
-    x:Class="FinanceSim.PopupWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:FinanceSim"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="PopupWindow"
-    Width="Auto"
-    Height="Auto"
-    MinWidth="200"
-    ResizeMode="CanMinimize"
-    SizeToContent="WidthAndHeight"
-    WindowStartupLocation="CenterScreen"
-    WindowStyle="ToolWindow"
-    mc:Ignorable="d">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ContentControl Content="{Binding}" />
-        <Grid x:Name="pnlOkCancel" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="80" />
-                <ColumnDefinition Width="80" />
-            </Grid.ColumnDefinitions>
-            <Button
-                x:Name="btnOK"
-                Grid.Column="1"
-                Margin="3"
-                Click="btnOK_Click"
-                Content="OK" />
-            <Button
-                x:Name="btnCancel"
-                Grid.Column="2"
-                Margin="3"
-                Click="btnCancel_Click"
-                Content="Cancel" />
-        </Grid>
+  x:Class="FinanceSim.PopupWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  Title="PopupWindow"
+  Width="Auto"
+  Height="Auto"
+  MinWidth="200"
+  ResizeMode="CanMinimize"
+  SizeToContent="WidthAndHeight"
+  WindowStartupLocation="CenterScreen"
+  WindowStyle="ToolWindow"
+  mc:Ignorable="d">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <ContentControl Content="{Binding}" />
+    <Grid x:Name="pnlOkCancel" Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="80" />
+        <ColumnDefinition Width="80" />
+      </Grid.ColumnDefinitions>
+      <Button
+        x:Name="btnOK"
+        Grid.Column="1"
+        Margin="3"
+        Click="btnOK_Click"
+        Content="OK" />
+      <Button
+        x:Name="btnCancel"
+        Grid.Column="2"
+        Margin="3"
+        Click="btnCancel_Click"
+        Content="Cancel" />
     </Grid>
+  </Grid>
 </Window>

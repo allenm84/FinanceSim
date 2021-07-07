@@ -7,11 +7,10 @@ namespace FinanceSim
   public class SimulationPaycheck : ISimulationItem
   {
     private readonly List<SimulationPaycheckDeposit> _deposits;
-    private readonly SimulationDueInfo _dueDates;
 
     public SimulationPaycheck(DateTime start, Paycheck paycheck)
     {
-      _dueDates = new SimulationDueInfo(start, paycheck.Due);
+      Due = new SimulationDueInfo(start, paycheck.Due);
       _deposits = paycheck.Deposits.Select(d => new SimulationPaycheckDeposit(d)).ToList();
 
       Id = paycheck.Id;
@@ -25,7 +24,7 @@ namespace FinanceSim
     public string Name { get; }
     public decimal Total { get; set; }
 
-    public SimulationDueInfo Due => _dueDates;
+    public SimulationDueInfo Due { get; }
 
     public void Process(SimulationState state, DateTime date)
     {

@@ -7,7 +7,7 @@ namespace FinanceSim
 {
   public class DueTypeDisplayTextConverter : IValueConverter
   {
-    private readonly Dictionary<DueType, string> _typeToText = new Dictionary<DueType, string>
+    private readonly Dictionary<DueType, string> _typeToText = new()
     {
       { DueType.Daily, "Days" },
       { DueType.Monthly, "Months" },

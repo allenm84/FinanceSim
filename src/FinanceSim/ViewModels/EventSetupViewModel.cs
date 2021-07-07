@@ -1,76 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FinanceSim
 {
   public class EventSetupViewModel : CollectionEditorViewModel<BaseEventViewModel, BaseEvent>
   {
-    static readonly BaseEventType[] sEventTypes = (BaseEventType[])Enum.GetValues(typeof(BaseEventType));
+    private static readonly BaseEventType[] sEventTypes = (BaseEventType[])Enum.GetValues(typeof(BaseEventType));
 
-    public EventSetupViewModel(ProfileViewModel profile, EventSetup model)
-      : base(profile, AllEvents(model))
+    public EventSetupViewModel(ProfileViewModel profile, IEnumerable<BaseEvent> events)
+      : base(profile, events)
     {
-    }
-
-    private static IEnumerable<BaseEvent> AllEvents(EventSetup model)
-    {
-      return EnumerableHelper.Iterate<BaseEvent>(
-        model?.AdjustPaycheckTotalEvents,
-        model?.AdjustSnowballAmountEvents,
-        model?.ChangeBillPaymentEvents);
-    }
-
-    public EventSetup GetModel()
-    {
-      var items = GetModels().ToList();
-
-      return new EventSetup
-      {
-        AdjustPaycheckTotalEvents = items.OfType<AdjustPaycheckTotalEvent>().ToList(),
-        AdjustSnowballAmountEvents = items.OfType<AdjustSnowballAmountEvent>().ToList(),
-        ChangeBillPaymentEvents = items.OfType<ChangeBillPaymentEvent>().ToList()
-      };
     }
 
     protected override BaseEvent ToModel(BaseEventViewModel viewModel)
-    {
-      return viewModel.GetModel();
-    }
+      => viewModel.GetModel();
 
-    protected override BaseEventViewModel ToViewModel(BaseEvent model)
+    protected override BaseEventViewModel ToViewModel(BaseEvent model) => model switch
     {
-      switch (model)
-      {
-        case AdjustPaycheckTotalEvent apte:
-          {
-            return new AdjustPaycheckTotalEventViewModel(Profile, apte);
-          }
-        case AdjustSnowballAmountEvent asae:
-          {
-            return new AdjustSnowballAmountEventViewModel(Profile, asae);
-          }
-        case ChangeBillPaymentEvent cbpe:
-          {
-            return new ChangePaymentEventViewModel(Profile, cbpe);
-          }
-        default:
-          {
-            throw new InvalidOperationException($"{model.GetType()} is not a known event");
-          }
-      }
-    }
+      AdjustPaycheckTotalEvent apte => new AdjustPaycheckTotalEventViewModel(Profile, apte),
+      AdjustSnowballAmountEvent asae => new AdjustSnowballAmountEventViewModel(Profile, asae),
+      ChangeBillPaymentEvent cbpe => new ChangePaymentEventViewModel(Profile, cbpe),
+      _ => throw new InvalidOperationException($"{model.GetType()} is not a known event")
+    };
 
     protected override BaseEventViewModel NewViewModel()
     {
       if (Messenger.Pick("New Event", "Choose an event type", sEventTypes, out var choice))
       {
-        switch (choice)
+        return choice switch
         {
-          case BaseEventType.AdjustPaycheckTotal: return new AdjustPaycheckTotalEventViewModel(Profile);
-          case BaseEventType.AdjustSnowballAmount: return new AdjustSnowballAmountEventViewModel(Profile);
-          case BaseEventType.ChangePayment: return new ChangePaymentEventViewModel(Profile);
-        }
+          BaseEventType.AdjustPaycheckTotal => new AdjustPaycheckTotalEventViewModel(Profile),
+          BaseEventType.AdjustSnowballAmount => new AdjustSnowballAmountEventViewModel(Profile),
+          BaseEventType.ChangePayment => new ChangePaymentEventViewModel(Profile),
+          _ => null,
+        };
       }
       return null;
     }

@@ -12,7 +12,7 @@
   DataContext="{x:Static local:FinanceSimSystem.View}"
   WindowStartupLocation="CenterScreen"
   mc:Ignorable="d">
-  <xceed:BusyIndicator x:Name="busyIndicator">
+  <xceed:BusyIndicator x:Name="BusyIndicator">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
@@ -74,8 +74,12 @@
           <ColumnDefinition Width="Auto" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Profiles:" />
+        <Label
+          Grid.Row="0"
+          Grid.Column="0"
+          Content="Profiles:" />
         <ComboBox
+          Grid.Row="0"
           Grid.Column="1"
           Margin="3"
           DisplayMemberPath="Name"
@@ -114,6 +118,7 @@
         </ComboBox>
         <GroupBox
           Grid.Row="1"
+          Grid.Column="0"
           Grid.ColumnSpan="2"
           DataContext="{Binding SelectedProfile}"
           Header="Data">
@@ -128,10 +133,14 @@
             </Grid.ColumnDefinitions>
             <Label Content="Name:" />
             <TextBox
+              Grid.Row="0"
               Grid.Column="1"
               Margin="3"
               Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-            <TabControl Grid.Row="1" Grid.ColumnSpan="2">
+            <TabControl
+              Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="2">
               <TabItem Header="Accounts">
                 <local:TabItemAccounts DataContext="{Binding Accounts}" />
               </TabItem>

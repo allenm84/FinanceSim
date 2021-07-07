@@ -14,7 +14,7 @@
 
     public override Bill GetModel()
     {
-      return new Bill
+      return new()
       {
         AccountId = Account?.Id,
         Due = Due.GetModel(),

@@ -16,12 +16,12 @@ namespace FinanceSim
 
     protected override TransactionItemViewModel ToViewModel(Transaction model)
     {
-      return new TransactionItemViewModel(Profile, model);
+      return new(Profile, model);
     }
 
     protected override TransactionItemViewModel NewViewModel()
     {
-      return new TransactionItemViewModel(Profile);
+      return new(Profile);
     }
   }
 }

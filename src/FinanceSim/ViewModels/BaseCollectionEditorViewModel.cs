@@ -5,7 +5,7 @@ namespace FinanceSim
 {
   public abstract class BaseCollectionEditorViewModel : BaseNotifyPropertyChanged
   {
-    public BaseCollectionEditorViewModel()
+    protected BaseCollectionEditorViewModel()
     {
       AddCommand = new DelegateCommand(DoAdd, CanAdd);
       RemoveCommand = new DelegateCommand(DoRemove, CanRemove);

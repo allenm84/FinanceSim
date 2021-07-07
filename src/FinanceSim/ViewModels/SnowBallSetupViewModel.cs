@@ -29,7 +29,7 @@ namespace FinanceSim
       set => SetField(ref _initialAmount, value);
     }
 
-    public ObservableCollectionEx<SnowBallSetupItemViewModel> Items { get; } = new ObservableCollectionEx<SnowBallSetupItemViewModel>();
+    public ObservableCollectionEx<SnowBallSetupItemViewModel> Items { get; } = new();
 
     public SnowBallSetup GetModel()
     {

@@ -32,7 +32,7 @@
 
     public PaycheckDeposit GetModel()
     {
-      return new PaycheckDeposit
+      return new()
       {
         AccountId = Account?.Id,
         Amount = Amount,

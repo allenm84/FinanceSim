@@ -6,18 +6,18 @@ using System.Linq;
 namespace FinanceSim
 {
   public abstract class BaseCollectionEditorAggregateViewModel<T> : BaseNotifyPropertyChanged
-    where T: IHasIdViewModel
+    where T : IHasIdViewModel
   {
     private readonly BaseCollectionEditorViewModel[] _collections;
 
-    public BaseCollectionEditorAggregateViewModel(params BaseCollectionEditorViewModel[] collections)
+    protected BaseCollectionEditorAggregateViewModel(params BaseCollectionEditorViewModel[] collections)
     {
       _collections = collections;
       Array.ForEach(_collections, c => c.CollectionChanged += OnCollectionChanged);
       UpdateCollection();
     }
 
-    public ObservableCollectionEx<T> Items { get; } = new ObservableCollectionEx<T>();
+    public ObservableCollectionEx<T> Items { get; } = new();
 
     public T First() => Items.FirstOrDefault();
 
@@ -29,7 +29,7 @@ namespace FinanceSim
 
     protected void UpdateCollection()
     {
-      Items.Set(GetItems().Where(t => IsValid(t)));
+      Items.Set(GetItems().Where(IsValid));
     }
 
     private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

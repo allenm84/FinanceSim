@@ -46,7 +46,7 @@
 
     public Transaction GetModel()
     {
-      return new Transaction
+      return new()
       {
         Amount = Amount,
         Due = Due.GetModel(),

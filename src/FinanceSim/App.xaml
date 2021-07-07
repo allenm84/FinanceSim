@@ -8,8 +8,8 @@
   xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
   StartupUri="MainWindow.xaml">
   <Application.Resources>
-    <local:NullCheckValueConverter x:Key="nullCheckConverter" />
-    <local:DueTypeDisplayTextConverter x:Key="dueTypeConvter" />
+    <local:NullCheckValueConverter x:Key="NullCheckConverter" />
+    <local:DueTypeDisplayTextConverter x:Key="DueTypeConverter" />
     <DataTemplate DataType="{x:Type local:SimulationSetupViewModel}">
       <GroupBox>
         <GroupBox.Header>
@@ -171,42 +171,63 @@
           <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-          <Label Content="Start:" />
+        <Grid Grid.Row="0" Grid.Column="0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0" Content="Start:" />
           <xceed:DateTimeUpDown
+            Grid.Column="1"
             Margin="2"
             Format="ShortDate"
             Value="{Binding Start}" />
           <CheckBox
+            Grid.Column="2"
             Margin="2"
             VerticalAlignment="Center"
             Content="End:"
             IsChecked="{Binding HasEnd, UpdateSourceTrigger=PropertyChanged}" />
           <xceed:DateTimeUpDown
+            Grid.Column="3"
             Margin="2"
             Format="ShortDate"
             IsEnabled="{Binding HasEnd}"
             Value="{Binding End}" />
-        </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-          <Label Content="Every:" />
-          <xceed:UIntegerUpDown Margin="2" Value="{Binding Period}" />
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Label Grid.Column="0" Content="Every:" />
+          <xceed:UIntegerUpDown
+            Grid.Column="1"
+            Margin="2"
+            Value="{Binding Period}" />
           <ComboBox
+            Grid.Column="2"
             Margin="2"
             ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:DueType}}}"
             SelectedValue="{Binding Type}">
             <ComboBox.ItemTemplate>
               <DataTemplate>
-                <TextBlock Text="{Binding Converter={StaticResource dueTypeConvter}}" />
+                <TextBlock Text="{Binding Converter={StaticResource DueTypeConverter}}" />
               </DataTemplate>
             </ComboBox.ItemTemplate>
           </ComboBox>
-          <Label Content="Seed:" />
+          <Label Grid.Column="3" Content="Seed:" />
           <xceed:DateTimeUpDown
+            Grid.Column="4"
             Margin="2"
             Format="ShortDate"
             Value="{Binding Seed}" />
-        </StackPanel>
+        </Grid>
         <StackPanel
           Grid.Row="0"
           Grid.RowSpan="2"

@@ -45,7 +45,7 @@ namespace FinanceSim
       set => SetField(ref _useSnowball, value);
     }
 
-    public SimulationSetup GetModel() => new SimulationSetup
+    public SimulationSetup GetModel() => new()
     {
       Start = Start,
       End = End,

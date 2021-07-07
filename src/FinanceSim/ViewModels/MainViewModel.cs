@@ -9,15 +9,11 @@ namespace FinanceSim
 {
   public class MainViewModel : BaseNotifyPropertyChanged
   {
-    private const string FileName = "profiles.json";
-
-    private readonly GitDrive _gitDrive;
+    private readonly List<string> _removedProfiles = new();
     private ProfileViewModel _selectedProfile;
 
     public MainViewModel()
     {
-      _gitDrive = new GitDrive(new Uri("https://github.com/allenm84/Storage.git"));
-
       NewProfileCommand = new DelegateCommand(DoNewProfile);
       CloneProfileCommand = new DelegateCommand(DoCloneProfile, IsProfileSelected);
       RemoveProfileCommand = new DelegateCommand(DoRemoveProfile, IsProfileSelected);
@@ -26,7 +22,7 @@ namespace FinanceSim
       ViewScheduleCommand = new DelegateCommand(DoViewSchedule);
     }
 
-    public ObservableCollectionEx<ProfileViewModel> Profiles { get; } = new ObservableCollectionEx<ProfileViewModel>();
+    public ObservableCollectionEx<ProfileViewModel> Profiles { get; } = new();
 
     public ProfileViewModel SelectedProfile
     {
@@ -47,26 +43,23 @@ namespace FinanceSim
 
     public async Task LoadData()
     {
-      if (await _gitDrive.Initialize() && _gitDrive.FileExists(FileName))
-      {
-        var jsonText = _gitDrive.ReadAllText(FileName);
-        var profiles = JsonConvert.DeserializeObject<List<Profile>>(jsonText);
-        Profiles.Set(profiles.Select(p => new ProfileViewModel(p)));
-        SelectedProfile = Profiles.LastOrDefault();
-      }
+      var profiles = await FirestoreBackend.FetchAsync();
+      Profiles.Set(profiles.Select(p => new ProfileViewModel(p)));
+      SelectedProfile = Profiles.LastOrDefault();
     }
 
     public async Task SaveData()
     {
-      var profiles = Profiles.Select(p => p.GetModel()).ToList();
-      var jsonText = JsonConvert.SerializeObject(profiles);
-      await Task.Run(() => _gitDrive.WriteAllText(FileName, jsonText));
+      var profiles = Profiles.Select(p => p.GetModel());
+      await FirestoreBackend.PushAsync(profiles, _removedProfiles);
+      _removedProfiles.Clear();
     }
 
     private Profile CreateProfileModel()
     {
-      return new Profile
+      return new()
       {
+        Id = Guid.NewGuid().ToString(),
         Created = DateTime.Now,
         Name = "<New Profile>",
       };
@@ -99,13 +92,20 @@ namespace FinanceSim
     {
       var model = SelectedProfile.GetModel().Clone();
       model.Name = $"Copy of {model.Name}";
-      model.Created = DateTime.Today;
+      model.Created = DateTime.Now;
+      model.Id = Guid.NewGuid().ToString();
       AddProfile(model);
     }
 
     private void DoRemoveProfile()
     {
-      Profiles.Remove(SelectedProfile);
+      var index = Profiles.IndexOf(_selectedProfile);
+
+      _removedProfiles.Add(_selectedProfile.Id);
+      Profiles.RemoveAt(index);
+
+      index = Math.Max(0, Math.Min(index, Profiles.Count - 1));
+      SelectedProfile = Profiles[index];
     }
 
     private void DoExportProfile()

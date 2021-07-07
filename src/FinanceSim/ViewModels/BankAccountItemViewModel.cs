@@ -39,7 +39,7 @@
 
     public BankAccount GetModel()
     {
-      return new BankAccount
+      return new()
       {
         APY = APY,
         Balance = Balance,

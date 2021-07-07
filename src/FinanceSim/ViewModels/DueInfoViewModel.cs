@@ -4,8 +4,8 @@ namespace FinanceSim
 {
   public class DueInfoViewModel : BaseNotifyPropertyChanged
   {
-    static DueInfo? _clipboard = null;
-    static event EventHandler _canPasteChanged;
+    private static DueInfo? DueClipboard;
+    private static event EventHandler CanPasteChanged;
 
     private bool _hasEnd;
     private DateTime _end;
@@ -14,7 +14,7 @@ namespace FinanceSim
     private int _period;
     private DateTime _seed;
 
-    public DueInfoViewModel(DueInfo model) 
+    public DueInfoViewModel(DueInfo model)
       : this()
     {
       Read(model);
@@ -25,7 +25,7 @@ namespace FinanceSim
       CopyCommand = new DelegateCommand(DoCopy);
       PasteCommand = new DelegateCommand(DoPaste, CanPaste);
 
-      _canPasteChanged += OnCanPasteChanged;
+      CanPasteChanged += OnCanPasteChanged;
     }
 
     public DateTime Start
@@ -84,16 +84,19 @@ namespace FinanceSim
 
     private void DoCopy()
     {
-      _clipboard = GetModel();
-      _canPasteChanged?.Invoke(this, EventArgs.Empty);
+      DueClipboard = GetModel();
+      CanPasteChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private bool CanPaste() => 
-      _clipboard != null;
+    private bool CanPaste() =>
+      DueClipboard != null;
 
     private void DoPaste()
     {
-      Read(_clipboard.Value);
+      if (DueClipboard != null)
+      {
+        Read(DueClipboard.Value);
+      }
     }
 
     public DueInfo GetModel()

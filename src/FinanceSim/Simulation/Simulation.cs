@@ -7,9 +7,10 @@ namespace FinanceSim
 {
   public static class Simulation
   {
-    public static async Task<Dictionary<IAccount, List<SimulationResultItem>>> Run(SimulationSetup setup, Profile profile)
+    public static async Task<Dictionary<IAccount, List<SimulationResultItem>>> Run(SimulationSetup setup,
+      Profile profile)
     {
-      var cloned = await Task.Run(() => profile.Clone());
+      var cloned = await Task.Run(profile.Clone);
       return await Task.Run(() => RunInternal(setup, cloned));
     }
 
@@ -96,20 +97,20 @@ namespace FinanceSim
       switch (item)
       {
         case AdjustPaycheckTotalEvent adjustPaycheckTotal:
-          {
-            state.AddToPaycheckTotal(date, adjustPaycheckTotal.PaycheckId, adjustPaycheckTotal.Amount);
-            break;
-          }
+        {
+          state.AddToPaycheckTotal(date, adjustPaycheckTotal.PaycheckId, adjustPaycheckTotal.Amount);
+          break;
+        }
         case AdjustSnowballAmountEvent adjustSnowball:
-          {
-            state.AddToSnowball(date, adjustSnowball.Amount);
-            break;
-          }
+        {
+          state.AddToSnowball(date, adjustSnowball.Amount);
+          break;
+        }
         case ChangeBillPaymentEvent changeBillPayment:
-          {
-            state.ChangeBillPayment(date, changeBillPayment.BillId, changeBillPayment.NewPayment);
-            break;
-          }
+        {
+          state.ChangeBillPayment(date, changeBillPayment.BillId, changeBillPayment.NewPayment);
+          break;
+        }
       }
     }
   }

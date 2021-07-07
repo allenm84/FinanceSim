@@ -9,16 +9,16 @@ namespace FinanceSim
   public abstract class CollectionEditorViewModel<TViewModel, TModel> : BaseCollectionEditorViewModel
     where TViewModel : IHasIdViewModel
   {
-    private readonly ObservableCollectionEx<TViewModel> _items = new ObservableCollectionEx<TViewModel>();
+    private readonly ObservableCollectionEx<TViewModel> _items = new();
     private TViewModel _selectedItem;
 
-    public CollectionEditorViewModel(ProfileViewModel profile, IEnumerable<TModel> items)
+    protected CollectionEditorViewModel(ProfileViewModel profile, IEnumerable<TModel> items)
     {
       Profile = profile;
 
       if (items != null)
       {
-        _items.Set(items.Select(m => ToViewModel(m)));
+        _items.Set(items.Select(ToViewModel));
       }
 
       SelectedItem = _items.FirstOrDefault();
@@ -31,10 +31,7 @@ namespace FinanceSim
 
     public override IList Items => _items;
 
-    public bool IsEnabled
-    {
-      get => SelectedItem != null;
-    }
+    public bool IsEnabled => SelectedItem != null;
 
     public TViewModel SelectedItem
     {
@@ -58,7 +55,7 @@ namespace FinanceSim
 
     public virtual IEnumerable<TModel> GetModels()
     {
-      foreach (TViewModel viewModel in _items)
+      foreach (var viewModel in _items)
       {
         yield return ToModel(viewModel);
       }
@@ -66,7 +63,7 @@ namespace FinanceSim
 
     public void ForEach(Action<TViewModel> action)
     {
-      foreach (TViewModel model in _items)
+      foreach (var model in _items)
       {
         action(model);
       }
@@ -78,6 +75,7 @@ namespace FinanceSim
     protected abstract TViewModel NewViewModel();
 
     protected override bool CanAdd() => true;
+
     protected override void DoAdd()
     {
       var item = NewViewModel();
@@ -89,6 +87,7 @@ namespace FinanceSim
     }
 
     protected override bool CanRemove() => SelectedItem != null;
+
     protected override void DoRemove()
     {
       if (Messenger.Confirm("Are you sure you want to remove the selected item?", "Confirm"))
@@ -103,7 +102,8 @@ namespace FinanceSim
       }
     }
 
-    public TViewModel Find(string id) => _items.SingleOrDefault(i => string.Equals(i.Id, id));
+    public TViewModel Find(string id)
+      => _items.SingleOrDefault(i => string.Equals(i.Id, id));
 
     private void _items_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {

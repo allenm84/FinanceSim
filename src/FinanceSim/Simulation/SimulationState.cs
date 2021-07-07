@@ -8,7 +8,7 @@ namespace FinanceSim
   {
     private delegate void AccountActionDelegate(SimulationAccount account, SimulationState state, DateTime date, decimal amount);
 
-    private readonly SimulationNoticeBoard _noticeAccount = new SimulationNoticeBoard();
+    private readonly SimulationNoticeBoard _noticeAccount = new();
 
     public SimulationState(Profile profile, SimulationSetup setup)
     {
@@ -19,7 +19,7 @@ namespace FinanceSim
       Debts = profile.Debts.Select(d => new SimulationDebtAccount(setup.Start, d)).ToDictionary(d => d.Id);
       Paychecks = profile.Paychecks.Select(p => new SimulationPaycheck(setup.Start, p)).ToDictionary(p => p.Id);
       Transactions = profile.Transactions.Select(t => new SimulationTransaction(setup.Start, t)).ToDictionary(t => t.Id);
-      Events = profile.Events.All().ToLookup(e => e.Date);
+      Events = profile.Events.ToLookup(e => e.Date);
 
       SnowballPool = new Queue<SimulationDebtAccount>(Debts.Values
         .Select((d, i) => (debt: d, order: GetDebtOrder(d, profile.Snowball, i)))
@@ -121,7 +121,7 @@ namespace FinanceSim
         case DebtType.Revolving:
           {
             // a revolving debt doesn't get paid off, it just
-            // becomes inelligible to be a snowball target
+            // becomes ineligible to be a snowball target
             if (debt.SetState(SimulationDebtAccountState.None))
             {
               AddNotice(date, $"{debt.Name} balance to {0m:C2}");

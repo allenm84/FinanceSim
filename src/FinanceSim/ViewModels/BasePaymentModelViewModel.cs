@@ -3,16 +3,16 @@
   public abstract class BasePaymentModelViewModel<TModel> : BasePaymentViewModel
     where TModel : BasePayment
   {
-    private TModel _model;
+    private readonly TModel _model;
     private IHasBalanceViewModel _account;
 
-    public BasePaymentModelViewModel(ProfileViewModel profile, TModel model)
+    protected BasePaymentModelViewModel(ProfileViewModel profile, TModel model)
       : base(profile, model)
     {
       _model = model;
     }
 
-    public BasePaymentModelViewModel(ProfileViewModel profile) 
+    protected BasePaymentModelViewModel(ProfileViewModel profile)
       : base(profile)
     {
       Account = Profile.HasBalanceAccounts.First();

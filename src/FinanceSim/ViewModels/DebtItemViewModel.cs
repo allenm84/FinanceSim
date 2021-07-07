@@ -39,7 +39,7 @@
 
     public override Debt GetModel()
     {
-      return new Debt
+      return new()
       {
         AccountId = Account?.Id,
         Balance = Balance,

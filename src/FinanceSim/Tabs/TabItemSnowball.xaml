@@ -12,7 +12,7 @@
   <Grid
     Margin="3"
     DataContext="{Binding}"
-    IsEnabled="{Binding Converter={StaticResource nullCheckConverter}}">
+    IsEnabled="{Binding Converter={StaticResource NullCheckConverter}}">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto" />
       <ColumnDefinition Width="*" />
@@ -33,6 +33,7 @@
       Value="{Binding InitialAmount}" />
     <ListBox
       Grid.Row="1"
+      Grid.Column="0"
       Grid.ColumnSpan="2"
       Margin="3"
       HorizontalContentAlignment="Stretch"

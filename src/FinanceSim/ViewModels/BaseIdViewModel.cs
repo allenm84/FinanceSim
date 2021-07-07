@@ -6,14 +6,14 @@ namespace FinanceSim
   {
     private string _name;
 
-    public BaseIdViewModel(ProfileViewModel profile, IHasName model)
+    protected BaseIdViewModel(ProfileViewModel profile, IHasName model)
     {
       Profile = profile;
       Id = model.Id;
       Name = model.Name;
     }
 
-    public BaseIdViewModel(ProfileViewModel profile)
+    protected BaseIdViewModel(ProfileViewModel profile)
     {
       Profile = profile;
       Id = Guid.NewGuid().ToString();

@@ -9,6 +9,8 @@ namespace FinanceSim
 
     public ProfileViewModel(Profile model)
     {
+      Id = model.Id;
+
       _name = model.Name;
       Created = model.Created;
 
@@ -31,6 +33,8 @@ namespace FinanceSim
       Setup = new SimulationSetupViewModel(model.Setup);
     }
 
+    public string Id { get; }
+
     public string Name
     {
       get => _name;
@@ -38,29 +42,27 @@ namespace FinanceSim
     }
 
     public DateTime Created { get; }
-
     public BankAccountsViewModel Accounts { get; }
     public BillsViewModel Bills { get; }
     public DebtsViewModel Debts { get; }
     public PaychecksViewModel Paychecks { get; }
     public TransactionsViewModel Transactions { get; }
-
     public SnowBallSetupViewModel Snowball { get; }
     public EventSetupViewModel Events { get; }
-
     public PaymentsViewModel Payments { get; }
     public HasBalanceAccountsViewModel HasBalanceAccounts { get; }
     public SimulationSetupViewModel Setup { get; }
 
     public Profile GetModel()
     {
-      return new Profile
+      return new()
       {
+        Id = Id,
         Accounts = Accounts.GetModels().ToList(),
         Bills = Bills.GetModels().ToList(),
         Created = Created,
         Debts = Debts.GetModels().ToList(),
-        Events = Events.GetModel(),
+        Events = Events.GetModels().ToList(),
         Name = Name,
         Paychecks = Paychecks.GetModels().ToList(),
         Setup = Setup.GetModel(),
@@ -69,16 +71,10 @@ namespace FinanceSim
       };
     }
 
-    public BankAccountItemViewModel FindAccount(string id) => 
+    public BankAccountItemViewModel FindAccount(string id) =>
       Accounts.Find(id);
 
-    public BillItemViewModel FindBill(string id) => 
-      Bills.Find(id);
-
-    public DebtItemViewModel FindDebt(string id) => 
-      Debts.Find(id);
-
-    public PaycheckItemViewModel FindPaycheck(string id) => 
+    public PaycheckItemViewModel FindPaycheck(string id) =>
       Paychecks.Find(id);
 
     public BasePaymentViewModel FindBasePayment(string id) =>

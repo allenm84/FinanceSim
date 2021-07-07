@@ -2,7 +2,7 @@
 
 namespace FinanceSim
 {
-  public interface IMessengeHandler
+  public interface IMessageHandler
   {
     bool Confirm(string message, string caption);
     bool Pick<T>(string title, string prompt, IEnumerable<T> choices, out T choice);

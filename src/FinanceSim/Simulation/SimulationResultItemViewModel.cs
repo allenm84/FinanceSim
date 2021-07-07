@@ -6,16 +6,14 @@ namespace FinanceSim
 {
   public class SimulationResultItemViewModel : BaseNotifyPropertyChanged
   {
-    private readonly ObservableCollectionEx<SimulationResultItem> _items = new ObservableCollectionEx<SimulationResultItem>();
-
-    public SimulationResultItemViewModel(IAccount account, List<SimulationResultItem> items)
+    public SimulationResultItemViewModel(IAccount account, IEnumerable<SimulationResultItem> items)
     {
       Name = account.Name;
 
-      _items = new ObservableCollectionEx<SimulationResultItem>();
-      _items.Set(items);
+      var itemsEx = new ObservableCollectionEx<SimulationResultItem>();
+      itemsEx.Set(items);
 
-      Items = CollectionViewSource.GetDefaultView(_items);
+      Items = CollectionViewSource.GetDefaultView(itemsEx);
 
       GroupCommand = new DelegateCommand(DoGroup, CanGroup);
       UnGroupCommand = new DelegateCommand(UnGroup, CanUnGroup);
@@ -33,7 +31,7 @@ namespace FinanceSim
       UnGroupCommand.Refresh();
     }
 
-    private bool CanGroup() => 
+    private bool CanGroup() =>
       Items.GroupDescriptions.Count == 0;
 
     private void DoGroup()

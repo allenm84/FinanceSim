@@ -4,7 +4,7 @@ namespace FinanceSim
 {
   public class DebtsViewModel : CollectionEditorViewModel<DebtItemViewModel, Debt>
   {
-    public DebtsViewModel(ProfileViewModel profile, List<Debt> debts) 
+    public DebtsViewModel(ProfileViewModel profile, List<Debt> debts)
       : base(profile, debts)
     {
     }
@@ -16,12 +16,12 @@ namespace FinanceSim
 
     protected override DebtItemViewModel ToViewModel(Debt model)
     {
-      return new DebtItemViewModel(Profile, model);
+      return new(Profile, model);
     }
 
     protected override DebtItemViewModel NewViewModel()
     {
-      return new DebtItemViewModel(Profile);
+      return new(Profile);
     }
   }
 }

@@ -6,45 +6,46 @@ namespace FinanceSim
 {
   public class ObservableCollectionEx<T> : ObservableCollection<T>
   {
-    private bool _notificationSupressed = false;
-    private bool _supressNotification = false;
-    public bool SupressNotification
+    private bool _notificationSuppressed;
+    private bool _suppressNotification;
+
+    public bool SuppressNotification
     {
-      get
-      {
-        return _supressNotification;
-      }
+      get => _suppressNotification;
       set
       {
-        _supressNotification = value;
-        if (_supressNotification == false && _notificationSupressed)
+        _suppressNotification = value;
+        if (_suppressNotification || !_notificationSuppressed)
         {
-          this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-          _notificationSupressed = false;
+          return;
         }
+
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        _notificationSuppressed = false;
       }
     }
 
     public void Set(IEnumerable<T> items)
     {
-      SupressNotification = true;
+      SuppressNotification = true;
 
       Clear();
-      foreach (T item in items)
+      foreach (var item in items)
       {
         Add(item);
       }
 
-      SupressNotification = false;
+      SuppressNotification = false;
     }
 
     protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-      if (SupressNotification)
+      if (SuppressNotification)
       {
-        _notificationSupressed = true;
+        _notificationSuppressed = true;
         return;
       }
+
       base.OnCollectionChanged(e);
     }
   }

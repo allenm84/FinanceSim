@@ -6,7 +6,7 @@ namespace FinanceSim
 {
   public class SimulationDueInfo
   {
-    private static readonly DateTime End = new DateTime(9876, 12, 31);
+    private static readonly DateTime End = new(9876, 12, 31);
 
     private readonly DueInfo _dueInfo;
     private readonly IEnumerator<DateTime> _dueDates;
