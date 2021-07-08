@@ -18,8 +18,8 @@ namespace FinanceSim
       if (item == null)
         return default;
 
-      var data = JsonConvert.SerializeObject(item);
-      return JsonConvert.DeserializeObject<T>(data);
+      var data = JsonConvert.SerializeObject(item, JsonConsts.Settings);
+      return JsonConvert.DeserializeObject<T>(data, JsonConsts.Settings);
     }
   }
 }

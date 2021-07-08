@@ -11,17 +11,12 @@ namespace FinanceSim
     private const string ProjectId = "mapa-apps";
     private const string CollectionName = "financeSim";
 
-    private static readonly JsonSerializerSettings Settings = new()
-    {
-      TypeNameHandling = TypeNameHandling.Auto,
-    };
-
     private static Profile ParseProfile(DocumentSnapshot document)
     {
       var values = document.ToDictionary();
       var encryptedJson = values["Data"] as string;
       var decryptedJson = StringCipher.Decrypt(encryptedJson);
-      return JsonConvert.DeserializeObject<Profile>(decryptedJson, Settings);
+      return JsonConvert.DeserializeObject<Profile>(decryptedJson, JsonConsts.Settings);
     }
 
     public static async Task<IEnumerable<Profile>> FetchAsync()
@@ -39,7 +34,7 @@ namespace FinanceSim
 
       foreach (var profile in profiles)
       {
-        var decryptedJson = JsonConvert.SerializeObject(profile, Settings);
+        var decryptedJson = JsonConvert.SerializeObject(profile, JsonConsts.Settings);
         var encryptedJson = StringCipher.Encrypt(decryptedJson);
         var docRef = collectionRef.Document(profile.Id);
         var docData = new Dictionary<string, object>

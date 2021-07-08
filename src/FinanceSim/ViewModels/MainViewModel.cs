@@ -113,7 +113,7 @@ namespace FinanceSim
       if (Messenger.PromptSaveFileAs("Export Profile", "JSON (*.json) | *.json", out var saveFilePath))
       {
         var model = SelectedProfile.GetModel();
-        var json = JsonConvert.SerializeObject(model);
+        var json = JsonConvert.SerializeObject(model, JsonConsts.Settings);
         File.WriteAllText(saveFilePath, json);
       }
     }
